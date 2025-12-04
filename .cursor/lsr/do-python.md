@@ -9,11 +9,13 @@
 
 ## Структура проекта
 
+- **ОБЯЗАТЕЛЬНО**: все файлы проекта должны находиться в директории `app-name/` (где `app-name` — имя приложения)
 - Модули в файлах `.py`
 - Пакеты через директории с `__init__.py`
 - Тесты в `tests/` или `test_*.py` файлах
 - Конфигурация через `config.py`, `.env` файлы или `settings/`
 - `requirements.txt` или `pyproject.toml` для зависимостей
+- **ОБЯЗАТЕЛЬНО**: создай файл `.gitignore` для исключения ненужных файлов из git (venv, __pycache__, .pyc, .env и т.д.)
 
 ## Архитектурные паттерны
 
@@ -62,9 +64,66 @@ def function_name(arg: Type) -> ReturnType:
 - Создавай кастомные исключения когда нужно
 - Используй `contextlib` для менеджеров контекста
 
+## Виртуальное окружение
+
+- **ОБЯЗАТЕЛЬНО**: создавай виртуальное окружение через `venv`
+- **ОБЯЗАТЕЛЬНО**: создание venv должно быть автоматизировано через `Makefile`
+- В `Makefile` должны быть targets: `venv` и `run`
+- Пример Makefile:
+  ```makefile
+  .PHONY: venv run
+  
+  venv:
+  	python3 -m venv venv
+  	. venv/bin/activate && pip install --upgrade pip
+  	. venv/bin/activate && pip install -r requirements.txt
+  
+  run:
+  	. venv/bin/activate && python app-name/main.py
+  ```
+- Активация: `source venv/bin/activate` (Linux/Mac) или `venv\Scripts\activate` (Windows)
+
+## .gitignore
+
+- **ОБЯЗАТЕЛЬНО**: создай файл `.gitignore` в корне проекта
+- Минимальный набор для исключения:
+  ```
+  # Virtual environments
+  venv/
+  env/
+  ENV/
+  .venv
+  
+  # Python cache
+  __pycache__/
+  *.py[cod]
+  *$py.class
+  *.so
+  
+  # Environment variables
+  .env
+  .env.local
+  
+  # IDE
+  .vscode/
+  .idea/
+  *.swp
+  *.swo
+  
+  # Testing
+  .pytest_cache/
+  .coverage
+  htmlcov/
+  
+  # Distribution
+  dist/
+  build/
+  *.egg-info/
+  ```
+
 ## Лучшие практики
 
-- Используй виртуальные окружения (venv, virtualenv)
+- Используй виртуальные окружения (venv, virtualenv) — создавай через Makefile
 - Следуй PEP 8 для форматирования
 - Документируй через docstrings (Google style или NumPy style)
 - Используй `__main__` блок для исполняемых скриптов
