@@ -137,7 +137,7 @@ delete(Context) ->
 ### Пример работы с CouchDB
 
 ```erlang
--spec create_document(kz_term:ne_binary(), kz_json:object()) -> 
+-spec create_document(kz_term:ne_binary(), kz_json:object()) ->
           {'ok', kz_json:object()} | {'error', any()}.
 create_document(DbName, Doc) ->
     kz_datamgr:save_doc(DbName, Doc).

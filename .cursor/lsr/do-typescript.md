@@ -68,4 +68,3 @@ function functionName(arg: Type): ReturnType {
 - Применяй arrow functions для коротких функций
 - Используй optional chaining (`?.`) и nullish coalescing (`??`)
 - Экспортируй через `export`/`import`, избегай `require`
-

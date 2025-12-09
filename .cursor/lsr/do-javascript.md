@@ -67,4 +67,3 @@ function functionName(arg) {
 - Экспортируй через `export`/`import` (ES modules), избегай `require` где возможно
 - Используй `===` вместо `==`
 - Применяй template literals для строк
-

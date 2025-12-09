@@ -31,13 +31,13 @@
 def function_name(arg: Type) -> ReturnType:
     """
     Описание функции.
-    
+
     Args:
         arg: Описание аргумента
-        
+
     Returns:
         Описание возвращаемого значения
-        
+
     Raises:
         NotImplementedError: Функция еще не реализована
     """
@@ -72,12 +72,12 @@ def function_name(arg: Type) -> ReturnType:
 - Пример Makefile:
   ```makefile
   .PHONY: venv run
-  
+
   venv:
   	python3 -m venv venv
   	. venv/bin/activate && pip install --upgrade pip
   	. venv/bin/activate && pip install -r requirements.txt
-  
+
   run:
   	. venv/bin/activate && python app-name/main.py
   ```
@@ -93,28 +93,28 @@ def function_name(arg: Type) -> ReturnType:
   env/
   ENV/
   .venv
-  
+
   # Python cache
   __pycache__/
   *.py[cod]
   *$py.class
   *.so
-  
+
   # Environment variables
   .env
   .env.local
-  
+
   # IDE
   .vscode/
   .idea/
   *.swp
   *.swo
-  
+
   # Testing
   .pytest_cache/
   .coverage
   htmlcov/
-  
+
   # Distribution
   dist/
   build/
@@ -129,4 +129,3 @@ def function_name(arg: Type) -> ReturnType:
 - Используй `__main__` блок для исполняемых скриптов
 - Применяй list/dict comprehensions где уместно
 - Используй `pathlib` вместо `os.path`
-
