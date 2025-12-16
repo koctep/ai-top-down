@@ -1,0 +1,25 @@
+---
+alwaysApply: true
+---
+# File Handling Rules
+
+## Language-Specific Guidelines
+
+When working with any file, ALWAYS check if there is a corresponding language guide in `.cursor/lsr/`.
+
+- Python: `.cursor/lsr/do-python.md`
+- TypeScript: `.cursor/lsr/do-typescript.md`
+- JavaScript: `.cursor/lsr/do-javascript.md`
+- Markdown: `.cursor/lsr/do-markdown.md`
+- Erlang: `.cursor/lsr/do-erlang.md`
+- Kazoo: `.cursor/lsr/do-kazoo.md`
+
+Read and follow the guidelines in the specific language file before making changes.
+
+## General Principles
+
+- **Encoding**: Use UTF-8.
+- **Line Endings**: Use LF (Unix style).
+- **Line Length**: Maximum 100 characters. This global limit can ONLY be reduced (made stricter) by specific language rules, never increased.
+- **Trailing Whitespace**: Remove trailing whitespace from all lines.
+- **Final Newline**: Ensure a single newline at the end of the file.

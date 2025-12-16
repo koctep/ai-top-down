@@ -2,6 +2,7 @@
 
 ## Общие принципы
 
+- **Language**: All communication and file content must be in English
 - **Kazoo** — это open-source платформа для телефонии на базе Erlang/OTP
 - Все принципы Erlang/OTP применяются (см. `.cursor/lsr/do-erlang.md`)
 - **Модульная архитектура**: Kazoo состоит из множества приложений (apps)
@@ -68,6 +69,13 @@
 - **kz_call**: модуль для работы со звонками
 - **kz_media**: для работы с медиа (запись, воспроизведение)
 - **FreeSWITCH**: интеграция через ESL (Event Socket Library)
+
+## Roles
+
+1. **Superadmin**
+2. **Reseller**
+3. **Account Admin**
+4. **User**
 
 ## Заглушки для Kazoo
 
