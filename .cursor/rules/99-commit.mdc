@@ -1,4 +1,4 @@
-# ШАГ 6: Фиксация изменений (Commit)
+# ШАГ 9: Фиксация изменений (Commit)
 
 ## Общий принцип
 
@@ -14,6 +14,28 @@
 2. ➕ **Добавить файлы**: Использовать `git add` для индексации изменений.
 3. 📝 **Сформировать сообщение**: Написать сообщение коммита по стандарту Conventional Commits.
 4. 🚀 **Предложить коммит**: Сгенерировать команду коммита и предложить пользователю её выполнить.
+5. ✅ **Проверить результат**: Убедиться, что коммит прошел успешно (clean working tree).
+6. 🌿 **Название ветки**: В самом конце вывести в чат рекомендуемое название ветки (на основе ID задачи) и записать его в файл `ai-tasks/<JIRA-TASK-ID>/00-roadmap.md` (если он есть), но **не переключать** ветку автоматически.
+
+## Правила именования ветки
+
+Используй следующий формат для названий веток:
+
+```text
+<type>/<JIRA-TASK-ID>-<short-description>
+```
+
+### Составные части
+
+1. **type**: Тип изменений, совпадающий с типом коммита (feature, fix, refactoring и т.д.).
+2. **JIRA-TASK-ID**: ID задачи из трекера (например, `PYPOST-15`).
+3. **short-description**: Краткое описание изменений на английском языке в формате `kebab-case`.
+
+### Примеры
+
+- `feature/PYPOST-15-login-validation`
+- `fix/PYPOST-42-timeout-error`
+- `refactoring/async-db-driver`
 
 ## Правила оформления (Conventional Commits)
 
@@ -31,12 +53,12 @@
 
 ### Основные типы (type)
 
-- `feat`: ✨ Новая функциональность
+- `feature`: ✨ Новая функциональность
 - `fix`: 🐛 Исправление ошибки
-- `docs`: 📚 Обновление документации
+- `documentation`: 📚 Обновление документации
 - `style`: 💎 Форматирование, пробелы, точки с запятой (код не меняется)
-- `refactor`: ♻️ Рефакторинг (без фич и фиксов)
-- `perf`: 🚀 Улучшение производительности
+- `refactoring`: ♻️ Рефакторинг (без фич и фиксов)
+- `performance`: 🚀 Улучшение производительности
 - `test`: 🚨 Добавление или правка тестов
 - `chore`: 🔧 Обслуживание, конфиги, билд
 
@@ -60,7 +82,7 @@
 ### Примеры
 
 ```bash
-git commit -m "feat(user): PYPOST-15 add login validation"
+git commit -m "feature(user): PYPOST-15 add login validation"
 ```
 
 ```bash
@@ -70,7 +92,7 @@ git commit -m "fix(api): PYPOST-42 handle timeout error correctly"
 С телом сообщения:
 
 ```bash
-git commit -m "refactor(core): PYPOST-20 switch to async database driver
+git commit -m "refactoring(core): PYPOST-20 switch to async database driver
 
 This change improves performance under high load by avoiding blocking calls.
 
