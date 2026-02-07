@@ -47,4 +47,5 @@ The main principles of work are described in the files of the `rules/` directory
 - `files.mdc` - rules for encoding, line endings, line length
 - `30-development.mdc` - development process
 - `40-code-cleanup.mdc` - code cleanup before review
+- `50-observability.mdc` - adding observability (logs, metrics)
 - `60-review.mdc` - code review standards

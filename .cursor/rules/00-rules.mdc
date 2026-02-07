@@ -28,12 +28,14 @@
 
 ## Development Process
 
-Development using the top-down approach consists of **4 sequential steps**:
+Development using the top-down approach consists of **6 sequential steps**:
 
 1. **Requirements** — gathering and documenting requirements, what needs to be built
 2. **Architecture** — high-level architectural design, how it is organized
 3. **Development** — iterative implementation with minimal meaningful changes using stubs
-4. **Review** — technical debt analysis and task finalization
+4. **Code Cleanup** — preparing code for review (linting, formatting, cleanup)
+5. **Observability** — adding logging and metrics
+6. **Review** — technical debt analysis and task finalization
 
 ### Execution Sequence
 
@@ -119,7 +121,7 @@ Steps are performed **strictly sequentially**. Do not proceed to the next step u
 - **MANDATORY** determine the programming language at STEP 1 (requirements) before starting work on the task
 - When designing and implementing, consider the features of the selected language
 - Description of features for each language is in `.cursor/lsr/do-<language-name>.md` files
-- When working on steps 2–4 (architecture, development, review) **MANDATORY** consider the specifics of the selected language from the corresponding file
+- When working on steps 2–6 (architecture, development, cleanup, observability, review) **MANDATORY** consider the specifics of the selected language from the corresponding file
 
 ### File Handling
 
