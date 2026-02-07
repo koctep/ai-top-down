@@ -1,48 +1,48 @@
-# Особенности оформления Markdown
+# Markdown Guidelines
 
-## Общие принципы
+## General Principles
 
-- **Читаемость**: исходный код документа должен быть так же читаем, как и отрендеренный результат.
-- **Семантика**: используй элементы разметки по назначению (заголовки для структуры, списки для перечислений).
-- **Отступы**: используй пробелы (обычно 2 или 4) для вложенности. Не используй табы.
-- **Переносы строк**: пустая строка разделяет параграфы.
+- **Readability**: source code of the document should be as readable as the rendered result.
+- **Semantics**: use markup elements for their intended purpose (headers for structure, lists for enumerations).
+- **Indentation**: use spaces (usually 2 or 4) for nesting. Do not use tabs.
+- **Line Breaks**: an empty line separates paragraphs.
 
-## Заголовки (Headers)
+## Headers
 
-- Используй стиль ATX (символы `#`).
-- Всегда ставь пробел после `#`.
-- Соблюдай иерархию (h1 -> h2 -> h3). Не перепрыгивай уровни (например, с h1 сразу на h3).
-- Отделяй заголовки пустой строкой сверху и снизу.
-
-```markdown
-# Заголовок 1 уровня
-
-## Заголовок 2 уровня
-
-### Заголовок 3 уровня
-```
-
-## Списки (Lists)
-
-- Используй дефис `-` или звездочку `*` для маркированных списков (будь последователен).
-- Используй цифры с точкой `1.` для нумерованных списков.
-- Для вложенных списков используй отступ в 2 или 4 пробела.
+- Use ATX style (`#` symbols).
+- Always put a space after `#`.
+- Observe hierarchy (h1 -> h2 -> h3). Do not skip levels (e.g., from h1 immediately to h3).
+- Separate headers with an empty line above and below.
 
 ```markdown
-- Элемент 1
-- Элемент 2
-  - Вложенный элемент
-  - Вложенный элемент
-- Элемент 3
+# Level 1 Header
+
+## Level 2 Header
+
+### Level 3 Header
 ```
 
-## Код (Code)
+## Lists
 
-- Для блоков кода используй "fenced code blocks" (тройные обратные кавычки) с указанием языка.
-- Для инлайн-кода используй одинарные обратные кавычки.
+- Use hyphen `-` or asterisk `*` for bulleted lists (be consistent).
+- Use numbers with a dot `1.` for numbered lists.
+- For nested lists use indentation of 2 or 4 spaces.
+
+```markdown
+- Item 1
+- Item 2
+  - Nested item
+  - Nested item
+- Item 3
+```
+
+## Code
+
+- For code blocks use "fenced code blocks" (triple backticks) specifying the language.
+- For inline code use single backticks.
 
 ````markdown
-`инлайн код`
+`inline code`
 
 ```python
 def hello():
@@ -50,40 +50,40 @@ def hello():
 ```
 ````
 
-## Ссылки и Изображения
+## Links and Images
 
-- Используй понятный текст ссылок. Избегай "тут" или "здесь".
-- Для изображений всегда указывай alt-текст.
+- Use clear link text. Avoid "here" or "there".
+- Always specify alt text for images.
 
 ```markdown
-[Текст ссылки](https://example.com)
+[Link text](https://example.com)
 
-![Alt текст для изображения](path/to/image.png)
+![Alt text for image](path/to/image.png)
 ```
 
-## Оформление текста
+## Text Formatting
 
-- **Жирный**: `**text**` или `__text__`.
-- *Курсив*: `*text*` или `_text_`.
-- ~~Зачеркнутый~~: `~~text~~`.
+- **Bold**: `**text**` or `__text__`.
+- *Italic*: `*text*` or `_text_`.
+- ~~Strikethrough~~: `~~text~~`.
 
-## Таблицы
+## Tables
 
-- Выравнивай столбцы для читаемости в исходном коде (опционально, но рекомендуется).
+- Align columns for readability in source code (optional, but recommended).
 
 ```markdown
-| Заголовок 1 | Заголовок 2 |
+| Header 1    | Header 2    |
 | ----------- | :---------: |
-| Текст       | Текст       |
-| Текст       | Текст       |
+| Text        | Text        |
+| Text        | Text        |
 ```
 
-## Цитаты
+## Blockquotes
 
-- Используй символ `>` перед строкой.
+- Use `>` symbol before the line.
 
 ```markdown
-> Это цитата.
+> This is a quote.
 >
-> Второй параграф цитаты.
+> Second paragraph of the quote.
 ```

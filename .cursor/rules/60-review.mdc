@@ -1,35 +1,35 @@
-# ШАГ 6: Ревью и технический долг
+# STEP 6: Review and Technical Debt
 
-## Общий принцип
+## General Principle
 
-⚠️ **Этот шаг является завершающим этапом работы над задачей**. Перед закрытием задачи необходимо честно оценить и задокументировать все компромиссы, допущения и технический долг, возникшие в процессе разработки.
+⚠️ **This step is the final stage of work on the task**. Before closing the task, it is necessary to honestly evaluate and document all trade-offs, assumptions, and technical debt that arose during the development process.
 
-## Цель
+## Goal
 
-Обеспечить долгосрочную сопровождаемость проекта путем явной фиксации технического долга и планов по его устранению.
+Ensure long-term project maintainability by explicitly recording technical debt and plans for its elimination.
 
-## Действия
+## Actions
 
-1. Пометить ШАГ 6 в roadmap (`ai-tasks/<JIRA-TASK-ID>/00-roadmap.md`) как `[/]` (начата работа).
-2. Проанализировать реализованное решение на предмет:
-   - Временных решений ("костылей")
-   - Отсутствующих тестов
-   - Мест, требующих оптимизации
-   - Отклонений от изначальной архитектуры
-   - Жестко закодированных значений (hardcode)
-3. Создать файл `ai-tasks/<JIRA-TASK-ID>/60-tech-debt.md`.
-4. Обновить документацию разработчика в `doc/dev`.
-5. Обновить документацию пользователя в `doc`.
-6. 📋 **Запросить ревью у пользователя** для проверки документации технического долга.
-7. После получения одобрения от пользователя пометить ШАГ 6 в roadmap как `[x]` (завершен).
+1. Mark STEP 6 in the roadmap (`ai-tasks/<JIRA-TASK-ID>/00-roadmap.md`) as `[/]` (work started).
+2. Analyze the implemented solution for:
+   - Temporary solutions ("crutches")
+   - Missing tests
+   - Areas requiring optimization
+   - Deviations from the initial architecture
+   - Hardcoded values
+3. Create file `ai-tasks/<JIRA-TASK-ID>/60-tech-debt.md`.
+4. Update developer documentation in `doc/dev`.
+5. Update user documentation in `doc`.
+6. 📋 **Request review from the user** to verify technical debt documentation.
+7. After receiving approval from the user, mark STEP 6 in the roadmap as `[x]` (completed).
 
-## Артефакты
+## Artifacts
 
-- **Файл**: `ai-tasks/<JIRA-TASK-ID>/60-tech-debt.md`.
+- **File**: `ai-tasks/<JIRA-TASK-ID>/60-tech-debt.md`.
 
-## Шаблон
+## Template
 
-Используй следующий шаблон для `ai-tasks/<JIRA-TASK-ID>/60-tech-debt.md`.
+Use the following template for `ai-tasks/<JIRA-TASK-ID>/60-tech-debt.md`.
 
 ```markdown
 # <TASK-ID>: Technical Debt Analysis
@@ -55,7 +55,7 @@ Describe potential performance issues, if any.
 List specific tasks that need to be created in the future to address the described issues.
 ```
 
-## Критерии завершения
+## Completion Criteria
 
-- Файл технического долга создан и заполнен (даже если долга нет, это нужно явно указать).
-- ✅ **Получено ревью и одобрение от пользователя** для закрытия задачи.
+- Technical debt file created and filled (even if there is no debt, this must be explicitly stated).
+- ✅ **Received review and approval from the user** to close the task.

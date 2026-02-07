@@ -1,41 +1,41 @@
-# ШАГ 1: Сбор и документирование требований
+# STEP 1: Requirements Gathering and Documentation
 
-## Общий принцип
+## General Principle
 
-⚠️ **Всегда используй подход программирования "сверху вниз" (top-down) и выполняй шаги строго последовательно**. Нельзя переходить к следующему шагу, пока текущий не завершен и его артефакты не созданы.
+⚠️ **Always use the "top-down" programming approach and perform steps strictly sequentially**. Do not proceed to the next step until the current one is completed and its artifacts are created.
 
-## Цель
+## Goal
 
-Создать единый документ с полным описанием требований к системе/функционалу.
+Create a single document with a full description of system/functional requirements.
 
-## Действия
+## Actions
 
-1. Создать файл `ai-tasks/<JIRA-TASK-ID>/00-roadmap.md` из шаблона `.cursor/templates/top-to-bottom/roadmap.md` и заменить `<JIRA-TASK-ID>` на реальный ID задачи.
-2. Пометить ШАГ 1 в roadmap как `[/]` (начата работа).
-3. 🔍 **Определить язык программирования** для реализации задачи и зафиксируй это в 00-roadmap.md
-4. Собрать все требования от пользователя задавая вопросы (не более одного вопроса за раз)
-5. Задокументировать их в структурированном виде.
-6. Определить границы системы (scope).
-7. Выявить основные сущности и их взаимодействия.
-8. 📋 **Запросить ревью у пользователя** для проверки всех артефактов шага.
-9. После получения одобрения от пользователя пометить ШАГ 1 в roadmap как `[x]` (завершен).
+1. Create file `ai-tasks/<JIRA-TASK-ID>/00-roadmap.md` from template `.cursor/templates/top-to-bottom/roadmap.md` and replace `<JIRA-TASK-ID>` with the actual task ID.
+2. Mark STEP 1 in roadmap as `[/]` (work started).
+3. 🔍 **Determine programming language** for task implementation and record it in 00-roadmap.md
+4. Gather all requirements from the user by asking questions (no more than one question at a time)
+5. Document them in a structured way.
+6. Define system boundaries (scope).
+7. Identify main entities and their interactions.
+8. 📋 **Request review from user** to verify all step artifacts.
+9. After receiving approval from the user mark STEP 1 in roadmap as `[x]` (completed).
 
-## Артефакты
+## Artifacts
 
-- **Файл**: `ai-tasks/<JIRA-TASK-ID>/00-roadmap.md` (создается из шаблона `.cursor/templates/top-to-bottom/roadmap.md`).
-- **Файл**: `ai-tasks/<JIRA-TASK-ID>/10-requirements.md`.
-- **Содержание requirements.md**:
-  - Описание проблемы/задачи.
-  - **Язык программирования** для реализации.
-  - Функциональные требования (что система должна делать).
-  - Нефункциональные требования (производительность, безопасность и т.д.).
-  - Ограничения и допущения.
-  - Основные сущности и их атрибуты.
-  - Пользовательские сценарии (use cases) или пользовательские истории.
+- **File**: `ai-tasks/<JIRA-TASK-ID>/00-roadmap.md` (created from template `.cursor/templates/top-to-bottom/roadmap.md`).
+- **File**: `ai-tasks/<JIRA-TASK-ID>/10-requirements.md`.
+- **Content of requirements.md**:
+  - Description of the problem/task.
+  - **Programming language** for implementation.
+  - Functional requirements (what the system should do).
+  - Non-functional requirements (performance, security, etc.).
+  - Constraints and assumptions.
+  - Main entities and their attributes.
+  - User scenarios (use cases) or user stories.
 
-## Шаблон файла требований
+## Requirements File Template
 
-Когда задача понятна, создай файл, используя следующий шаблон (удалив комментарии):
+When the task is clear, create a file using the following template (removing comments):
 
 ```markdown
 # <TASK-ID>: <Short description of the task>
@@ -61,10 +61,10 @@ This section describes the problem, goals, and constraints.
 List of questions and answers. Add links if used.
 ```
 
-## Критерии завершения
+## Completion Criteria
 
-- Язык программирования определен и задокументирован.
-- Все требования задокументированы.
-- Нет неясностей в формулировках.
-- Определены основные компоненты системы на высоком уровне.
-- ✅ **Получено ревью и одобрение от пользователя** перед переходом к следующему шагу.
+- Programming language determined and documented.
+- All requirements documented.
+- No ambiguities in wording.
+- Main system components defined at a high level.
+- ✅ **Received review and approval from user** before proceeding to the next step.

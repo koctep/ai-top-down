@@ -1,74 +1,74 @@
-# Особенности разработки для Kazoo by 2600Hz
+# Kazoo Development Guidelines by 2600Hz
 
-## Общие принципы
+## General Principles
 
 - **Language**: All communication and file content must be in English
-- **Kazoo** — это open-source платформа для телефонии на базе Erlang/OTP
-- Все принципы Erlang/OTP применяются (см. `.cursor/lsr/do-erlang.md`)
-- **Модульная архитектура**: Kazoo состоит из множества приложений (apps)
-- **Микросервисная архитектура**: каждый сервис работает независимо
-- **Event-driven**: широкое использование событий и AMQP для коммуникации
+- **Kazoo** — is an open-source telephony platform based on Erlang/OTP
+- All Erlang/OTP principles apply (see `.cursor/lsr/do-erlang.md`)
+- **Modular Architecture**: Kazoo consists of many applications (apps)
+- **Microservice Architecture**: each service runs independently
+- **Event-driven**: extensive use of events and AMQP for communication
 
-## Структура проекта Kazoo
+## Kazoo Project Structure
 
-### Приложения (Apps)
+### Applications (Apps)
 
-- Каждое приложение в отдельной директории (например, `apps/crossbar`, `apps/callflows`)
-- Структура приложения:
+- Each application in a separate directory (e.g., `apps/crossbar`, `apps/callflows`)
+- Application structure:
   ```
   apps/app_name/
-    src/               # Исходный код
-    include/           # Заголовочные файлы (.hrl)
-    priv/              # Приватные файлы (схемы, скрипты)
-    test/              # Тесты
-    ebin/              # Скомпилированные модули
-      app_name.app.src # Описание приложения
-      app_name.hrl     # Заголовочный файл для общей структуры макросов и определений типов приложения
+    src/               # Source code
+    include/           # Header files (.hrl)
+    priv/              # Private files (schemas, scripts)
+    test/              # Tests
+    ebin/              # Compiled modules
+      app_name.app.src # Application description
+      app_name.hrl     # Header file for common macro structure and application type definitions
   ```
 
-### Основные директории
+### Main Directories
 
-- `apps/` — все приложения Kazoo
-- `core/` — основные библиотеки и утилиты
-- `deps/` — зависимости (rebar3)
-- `rel/` — конфигурация релиза
-- `config/` — конфигурационные файлы
+- `apps/` — all Kazoo applications
+- `core/` — core libraries and utilities
+- `deps/` — dependencies (rebar3)
+- `rel/` — release configuration
+- `config/` — configuration files
 
-### Именование модулей
+### Module Naming
 
-- Префикс приложения: `app_name_module_name`. Допускается сокращать crossbar_ -> cb_, coilpipe -> cpipe
-- Примеры: `crossbar_util`, `hon_media_util`, `kz_amqp_worker`
-- Используй `kz_` префикс для общих утилит Kazoo
+- Application prefix: `app_name_module_name`. Abbreviation is allowed: crossbar_ -> cb_, coilpipe -> cpipe
+- Examples: `crossbar_util`, `hon_media_util`, `kz_amqp_worker`
+- Use `kz_` prefix for general Kazoo utilities
 
-## Архитектурные паттерны Kazoo
+## Kazoo Architectural Patterns
 
 ### Crossbar (REST API)
 
-- **RESTful API**: все API endpoints через Crossbar
-- **Resource modules**: каждый ресурс в отдельном модуле
-- **Validation**: валидация через схемы JSON Schema
-- **Authentication**: через API keys или tokens
+- **RESTful API**: all API endpoints via Crossbar
+- **Resource modules**: each resource in a separate module
+- **Validation**: validation via JSON Schema
+- **Authentication**: via API keys or tokens
 
 ### AMQP (Message Queue)
 
-- **AMQP workers**: для асинхронной обработки задач
-- **AMQP consumers**: для обработки событий
-- **kz_amqp_worker**: базовый модуль для AMQP workers
-- **kz_amqp_util**: утилиты для работы с AMQP
+- **AMQP workers**: for asynchronous task processing
+- **AMQP consumers**: for event processing
+- **kz_amqp_worker**: base module for AMQP workers
+- **kz_amqp_util**: utilities for working with AMQP
 
 ### CouchDB
 
-- **kz_datamgr**: модуль для работы с CouchDB
-- **Views**: используй CouchDB views для запросов
-- **Design documents**: храни в `priv/couchdb/views/`
-- **Schemas**: JSON Schema для валидации документов
+- **kz_datamgr**: module for working with CouchDB
+- **Views**: use CouchDB views for queries
+- **Design documents**: store in `priv/couchdb/views/`
+- **Schemas**: JSON Schema for document validation
 
 ### Call Control
 
-- **Call flows**: для управления звонками
-- **kz_call**: модуль для работы со звонками
-- **kz_media**: для работы с медиа (запись, воспроизведение)
-- **FreeSWITCH**: интеграция через ESL (Event Socket Library)
+- **Call flows**: for call management
+- **kz_call**: module for working with calls
+- **kz_media**: for working with media (recording, playback)
+- **FreeSWITCH**: integration via ESL (Event Socket Library)
 
 ## Roles
 
@@ -77,9 +77,9 @@
 3. **Account Admin**
 4. **User**
 
-## Заглушки для Kazoo
+## Stubs for Kazoo
 
-### Модуль приложения
+### Application Module
 
 ### Crossbar Resource
 
@@ -127,22 +127,22 @@ delete(Context) ->
     error('not_implemented').
 ```
 
-## Работа с данными
+## Data Handling
 
-### CouchDB документы
+### CouchDB Documents
 
-- Используй `kz_datamgr` для CRUD операций
-- Всегда валидируй документы через JSON Schema
-- Используй `kz_doc` для работы с документами
-- Типы документов через поле `pvt_type`
+- Use `kz_datamgr` for CRUD operations
+- Always validate documents via JSON Schema
+- Use `kz_doc` for working with documents
+- Document types via `pvt_type` field
 
 ### JSON Schema
 
-- Схемы в `priv/couchdb/schemas/`
-- Используй `kz_json_schema` для валидации
-- Всегда определяй схему для новых типов документов
+- Schemas in `priv/couchdb/schemas/`
+- Use `kz_json_schema` for validation
+- Always define schema for new document types
 
-### Пример работы с CouchDB
+### Example of working with CouchDB
 
 ```erlang
 -spec create_document(kz_term:ne_binary(), kz_json:object()) ->
@@ -151,20 +151,20 @@ create_document(DbName, Doc) ->
     kz_datamgr:save_doc(DbName, Doc).
 ```
 
-## Тестирование
+## Testing
 
-### EUnit тесты
+### EUnit Tests
 
-- Тесты в `test/` директории
-- Используй `kz_test_util` для утилит тестирования
-- Моки через `meck` для внешних зависимостей
+- Tests in `test/` directory
+- Use `kz_test_util` for testing utilities
+- Mocks via `meck` for external dependencies
 
 ### Common Test
 
-- Для интеграционных тестов
-- Используй `kz_test_util` для настройки окружения
+- For integration tests
+- Use `kz_test_util` for environment setup
 
-### Пример теста
+### Test Example
 
 ```erlang
 -module(app_name_module_name_tests).
@@ -175,73 +175,73 @@ function_test() ->
     ?assertEqual('ok', app_name_module_name:function()).
 ```
 
-## Логирование
+## Logging
 
-- Используй макросы: `?LOG_<DEBUG|INFO|NOTICE|WARNING|ERROR|CRITICAL|ALERT|EMERGENCY>`
-// TODO: описать правила логгирования
+- Use macros: `?LOG_<DEBUG|INFO|NOTICE|WARNING|ERROR|CRITICAL|ALERT|EMERGENCY>`
+- // TODO: describe logging rules
 
 ```erlang
 ?LOG_DEBUG("processing request: ~p", [Request])
 ```
 
-## Конфигурация
+## Configuration
 
-- Используй `kapps_config` для доступа к конфигурации
-- Всегда определяй значения по умолчанию
-- Читай через `kapps_config:get_*` функции
+- Use `kapps_config` to access configuration
+- Always define default values
+- Read via `kapps_config:get_*` functions
 
-## Обработка ошибок
+## Error Handling
 
-- Используй `{ok, Value}` и `{error, Reason}` tuples
-- Для Crossbar: возвращай `cb_context:add_system_error/2`
-- Всегда логируй ошибки
+- Use `{ok, Value}` and `{error, Reason}` tuples
+- For Crossbar: return `cb_context:add_system_error/2`
+- Always log errors
 
-## Лучшие практики Kazoo
+## Kazoo Best Practices
 
-### Производительность
+### Performance
 
-- Избегай блокирующих операций в процессах
-- Используй пулы процессов для тяжелых операций
-- Кэшируй часто используемые данные через `kz_cache`
+- Avoid blocking operations in processes
+- Use process pools for heavy operations
+- Cache frequently used data via `kz_cache`
 
-### Безопасность
+### Security
 
-- Всегда валидируй входные данные
-- Используй `kz_term:to_*` функции для конвертации типов
+- Always validate input data
+- Use `kz_term:to_*` functions for type conversion
 
-### Совместимость
+### Compatibility
 
-- Следуй версионированию API
-- Не ломай существующие API без миграции
+- Follow API versioning
+- Do not break existing API without migration
 
-### Документация
+### Documentation
 
-- Всегда документируй экспортируемые функции
-- Используй `@doc` для описания
-- Добавляй примеры использования в документации
-- Обновляй API документацию при изменениях
+- Always document exported functions
+- Use `@doc` for description
+- Add usage examples in documentation
+- Update API documentation on changes
 
-## Специфичные модули Kazoo
+## Specific Kazoo Modules
 
 ### kz_types.hrl
 
-- Всегда включай `kz_types.hrl` для типов из файла app_name.hrl
-- Используй типы из `kz_types` вместо `term()`
+- Always include `kz_types.hrl` for types from app_name.hrl file
+- Use types from `kz_types` instead of `term()`
 
 ### kz_term
 
-- Утилиты для работы с данными
-- `kz_term:to_*` для конвертации
+- Utilities for working with data
+- `kz_term:to_*` for conversion
 
 ### kz_json
 
-- Работа с JSON
-- `kz_json:get_*` для получения значений
-- `kz_json:set_*` для установки значений
-- `kz_json:new()` для создания нового объекта
+- Working with JSON
+- `kz_json:get_*` for getting values
+- `kz_json:set_*` for setting values
+- `kz_json:new()` for creating new object
 
 ### kz_time
 
-- Работа со временем
-- Всегда используй UTC
-- `kz_time:now_s()` для текущего времени
+- Working with time
+- Always use UTC
+- `kz_time:now_s()` for current time

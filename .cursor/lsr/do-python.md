@@ -1,75 +1,75 @@
-# Особенности разработки на Python
+# Python Development Guidelines
 
-## Общие принципы
+## General Principles
 
-- **Читаемость важнее всего**: код должен быть понятным
-- **Duck typing**: "если это ходит как утка и крякает как утка, то это утка"
-- **PEP 8**: следуй стандартам стиля кода
-- **Zen of Python**: простота, явность, красота
+- **Readability counts**: code must be understandable
+- **Duck typing**: "if it walks like a duck and quacks like a duck, then it must be a duck"
+- **PEP 8**: follow code style standards
+- **Zen of Python**: simple, explicit, beautiful
 
-## Структура проекта
+## Project Structure
 
-- **ОБЯЗАТЕЛЬНО**: все файлы проекта должны находиться в директории `app-name/` (где `app-name` — имя приложения)
-- Модули в файлах `.py`
-- Пакеты через директории с `__init__.py`
-- Тесты в `tests/` или `test_*.py` файлах
-- Конфигурация через `config.py`, `.env` файлы или `settings/`
-- `requirements.txt` или `pyproject.toml` для зависимостей
-- **ОБЯЗАТЕЛЬНО**: создай файл `.gitignore` для исключения ненужных файлов из git (venv, __pycache__, .pyc, .env и т.д.)
+- **MANDATORY**: all project files must be located in `app-name/` directory (where `app-name` is the application name)
+- Modules in `.py` files
+- Packages via directories with `__init__.py`
+- Tests in `tests/` or `test_*.py` files
+- Configuration via `config.py`, `.env` files or `settings/`
+- `requirements.txt` or `pyproject.toml` for dependencies
+- **MANDATORY**: create a `.gitignore` file to exclude unnecessary files from git (venv, __pycache__, .pyc, .env, etc.)
 
-## Архитектурные паттерны
+## Architectural Patterns
 
-- **MVC/MVP/MVVM**: для веб-приложений
-- **Repository pattern**: для работы с данными
-- **Dependency Injection**: для управления зависимостями
-- **Factory pattern**: для создания объектов
-- **Decorator pattern**: для расширения функциональности
+- **MVC/MVP/MVVM**: for web applications
+- **Repository pattern**: for data access
+- **Dependency Injection**: for dependency management
+- **Factory pattern**: for object creation
+- **Decorator pattern**: for extending functionality
 
-## Заглушки
+## Stubs
 
 ```python
 def function_name(arg: Type) -> ReturnType:
     """
-    Описание функции.
+    Function description.
 
     Args:
-        arg: Описание аргумента
+        arg: Argument description
 
     Returns:
-        Описание возвращаемого значения
+        Return value description
 
     Raises:
-        NotImplementedError: Функция еще не реализована
+        NotImplementedError: Function not yet implemented
     """
     raise NotImplementedError("Function not implemented")
 ```
 
-## Тестирование
+## Testing
 
-- **unittest**: стандартный фреймворк для тестов
-- **pytest**: популярный альтернативный фреймворк
-- **mock/unittest.mock**: для моков и стабов
-- **coverage**: для измерения покрытия кода
+- **unittest**: standard testing framework
+- **pytest**: popular alternative framework
+- **mock/unittest.mock**: for mocks and stubs
+- **coverage**: for measuring code coverage
 
-## Типизация
+## Typing
 
-- **Type hints**: используй аннотации типов (PEP 484)
-- **mypy**: для статической проверки типов
-- **typing модуль**: для сложных типов (List, Dict, Optional, Union и т.д.)
+- **Type hints**: use type annotations (PEP 484)
+- **mypy**: for static type checking
+- **typing module**: for complex types (List, Dict, Optional, Union, etc.)
 
-## Обработка ошибок
+## Error Handling
 
-- Используй исключения (`raise Exception`)
-- Обрабатывай через `try/except/finally`
-- Создавай кастомные исключения когда нужно
-- Используй `contextlib` для менеджеров контекста
+- Use exceptions (`raise Exception`)
+- Handle via `try/except/finally`
+- Create custom exceptions when needed
+- Use `contextlib` for context managers
 
-## Виртуальное окружение
+## Virtual Environment
 
-- **ОБЯЗАТЕЛЬНО**: создавай виртуальное окружение через `venv`
-- **ОБЯЗАТЕЛЬНО**: создание venv должно быть автоматизировано через `Makefile`
-- В `Makefile` должны быть targets: `venv` и `run`
-- Пример Makefile:
+- **MANDATORY**: create virtual environment via `venv`
+- **MANDATORY**: venv creation must be automated via `Makefile`
+- `Makefile` must have targets: `venv` and `run`
+- Example Makefile:
   ```makefile
   .PHONY: venv run
 
@@ -81,12 +81,12 @@ def function_name(arg: Type) -> ReturnType:
   run:
   	. venv/bin/activate && python app-name/main.py
   ```
-- Активация: `source venv/bin/activate` (Linux/Mac) или `venv\Scripts\activate` (Windows)
+- Activation: `source venv/bin/activate` (Linux/Mac) or `venv\Scripts\activate` (Windows)
 
 ## .gitignore
 
-- **ОБЯЗАТЕЛЬНО**: создай файл `.gitignore` в корне проекта
-- Минимальный набор для исключения:
+- **MANDATORY**: create `.gitignore` file in project root
+- Minimum set for exclusion:
   ```
   # Virtual environments
   venv/
@@ -121,11 +121,11 @@ def function_name(arg: Type) -> ReturnType:
   *.egg-info/
   ```
 
-## Лучшие практики
+## Best Practices
 
-- Используй виртуальные окружения (venv, virtualenv) — создавай через Makefile
-- Следуй PEP 8 для форматирования
-- Документируй через docstrings (Google style или NumPy style)
-- Используй `__main__` блок для исполняемых скриптов
-- Применяй list/dict comprehensions где уместно
-- Используй `pathlib` вместо `os.path`
+- Use virtual environments (venv, virtualenv) — create via Makefile
+- Follow PEP 8 for formatting
+- Document via docstrings (Google style or NumPy style)
+- Use `__main__` block for executable scripts
+- Apply list/dict comprehensions where appropriate
+- Use `pathlib` instead of `os.path`

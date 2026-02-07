@@ -1,47 +1,47 @@
-# ШАГ 9: Фиксация изменений (Commit)
+# STEP 9: Commit Changes
 
-## Общий принцип
+## General Principle
 
-⚠️ **Финальный аккорд**. Качественный коммит — это забота о коллегах и будущем себя. История изменений должна быть читаемой и понятной.
+⚠️ **Final chord**. A quality commit is care for colleagues and future self. Change history should be readable and understandable.
 
-## Цель
+## Goal
 
-Зафиксировать выполненную работу в системе контроля версий с понятным и структурированным описанием.
+Record completed work in the version control system with a clear and structured description.
 
-## Действия
+## Actions
 
-1. 🔍 **Проверить изменения**: Выполнить `git status` и `git diff`, чтобы убедиться, что в коммит попадает только нужное.
-2. ➕ **Добавить файлы**: Использовать `git add` для индексации изменений.
-3. 📝 **Сформировать сообщение**: Написать сообщение коммита по стандарту Conventional Commits.
-4. 🚀 **Предложить коммит**: Сгенерировать команду коммита и предложить пользователю её выполнить.
-5. ✅ **Проверить результат**: Убедиться, что коммит прошел успешно (clean working tree).
-6. 🌿 **Название ветки**: В самом конце вывести в чат рекомендуемое название ветки (на основе ID задачи) и записать его в файл `ai-tasks/<JIRA-TASK-ID>/00-roadmap.md` (если он есть), но **не переключать** ветку автоматически.
+1. 🔍 **Check changes**: Run `git status` and `git diff` to make sure only necessary things are included in the commit.
+2. ➕ **Add files**: Use `git add` to index changes.
+3. 📝 **Formulate message**: Write a commit message according to the Conventional Commits standard.
+4. 🚀 **Propose commit**: Generate the commit command and propose the user to execute it.
+5. ✅ **Check result**: Ensure the commit was successful (clean working tree).
+6. 🌿 **Branch name**: At the very end, output the recommended branch name to the chat (based on task ID) and record it in the file `ai-tasks/<JIRA-TASK-ID>/00-roadmap.md` (if it exists), but **do not switch** branches automatically.
 
-## Правила именования ветки
+## Branch Naming Rules
 
-Используй следующий формат для названий веток:
+Use the following format for branch names:
 
 ```text
 <type>/<JIRA-TASK-ID>-<short-description>
 ```
 
-### Составные части
+### Components
 
-1. **type**: Тип изменений, совпадающий с типом коммита (feature, fix, refactoring и т.д.).
-2. **JIRA-TASK-ID**: ID задачи из трекера (например, `PYPOST-15`).
-3. **short-description**: Краткое описание изменений на английском языке в формате `kebab-case`.
+1. **type**: Type of changes matching the commit type (feature, fix, refactoring, etc.).
+2. **JIRA-TASK-ID**: Task ID from the tracker (e.g., `PYPOST-15`).
+3. **short-description**: Short description of changes in English in `kebab-case`.
 
-### Примеры
+### Examples
 
 - `feature/PYPOST-15-login-validation`
 - `fix/PYPOST-42-timeout-error`
 - `refactoring/async-db-driver`
 
-## Правила оформления (Conventional Commits)
+## Formatting Rules (Conventional Commits)
 
-Мы используем стандарт **Conventional Commits** с дополнением в виде JIRA ID.
+We use the **Conventional Commits** standard supplemented with JIRA ID.
 
-Формат:
+Format:
 
 ```bash
 <type>(<scope>): <JIRA-TASK-ID> <subject>
@@ -51,35 +51,35 @@
 [optional footer(s)]
 ```
 
-### Основные типы (type)
+### Main Types (type)
 
-- `feature`: ✨ Новая функциональность
-- `fix`: 🐛 Исправление ошибки
-- `documentation`: 📚 Обновление документации
-- `style`: 💎 Форматирование, пробелы, точки с запятой (код не меняется)
-- `refactoring`: ♻️ Рефакторинг (без фич и фиксов)
-- `performance`: 🚀 Улучшение производительности
-- `test`: 🚨 Добавление или правка тестов
-- `chore`: 🔧 Обслуживание, конфиги, билд
+- `feature`: ✨ New functionality
+- `fix`: 🐛 Bug fix
+- `documentation`: 📚 Documentation update
+- `style`: 💎 Formatting, spaces, semicolons (code does not change)
+- `refactoring`: ♻️ Refactoring (without features and fixes)
+- `performance`: 🚀 Performance improvement
+- `test`: 🚨 Adding or editing tests
+- `chore`: 🔧 Maintenance, configs, build
 
-### Требования к заголовку (Subject)
+### Subject Requirements
 
-1. **JIRA ID**: В начале описания обязательно указывай ID задачи (например, `PYPOST-15`).
-2. **Императив**: Используй повелительное наклонение: "Add feature", а не "Added feature".
-3. **Без точки**: Не ставь точку в конце заголовка.
-4. **Краткость**: Первая строка (вместе с типом и ID) не должна превышать **72 символа**.
-5. **Язык**: Английский (обязательно).
+1. **JIRA ID**: At the beginning of the description, mandatory specify the task ID (e.g., `PYPOST-15`).
+2. **Imperative**: Use imperative mood: "Add feature", not "Added feature".
+3. **No period**: Do not put a period at the end of the subject.
+4. **Brevity**: First line (including type and ID) should not exceed **72 characters**.
+5. **Language**: English (mandatory).
 
-### Тело (Body) и Футер (Footer)
+### Body and Footer
 
-- **Разделитель**: Пустая строка между заголовком и телом.
-- **Содержание**: Отвечай на вопросы "Что?" и "Зачем?" (причину изменений), а не "Как?".
-- **Breaking Changes**: Указывай в футере с префиксом `BREAKING CHANGE:`.
-- **Ссылки**: Ссылки на задачи в трекере в футере (если не указаны в заголовке).
-- **Длина строки**: Строки в теле сообщения не должны превышать **100 символов**.
-- **Списки**: Для перечисления пунктов используй дефис `-` (при необходимости используй пустые строки между пунктами и отступы для продолжения текста).
+- **Separator**: Empty line between subject and body.
+- **Content**: Answer "What?" and "Why?" (reason for changes), not "How?".
+- **Breaking Changes**: Indicate in the footer with prefix `BREAKING CHANGE:`.
+- **Links**: Links to tasks in tracker in footer (if not specified in subject).
+- **Line Length**: Lines in message body should not exceed **100 characters**.
+- **Lists**: Use hyphen `-` for listing items (use empty lines between items and indentations for text continuation if necessary).
 
-### Примеры
+### Examples
 
 ```bash
 git commit -m "feature(user): PYPOST-15 add login validation"
@@ -89,7 +89,7 @@ git commit -m "feature(user): PYPOST-15 add login validation"
 git commit -m "fix(api): PYPOST-42 handle timeout error correctly"
 ```
 
-С телом сообщения:
+With message body:
 
 ```bash
 git commit -m "refactoring(core): PYPOST-20 switch to async database driver
@@ -99,7 +99,7 @@ This change improves performance under high load by avoiding blocking calls.
 BREAKING CHANGE: The 'db.connect()' method is now asynchronous."
 ```
 
-## Критерии завершения
+## Completion Criteria
 
-- ✅ Изменения зафиксированы в git.
-- ✅ Сообщение коммита соответствует правилам (тип, ID, формат).
+- ✅ Changes committed to git.
+- ✅ Commit message complies with rules (type, ID, format).

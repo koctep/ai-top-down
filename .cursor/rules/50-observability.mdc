@@ -1,61 +1,61 @@
-# ШАГ 5: Добавление наблюдаемости (Observability)
+# STEP 5: Observability Implementation
 
-## Общий принцип
+## General Principle
 
-⚠️ **Этот шаг обеспечивает мониторинг и диагностику приложения**. Логгирование и метрики позволяют отслеживать состояние системы и быстро реагировать на проблемы.
+⚠️ **This step ensures monitoring and diagnostics of the application**. Logging and metrics allow tracking system state and quickly reacting to problems.
 
-## Цель
+## Goal
 
-Добавить необходимое логгирование и метрики для обеспечения наблюдаемости приложения в продакшене.
+Add necessary logging and metrics to ensure application observability in production.
 
-## Подготовка
+## Preparation
 
-1. Пометить ШАГ 5 в roadmap (`ai-tasks/<JIRA-TASK-ID>/00-roadmap.md`) как `[/]` (начата работа).
+1. Mark STEP 5 in the roadmap (`ai-tasks/<JIRA-TASK-ID>/00-roadmap.md`) as `[/]` (work started).
 
-## Действия
+## Actions
 
-1. **Анализ требований наблюдаемости**
-   - Определить ключевые компоненты, требующие мониторинга
-   - Выделить критические пути выполнения (critical paths)
-   - Определить необходимые метрики производительности
+1. **Observability Requirements Analysis**
+   - Identify key components requiring monitoring
+   - Highlight critical execution paths
+   - Define necessary performance metrics
 
-2. **Добавление логгирования**
-   - Добавить структурированное логгирование для ключевых операций
-   - Логировать входные параметры и результаты выполнения
-   - Добавить логи ошибок с контекстом
-   - **Не выводить большие структуры данных в логи** - только значимые поля для текущего шага выполнения программы
-   - Использовать syslog-совместимые уровни логирования:
-     - **EMERG**: системные сбои, требующие немедленного вмешательства
-     - **ALERT**: срочные проблемы, требующие внимания
-     - **CRIT**: критические ошибки, влияющие на работу системы
-     - **ERR**: ошибки выполнения операций
-     - **WARNING**: предупреждения о потенциальных проблемах
-     - **NOTICE**: важные уведомления о событиях
-     - **INFO**: информационные сообщения о работе системы
-     - **DEBUG**: детальная отладочная информация
+2. **Adding Logging**
+   - Add structured logging for key operations
+   - Log input parameters and execution results
+   - Add error logs with context
+   - **Do not output large data structures to logs** - only meaningful fields for the current program execution step
+   - Use syslog-compatible logging levels:
+     - **EMERG**: system failures requiring immediate intervention
+     - **ALERT**: urgent problems requiring attention
+     - **CRIT**: critical errors affecting system operation
+     - **ERR**: operation execution errors
+     - **WARNING**: warnings about potential problems
+     - **NOTICE**: significant event notifications
+     - **INFO**: informational messages about system operation
+     - **DEBUG**: detailed debug information
 
-3. **Добавление метрик (если применимо)**
-   - Добавить метрики производительности (время выполнения, throughput)
-   - Добавить бизнес-метрики (количество обработанных запросов, конверсии)
-   - Добавить метрики здоровья системы (использование ресурсов, статус компонентов)
-   - Интегрировать с системами мониторинга (Prometheus, Grafana, etc.)
+3. **Adding Metrics (if applicable)**
+   - Add performance metrics (execution time, throughput)
+   - Add business metrics (number of processed requests, conversions)
+   - Add system health metrics (resource usage, component status)
+   - Integrate with monitoring systems (Prometheus, Grafana, etc.)
 
-4. **Валидация наблюдаемости**
-   - Проверить корректность форматов логов
-   - Убедиться, что метрики собираются корректно
-   - Протестировать логирование в различных сценариях
+4. **Observability Validation**
+   - Verify log format correctness
+   - Ensure metrics are collected correctly
+   - Test logging in various scenarios
 
-5. **Создать файл наблюдаемости**
-   - Создать файл `ai-tasks/<JIRA-TASK-ID>/50-observability.md`
-   - Задокументировать добавленные логи и метрики
+5. **Create Observability File**
+   - Create file `ai-tasks/<JIRA-TASK-ID>/50-observability.md`
+   - Document added logs and metrics
 
-## Артефакты
+## Artifacts
 
-- **Файл**: `ai-tasks/<JIRA-TASK-ID>/50-observability.md`
+- **File**: `ai-tasks/<JIRA-TASK-ID>/50-observability.md`
 
-## Шаблон для файла наблюдаемости
+## Observability File Template
 
-Используй следующий шаблон для `ai-tasks/<JIRA-TASK-ID>/50-observability.md`:
+Use the following template for `ai-tasks/<JIRA-TASK-ID>/50-observability.md`:
 
 ```markdown
 # <TASK-ID>: Observability Implementation
@@ -123,9 +123,9 @@ Validation results:
 Additional notes on observability or special cases.
 ```
 
-## Критерии завершения
+## Completion Criteria
 
-- Добавлено необходимое логгирование для ключевых операций
-- Метрики добавлены для критически важных показателей (если применимо к проекту)
-- Файл `50-observability.md` создан и заполнен
-- ✅ **Наблюдаемость готова для продакшена**
+- Necessary logging added for key operations
+- Metrics added for critical indicators (if applicable to the project)
+- File `50-observability.md` created and filled
+- ✅ **Observability is ready for production**

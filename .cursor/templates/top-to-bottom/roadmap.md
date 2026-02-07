@@ -6,7 +6,9 @@
 - [ ] **STEP 2: High-Level Architecture Design**
 - [ ] **STEP 3: Development**
   - [ ] *[Add summaries of completed iterations here]*
-- [ ] **STEP 4: Review and Technical Debt**
+- [ ] **STEP 4: Code Cleanup**
+- [ ] **STEP 5: Observability**
+- [ ] **STEP 6: Review and Technical Debt**
 
 ## Status Legend
 
@@ -30,6 +32,14 @@
 - Tests
 - Documentation updates
 
-### STEP 4: Review
+### STEP 4: Code Cleanup
 
-- `ai-tasks/<JIRA-TASK-ID>/40-tech-debt.md`
+- `ai-tasks/<JIRA-TASK-ID>/40-code-cleanup.md`
+
+### STEP 5: Observability
+
+- `ai-tasks/<JIRA-TASK-ID>/50-observability.md`
+
+### STEP 6: Review
+
+- `ai-tasks/<JIRA-TASK-ID>/60-tech-debt.md`

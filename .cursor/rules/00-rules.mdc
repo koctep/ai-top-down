@@ -1,126 +1,126 @@
-# Top-Down подход к программированию
+# Top-Down Approach to Programming
 
-## Философия подхода
+## Philosophy of the Approach
 
-**Top-Down** (сверху вниз) — это методология разработки, при которой система проектируется и реализуется начиная с высокоуровневых абстракций и постепенно детализируется до конкретной реализации.
+**Top-Down** is a development methodology where a system is designed and implemented starting from high-level abstractions and gradually detailed down to concrete implementation.
 
-### Основные принципы
+### Key Principles
 
-1. **Абстракция перед деталями**
-   - Сначала определяем ЧТО система должна делать
-   - Затем определяем КАК это будет организовано
-   - В конце реализуем конкретные детали
+1. **Abstraction before Details**
+   - First define WHAT the system should do
+   - Then define HOW it will be organized
+   - Finally implement specific details
 
-2. **Последовательность обязательна**
-   - Каждый шаг строится на результатах предыдущего
-   - Нельзя пропускать этапы проектирования
-   - Реализация начинается только после завершения проектирования
+2. **Sequence is Mandatory**
+   - Each step builds on the results of the previous one
+   - Do not skip design stages
+   - Implementation starts only after design is complete
 
-3. **Документирование на каждом этапе**
-   - Каждый шаг создает конкретные артефакты
-   - Документация создается параллельно с проектированием
-   - Документы служат основой для следующих шагов
+3. **Documentation at Each Stage**
+   - Each step creates specific artifacts
+   - Documentation is created in parallel with design
+   - Documents serve as the basis for the next steps
 
-4. **Структура перед кодом**
-   - Сначала создается структура проекта и заглушки
-   - Затем заглушки постепенно заменяются реализацией
-   - Это позволяет видеть полную картину системы до деталей
+4. **Structure before Code**
+   - First create the project structure and stubs
+   - Then stubs are gradually replaced by implementation
+   - This allows seeing the full picture of the system before details
 
-## Процесс разработки
+## Development Process
 
-Разработка по top-down подходу состоит из **4 последовательных шагов**:
+Development using the top-down approach consists of **4 sequential steps**:
 
-1. **Требования** — сбор и документирование требований, что нужно построить
-2. **Архитектура** — архитектурное проектирование высокого уровня, как это организовано
-3. **Разработка** — итеративная реализация минимально-значимыми изменениями с использованием заглушек
-4. **Ревью** — анализ технического долга и финализация задачи
+1. **Requirements** — gathering and documenting requirements, what needs to be built
+2. **Architecture** — high-level architectural design, how it is organized
+3. **Development** — iterative implementation with minimal meaningful changes using stubs
+4. **Review** — technical debt analysis and task finalization
 
-### Последовательность выполнения
+### Execution Sequence
 
-Шаги выполняются **строго последовательно**. Нельзя переходить к следующему шагу, пока не завершен текущий и не созданы все его артефакты.
+Steps are performed **strictly sequentially**. Do not proceed to the next step until the current one is completed and all its artifacts are created.
 
-**ОБЯЗАТЕЛЬНО**: После завершения каждого шага необходимо получить ревью от пользователя перед переходом к следующему шагу.
+**MANDATORY**: After completing each step, you must obtain a review from the user before proceeding to the next step.
 
-## Процесс обратной связи
+## Feedback Process
 
-### Как запрашивать ревью
+### How to Request a Review
 
-1. **Четко описывать изменения**
-   - Указывать, что именно было сделано
-   - Объяснять сложные решения
-   - Приводить примеры использования (если применимо)
+1. **Clearly Describe Changes**
+   - Specify exactly what was done
+   - Explain complex decisions
+   - Provide usage examples (if applicable)
 
-2. **Предоставлять контекст**
-   - Ссылаться на требования из предыдущих шагов
-   - Указывать на связанные файлы и изменения
-   - Описывать влияние на систему
+2. **Provide Context**
+   - Reference requirements from previous steps
+   - Point to related files and changes
+   - Describe impact on the system
 
-3. **Быть готовым к вопросам**
-   - Не торопить с ответами
-   - Объяснять технические решения
-   - Предлагать альтернативные подходы при необходимости
+3. **Be Ready for Questions**
+   - Do not rush to answer
+   - Explain technical decisions
+   - Offer alternative approaches if necessary
 
-### Как давать обратную связь
+### How to Give Feedback
 
-1. **Конструктивность**
-   - Начинать с положительных аспектов
-   - Предлагать конкретные улучшения
-   - Объяснять причины замечаний
+1. **Constructiveness**
+   - Start with positive aspects
+   - Suggest specific improvements
+   - Explain reasons for comments
 
-2. **Приоритизация**
-   - Отделять blocker-issues от nice-to-have
-   - Указывать, что можно исправить позже
-   - Определять критичные проблемы
+2. **Prioritization**
+   - Separate blocker-issues from nice-to-have
+   - Indicate what can be fixed later
+   - Identify critical problems
 
-3. **Четкость коммуникации**
-   - Использовать понятный язык
-   - Приводить примеры желаемых изменений
-   - Подтверждать понимание исправлений
+3. **Communication Clarity**
+   - Use clear language
+   - Provide examples of desired changes
+   - Confirm understanding of fixes
 
-## Критические правила
+## Critical Rules
 
-⚠️ **НЕ НАЧИНАЙТЕ ПИСАТЬ КОД** до завершения шагов 1–2 (требования, архитектура).
+⚠️ **DO NOT START WRITING CODE** until steps 1–2 (requirements, architecture) are completed.
 
-⚠️ **НЕ ПРОПУСКАЙТЕ ШАГИ** — каждый шаг обязателен и создает основу для следующего.
+⚠️ **DO NOT SKIP STEPS** — each step is mandatory and creates the foundation for the next.
 
-⚠️ **НЕ ПЕРЕХОДИТЕ К СЛЕДУЮЩЕМУ ШАГУ** пока не выполнены все критерии завершения текущего и не получено ревью от пользователя.
+⚠️ **DO NOT PROCEED TO THE NEXT STEP** until all completion criteria of the current one are met and a review is received from the user.
 
-## Правила работы с AI-ассистентом
+## Rules for Working with AI Assistant
 
-### При работе над задачей
+### When Working on a Task
 
-- **ОБЯЗАТЕЛЬНО** проверь наличие JIRA task ID — если он не указан, необходимо запросить его у пользователя перед началом работы
-- **ОБЯЗАТЕЛЬНО**: JIRA-TASK-ID должен быть задан пользователем, не используй выдуманные или примерные значения
-- Всегда ссылайся на текущий шаг
-- Перед переходом к следующему шагу — проверь критерии завершения текущего
-- **ОБЯЗАТЕЛЬНО** после завершения каждого шага запроси ревью у пользователя и дождись его одобрения перед переходом к следующему шагу
-- **ОБЯЗАТЕЛЬНО**: При получении замечаний на ревью, их необходимо выполнить и запросить ревью повторно. Замечания нельзя воспринимать как одобрение для перехода к следующему шагу
-- Если пользователь просит пропустить шаги — **ВЕЖЛИВО ОТКАЖИСЬ** и объясни важность последовательности
-- **ОБЯЗАТЕЛЬНО**: При наличии любого вопроса необходимо дождаться ответа пользователя перед продолжением работы
+- **MANDATORY** check for JIRA task ID — if not specified, request it from the user before starting work
+- **MANDATORY**: JIRA-TASK-ID must be set by the user, do not use made-up or approximate values
+- Always reference the current step
+- Before proceeding to the next step — check completion criteria of the current one
+- **MANDATORY** after completing each step, request a review from the user and wait for their approval before proceeding to the next step
+- **MANDATORY**: When receiving review comments, they must be addressed and a review requested again. Comments cannot be taken as approval to proceed to the next step
+- If the user asks to skip steps — **POLITELY REFUSE** and explain the importance of the sequence
+- **MANDATORY**: If there is any question, wait for the user's answer before continuing work
 
-### При создании артефактов
+### When Creating Artifacts
 
-- Используй четкие названия файлов
-- Структурируй информацию логично
-- Используй markdown для документов
-- Добавляй примеры и диаграммы где уместно
+- Use clear filenames
+- Structure information logically
+- Use markdown for documents
+- Add examples and diagrams where appropriate
 
-### Ведение roadmap
+### Roadmap Maintenance
 
-- **ОБЯЗАТЕЛЬНО** веди файл `ai-tasks/<JIRA-TASK-ID>/00-roadmap.md` для отслеживания прогресса
-- На ШАГЕ 1 создай файл `ai-tasks/<JIRA-TASK-ID>/00-roadmap.md` из шаблона `.cursor/templates/top-to-bottom/roadmap.md`
-- При начале работы над шагом помечай его как `[/]` (in progress)
-- При завершении шага помечай его как `[x]` (completed)
-- Заменяй `<JIRA-TASK-ID>` на реальный ID задачи из JIRA
+- **MANDATORY** maintain the file `ai-tasks/<JIRA-TASK-ID>/00-roadmap.md` to track progress
+- At STEP 1 create the file `ai-tasks/<JIRA-TASK-ID>/00-roadmap.md` from the template `.cursor/templates/top-to-bottom/roadmap.md`
+- When starting work on a step, mark it as `[/]` (in progress)
+- When completing a step, mark it as `[x]` (completed)
+- Replace `<JIRA-TASK-ID>` with the actual task ID from JIRA
 
-### Языки программирования
+### Programming Languages
 
-- Проект может разрабатываться на разных языках
-- **ОБЯЗАТЕЛЬНО** определи язык программирования на ШАГЕ 1 (требования) перед началом работы над задачей
-- При проектировании и реализации учитывай особенности выбранного языка
-- Описание особенностей каждого языка находится в файлах `.cursor/lsr/do-<language-name>.md`
-- При работе над шагами 2–4 (архитектура, разработка, ревью) **ОБЯЗАТЕЛЬНО** учитывай специфику выбранного языка из соответствующего файла
+- The project can be developed in different languages
+- **MANDATORY** determine the programming language at STEP 1 (requirements) before starting work on the task
+- When designing and implementing, consider the features of the selected language
+- Description of features for each language is in `.cursor/lsr/do-<language-name>.md` files
+- When working on steps 2–4 (architecture, development, review) **MANDATORY** consider the specifics of the selected language from the corresponding file
 
-### Работа с файлами
+### File Handling
 
-- **ОБЯЗАТЕЛЬНО** используй правила из файла `.cursor/rules/files.mdc`
+- **MANDATORY** use rules from the file `.cursor/rules/files.mdc`

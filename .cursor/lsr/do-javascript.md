@@ -1,69 +1,69 @@
-# Особенности разработки на JavaScript
+# JavaScript Development Guidelines
 
-## Общие принципы
+## General Principles
 
-- **ES6+ features**: используй современный синтаксис
-- **Functional programming**: применяй функциональные подходы где уместно
-- **Async/await**: для асинхронного кода
-- **Modularity**: разбивай код на модули
+- **ES6+ features**: use modern syntax
+- **Functional programming**: apply functional approaches where appropriate
+- **Async/await**: for asynchronous code
+- **Modularity**: break code into modules
 
-## Структура проекта
+## Project Structure
 
-- Модули в файлах `.js` или `.mjs`
-- Конфигурация в `package.json`, `.eslintrc`, `.prettierrc`
-- Тесты в `*.test.js` или `*.spec.js` файлах
-- `node_modules/` для зависимостей (npm/yarn/pnpm)
+- Modules in `.js` or `.mjs` files
+- Configuration in `package.json`, `.eslintrc`, `.prettierrc`
+- Tests in `*.test.js` or `*.spec.js` files
+- `node_modules/` for dependencies (npm/yarn/pnpm)
 
-## Архитектурные паттерны
+## Architectural Patterns
 
-- **MVC/MVP/MVVM**: для веб-приложений
-- **Component pattern**: для UI компонентов
-- **Module pattern**: для инкапсуляции
-- **Observer pattern**: для событий
-- **Factory pattern**: для создания объектов
+- **MVC/MVP/MVVM**: for web applications
+- **Component pattern**: for UI components
+- **Module pattern**: for encapsulation
+- **Observer pattern**: for events
+- **Factory pattern**: for creating objects
 
-## Заглушки
+## Stubs
 
 ```javascript
 /**
- * Описание функции
- * @param {Type} arg - Описание аргумента
- * @returns {ReturnType} Описание возвращаемого значения
- * @throws {Error} Описание исключения
+ * Function description
+ * @param {Type} arg - Argument description
+ * @returns {ReturnType} Return value description
+ * @throws {Error} Exception description
  */
 function functionName(arg) {
     throw new Error('Not implemented');
 }
 ```
 
-## Тестирование
+## Testing
 
-- **Jest**: популярный фреймворк для тестов
-- **Mocha + Chai**: альтернативный стек
-- **Vitest**: быстрый современный фреймворк
-- **@testing-library**: для тестирования UI
+- **Jest**: popular framework for tests
+- **Mocha + Chai**: alternative stack
+- **Vitest**: fast modern framework
+- **@testing-library**: for UI testing
 
-## Типизация
+## Typing
 
-- Используй JSDoc комментарии для типов (`@param {Type}`, `@returns {Type}`)
-- Применяй TypeScript для новых проектов (лучше чем plain JS)
-- Используй PropTypes для React компонентов
-- Применяй runtime валидацию (Joi, Yup, Zod)
+- Use JSDoc comments for types (`@param {Type}`, `@returns {Type}`)
+- Use TypeScript for new projects (better than plain JS)
+- Use PropTypes for React components
+- Apply runtime validation (Joi, Yup, Zod)
 
-## Обработка ошибок
+## Error Handling
 
-- Используй `throw new Error()` для исключений
-- Обрабатывай через `try/catch/finally`
-- Создавай кастомные классы ошибок
-- Используй промисы с `.catch()` для асинхронных операций
+- Use `throw new Error()` for exceptions
+- Handle via `try/catch/finally`
+- Create custom error classes
+- Use promises with `.catch()` for asynchronous operations
 
-## Лучшие практики
+## Best Practices
 
-- Используй `const` и `let`, избегай `var`
-- Применяй async/await вместо промисов где возможно
-- Используй деструктуризацию
-- Применяй arrow functions для коротких функций
-- Используй optional chaining (`?.`) и nullish coalescing (`??`)
-- Экспортируй через `export`/`import` (ES modules), избегай `require` где возможно
-- Используй `===` вместо `==`
-- Применяй template literals для строк
+- Use `const` and `let`, avoid `var`
+- Apply async/await instead of promises where possible
+- Use destructuring
+- Apply arrow functions for short functions
+- Use optional chaining (`?.`) and nullish coalescing (`??`)
+- Export via `export`/`import` (ES modules), avoid `require` where possible
+- Use `===` instead of `==`
+- Apply template literals for strings

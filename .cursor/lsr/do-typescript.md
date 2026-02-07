@@ -1,70 +1,70 @@
-# Особенности разработки на TypeScript
+# TypeScript Development Guidelines
 
-## Общие принципы
+## General Principles
 
-- **Type safety**: используй типы для безопасности кода
-- **Strict mode**: включай строгий режим компиляции
-- **ES6+ features**: используй современные возможности JavaScript
-- **Modularity**: разбивай код на модули
+- **Type safety**: use types for code safety
+- **Strict mode**: enable strict compilation mode
+- **ES6+ features**: use modern JavaScript capabilities
+- **Modularity**: break code into modules
 
-## Структура проекта
+## Project Structure
 
-- Модули в файлах `.ts`
-- Конфигурация в `tsconfig.json`
-- Тесты в `*.test.ts` или `*.spec.ts` файлах
-- Типы в `types/` или `@types/` директориях
-- `package.json` для зависимостей и скриптов
+- Modules in `.ts` files
+- Configuration in `tsconfig.json`
+- Tests in `*.test.ts` or `*.spec.ts` files
+- Types in `types/` or `@types/` directories
+- `package.json` for dependencies and scripts
 
-## Архитектурные паттерны
+## Architectural Patterns
 
-- **MVC/MVP/MVVM**: для веб-приложений
-- **Component pattern**: для UI компонентов
-- **Dependency Injection**: для управления зависимостями
-- **Observer pattern**: для событий
-- **Factory pattern**: для создания объектов
+- **MVC/MVP/MVVM**: for web applications
+- **Component pattern**: for UI components
+- **Dependency Injection**: for dependency management
+- **Observer pattern**: for events
+- **Factory pattern**: for creating objects
 
-## Заглушки
+## Stubs
 
 ```typescript
 /**
- * Описание функции
- * @param arg - Описание аргумента
- * @returns Описание возвращаемого значения
- * @throws {Error} Описание исключения
+ * Function description
+ * @param arg - Argument description
+ * @returns Return value description
+ * @throws {Error} Exception description
  */
 function functionName(arg: Type): ReturnType {
     throw new Error('Not implemented');
 }
 ```
 
-## Тестирование
+## Testing
 
-- **Jest**: популярный фреймворк для тестов
-- **Mocha + Chai**: альтернативный стек
-- **Vitest**: быстрый современный фреймворк
-- **@testing-library**: для тестирования UI
+- **Jest**: popular framework for tests
+- **Mocha + Chai**: alternative stack
+- **Vitest**: fast modern framework
+- **@testing-library**: for UI testing
 
-## Типизация
+## Typing
 
-- Используй явные типы для всех функций
-- Применяй `interface` и `type` для структур данных
-- Используй generics для переиспользуемого кода
-- Применяй `enum` для констант
-- Используй `readonly` для иммутабельных данных
+- Use explicit types for all functions
+- Apply `interface` and `type` for data structures
+- Use generics for reusable code
+- Apply `enum` for constants
+- Use `readonly` for immutable data
 
-## Обработка ошибок
+## Error Handling
 
-- Используй `throw new Error()` для исключений
-- Обрабатывай через `try/catch/finally`
-- Создавай кастомные классы ошибок
-- Используй `Result<T, E>` паттерн где уместно
+- Use `throw new Error()` for exceptions
+- Handle via `try/catch/finally`
+- Create custom error classes
+- Use `Result<T, E>` pattern where appropriate
 
-## Лучшие практики
+## Best Practices
 
-- Включай `strict: true` в tsconfig.json
-- Используй `const` и `let`, избегай `var`
-- Применяй async/await вместо промисов где возможно
-- Используй деструктуризацию
-- Применяй arrow functions для коротких функций
-- Используй optional chaining (`?.`) и nullish coalescing (`??`)
-- Экспортируй через `export`/`import`, избегай `require`
+- Enable `strict: true` in tsconfig.json
+- Use `const` and `let`, avoid `var`
+- Apply async/await instead of promises where possible
+- Use destructuring
+- Apply arrow functions for short functions
+- Use optional chaining (`?.`) and nullish coalescing (`??`)
+- Export via `export`/`import`, avoid `require`

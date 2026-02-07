@@ -1,63 +1,63 @@
-# Особенности разработки на Erlang/OTP
+# Erlang/OTP Development Guidelines
 
-## Общие принципы
+## General Principles
 
-- **Процессно-ориентированная архитектура**: используй процессы (processes) как основную единицу абстракции
-- **Let it crash**: процессы должны падать при ошибках, супервизоры их перезапустят
-- **Неизменяемые данные**: все структуры данных иммутабельны
-- **Сопоставление с образцом (pattern matching)**: основной способ работы с данными
-- **OTP поведенческие модули**: используй gen_server, gen_statem, supervisor и т.д.
+- **Process-Oriented Architecture**: use processes as the main unit of abstraction
+- **Let it crash**: processes should crash on errors, supervisors will restart them
+- **Immutable Data**: all data structures are immutable
+- **Pattern Matching**: main way of working with data
+- **OTP Behavioral Modules**: use gen_server, gen_statem, supervisor, etc.
 
-## Структура проекта
+## Project Structure
 
-- Модули в отдельных файлах `.erl`
-- Приложения OTP в директории `src/`
-- Тесты в `test/` (EUnit) или `_test.erl` файлах
-- Конфигурация в `config/` (sys.config, vm.args)
-- Приложения описываются в `.app` файлах
+- Modules in separate `.erl` files
+- OTP applications in `src/` directory
+- Tests in `test/` (EUnit) or `_test.erl` files
+- Configuration in `config/` (sys.config, vm.args)
+- Applications described in `.app` files
 
-## Архитектурные паттерны
+## Architectural Patterns
 
-- **Supervisor trees**: иерархия супервизоров для управления процессами
-- **Gen Server**: для stateful серверов
-- **Gen State Machine**: для конечных автоматов
-- **Application**: для структурирования приложений
-- **Release**: для развертывания
+- **Supervisor trees**: hierarchy of supervisors to manage processes
+- **Gen Server**: for stateful servers
+- **Gen State Machine**: for finite state machines
+- **Application**: for structuring applications
+- **Release**: for deployment
 
-## Заглушки
+## Stubs
 
 ```erlang
 -module(module_name).
 -export([function/1]).
 
-%% @doc Описание функции
+%% @doc Description of the function
 -spec function(Arg :: term()) -> ok | {error, Reason :: term()}.
 function(_Arg) ->
     error(not_implemented).
 ```
 
-## Тестирование
+## Testing
 
-- **EUnit**: для unit-тестов
-- **Common Test**: для интеграционных тестов
-- **PropEr/QuickCheck**: для property-based тестирования
+- **EUnit**: for unit tests
+- **Common Test**: for integration tests
+- **PropEr/QuickCheck**: for property-based testing
 
-## Типизация
+## Typing
 
-- Используй `-spec` для документирования типов
-- Dialyzer для статического анализа типов
-- Типы определяются через `-type` и `-opaque`
+- Use `-spec` to document types
+- Dialyzer for static type analysis
+- Types defined via `-type` and `-opaque`
 
-## Обработка ошибок
+## Error Handling
 
-- Используй `{ok, Value}` и `{error, Reason}` tuples
-- Бросай исключения через `throw/1`, `exit/1`, `error/1`
-- Супервизоры обрабатывают падения процессов
+- Use `{ok, Value}` and `{error, Reason}` tuples
+- Throw exceptions via `throw/1`, `exit/1`, `error/1`
+- Supervisors handle process crashes
 
-## Лучшие практики
+## Best Practices
 
-- Избегай shared state между процессами
-- Используй message passing для коммуникации
-- Документируй все экспортируемые функции
-- Используй supervisor для всех долгоживущих процессов
-- Применяй hot code reloading где возможно
+- Avoid shared state between processes
+- Use message passing for communication
+- Document all exported functions
+- Use supervisor for all long-lived processes
+- Apply hot code reloading where possible

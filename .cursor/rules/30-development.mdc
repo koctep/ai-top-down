@@ -1,70 +1,70 @@
-# ШАГ 3: Разработка
+# STEP 3: Development
 
-## Общий принцип
+## General Principle
 
-Этот шаг объединяет проектирование, создание заглушек, реализацию и интеграцию. Он выполняется циклически до полного завершения задачи.
+This step combines design, creating stubs, implementation, and integration. It is performed cyclically until the task is fully completed.
 
-## Цель
+## Goal
 
-Реализовать задачу итеративно, небольшими шагами, с постоянным контролем качества и обратной связью от пользователя.
+Implement the task iteratively, in small steps, with constant quality control and feedback from the user.
 
-## Подготовка
+## Preparation
 
-1. Пометить ШАГ 3 в roadmap (`ai-tasks/<JIRA-TASK-ID>/00-roadmap.md`) как `[/]` (начата работа).
+1. Mark STEP 3 in the roadmap (`ai-tasks/<JIRA-TASK-ID>/00-roadmap.md`) as `[/]` (work started).
 
-## Процесс разработки
+## Development Process
 
-⚠️ **В этом шаге необходимо рекурсивно выполнять следующие действия до тех пор, пока задача не будет полностью выполнена**:
+⚠️ **In this step, it is necessary to recursively perform the following actions until the task is fully completed**:
 
-1. 📋 **Определить минимально-значимое изменение**
-   - Размер изменения не должен превышать **100 отредактированных строк кода**.
-   - Изменение должно быть логически завершенным (даже если часть функционала реализована через заглушки).
+1. 📋 **Define minimal meaningful change**
+   - The size of the change should not exceed **100 edited lines of code**.
+   - The change must be logically complete (even if part of the functionality is implemented via stubs).
 
-2. **Имплементировать изменение**
-   - Написать код, реализующий выбранное изменение.
-   - Использовать **заглушки (stubs)** для больших или еще не реализованных частей системы, чтобы код был компилируемым и, по возможности, запускаемым.
-   - Следовать архитектуре, определенной на Шаге 2.
+2. **Implement the change**
+   - Write code implementing the selected change.
+   - Use **stubs** for large or not yet implemented parts of the system so that the code is compilable and, if possible, executable.
+   - Follow the architecture defined in Step 2.
 
-3. **Обновить Roadmap**
-   - Добавить краткое саммари (что было сделано) в `ai-tasks/<JIRA-TASK-ID>/00-roadmap.md` как подпункт ШАГА 3.
-   - Формат: `- [x] Реализован функционал X...`
+3. **Update Roadmap**
+   - Add a brief summary (what was done) to `ai-tasks/<JIRA-TASK-ID>/00-roadmap.md` as a sub-item of STEP 3.
+   - Format: `- [x] Implemented functionality X...`
 
-4. 📋 **Запросить ревью**
-   - **ОБЯЗАТЕЛЬНО**: После каждой итерации (каждого минимально-значимого изменения) запросить ревью от пользователя.
-   - Не переходить к следующему изменению без одобрения пользователя.
+4. 📋 **Request review**
+   - **MANDATORY**: After each iteration (each minimal meaningful change), request a review from the user.
+   - Do not proceed to the next change without user approval.
 
-## Качество кода и тестирование
+## Code Quality and Testing
 
-При разработке **ОБЯЗАТЕЛЬНО** обеспечивать качество кода:
+During development, **MANDATORY** ensure code quality:
 
-1. **Статический анализ кода**
-   - Использовать линтеры и статические анализаторы для выбранного языка программирования
-   - Исправлять все предупреждения перед запросом ревью
+1. **Static Code Analysis**
+   - Use linters and static analyzers for the selected programming language
+   - Fix all warnings before requesting a review
 
-2. **Тестирование**
-   - Писать тесты для нового функционала
-   - Запускать существующие тесты перед каждым изменением
-   - Убеждаться, что все тесты проходят
+2. **Testing**
+   - Write tests for new functionality
+   - Run existing tests before each change
+   - Ensure all tests pass
 
 3. **Code review**
-   - Проверять читаемость и понятность кода
-   - Следовать стандартам кодирования проекта
-   - Документировать сложную логику
+   - Check code readability and clarity
+   - Follow project coding standards
+   - Document complex logic
 
-4. **Рефакторинг**
-   - Поддерживать чистоту и читаемость кода
-   - Избегать дублирования кода
-   - Оптимизировать производительность при необходимости
+4. **Refactoring**
+   - Maintain code cleanliness and readability
+   - Avoid code duplication
+   - Optimize performance if necessary
 
-## Артефакты
+## Artifacts
 
-- Код проекта.
-- Обновления в `ai-tasks/<JIRA-TASK-ID>/00-roadmap.md` (отмечать прогресс, если применимо).
+- Project code.
+- Updates in `ai-tasks/<JIRA-TASK-ID>/00-roadmap.md` (mark progress if applicable).
 
-## Критерии завершения
+## Completion Criteria
 
-- Весь функционал, описанный в требованиях и архитектуре, реализован.
-- Все заглушки заменены на реальный код.
-- Тесты проходят (если применимо).
-- ✅ **Получено финальное одобрение от пользователя**.
-- После завершения всего этапа пометить ШАГ 3 в roadmap как `[x]` (завершен) и перейти к ШАГУ 4.
+- All functionality described in requirements and architecture is implemented.
+- All stubs replaced with real code.
+- Tests pass (if applicable).
+- ✅ **Received final approval from the user**.
+- After completing the entire stage, mark STEP 3 in the roadmap as `[x]` (completed) and proceed to STEP 4.

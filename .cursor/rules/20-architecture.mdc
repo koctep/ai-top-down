@@ -1,37 +1,37 @@
-# ШАГ 2: Архитектурное проектирование высокого уровня
+# STEP 2: High-Level Architectural Design
 
-## Общий принцип
+## General Principle
 
-⚠️ **Переход к этому шагу возможен только после полного завершения Шага 1** и фиксации всех требований в `ai-tasks/<JIRA-TASK-ID>/10-requirements.md`. Изменения архитектуры должны опираться на уже согласованные требования. **ОБЯЗАТЕЛЬНО** учитывай особенности выбранного языка программирования из файла `.cursor/lsr/do-<language-name>.md`.
+⚠️ **Transition to this step is possible only after full completion of Step 1** and fixation of all requirements in `ai-tasks/<JIRA-TASK-ID>/10-requirements.md`. Architectural changes must be based on already agreed requirements. **MANDATORY** consider the features of the selected programming language from the file `.cursor/lsr/do-<language-name>.md`.
 
-## Цель
+## Goal
 
-Определить общую архитектуру системы, основные модули и их взаимодействие.
+Define the general system architecture, main modules, and their interaction.
 
-## Действия
+## Actions
 
-1. Пометить ШАГ 2 в roadmap (`ai-tasks/<JIRA-TASK-ID>/00-roadmap.md`) как `[/]` (начата работа).
-2. Разбить систему на основные модули/компоненты.
-3. Определить зависимости между модулями.
-4. Выбрать архитектурные паттерны.
-5. Определить основные интерфейсы между модулями.
-6. 📋 **Запросить ревью у пользователя** для проверки всех артефактов шага.
-7. После получения одобрения от пользователя пометить ШАГ 2 в roadmap как `[x]` (завершен).
+1. Mark STEP 2 in the roadmap (`ai-tasks/<JIRA-TASK-ID>/00-roadmap.md`) as `[/]` (work started).
+2. Break the system into main modules/components.
+3. Define dependencies between modules.
+4. Select architectural patterns.
+5. Define main interfaces between modules.
+6. 📋 **Request review from the user** to verify all step artifacts.
+7. After receiving approval from the user, mark STEP 2 in the roadmap as `[x]` (completed).
 
-## Артефакты
+## Artifacts
 
-- **Файл**: `ai-tasks/<JIRA-TASK-ID>/20-architecture.md`.
-- **Содержание**:
-  - Диаграмма модулей системы (текстовая или в формате Mermaid).
-  - Описание каждого модуля и его ответственности.
-  - Схема взаимодействия модулей.
-  - Выбранные архитектурные паттерны и обоснование.
-  - Определение основных интерфейсов/API между модулями.
+- **File**: `ai-tasks/<JIRA-TASK-ID>/20-architecture.md`.
+- **Content**:
+  - System module diagram (text or Mermaid format).
+  - Description of each module and its responsibility.
+  - Module interaction scheme.
+  - Selected architectural patterns and justification.
+  - Definition of main interfaces/APIs between modules.
 
-## Шаблон
+## Template
 
-Используй следующий шаблон для `ai-tasks/<JIRA-TASK-ID>/20-architecture.md`.
-🔍 **Важно**: В процессе заполнения секции `Исследования` необходимо использовать все доступные инструменты, включая `websearch`, для сбора актуальной информации.
+Use the following template for `ai-tasks/<JIRA-TASK-ID>/20-architecture.md`.
+🔍 **Important**: When filling out the `Research` section, you must use all available tools, including `websearch`, to gather up-to-date information.
 
 ```markdown
 # <TASK-ID>: <Short description of the task>
@@ -53,9 +53,9 @@ Describe architectural changes here.
 List of questions and answers. Add links if used.
 ```
 
-## Критерии завершения
+## Completion Criteria
 
-- Все модули определены и описаны.
-- Понятны зависимости между модулями.
-- Определены основные интерфейсы.
-- ✅ **Получено ревью и одобрение от пользователя** перед переходом к следующему шагу.
+- All modules defined and described.
+- Dependencies between modules are clear.
+- Main interfaces defined.
+- ✅ **Received review and approval from the user** before proceeding to the next step.
