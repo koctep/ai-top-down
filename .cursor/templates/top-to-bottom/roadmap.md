@@ -1,35 +1,35 @@
 # Roadmap: <JIRA-TASK-ID>
 
-## Статус выполнения шагов
+## Step Status
 
-- [ ] **ШАГ 1: Сбор и документирование требований**
-- [ ] **ШАГ 2: Архитектурное проектирование высокого уровня**
-- [ ] **ШАГ 3: Разработка**
-  - [ ] *[Здесь добавляются саммари выполненных итераций]*
-- [ ] **ШАГ 4: Ревью и технический долг**
+- [ ] **STEP 1: Requirements Gathering and Documentation**
+- [ ] **STEP 2: High-Level Architecture Design**
+- [ ] **STEP 3: Development**
+  - [ ] *[Add summaries of completed iterations here]*
+- [ ] **STEP 4: Review and Technical Debt**
 
-## Легенда статусов
+## Status Legend
 
-- `[ ]` — шаг не начат
-- `[/]` — работа над шагом начата (in progress)
-- `[x]` — шаг завершен
+- `[ ]` — step not started
+- `[/]` — step in progress
+- `[x]` — step completed
 
-## Артефакты
+## Artifacts
 
-### ШАГ 1: Требования
+### STEP 1: Requirements
 
 - `ai-tasks/<JIRA-TASK-ID>/10-requirements.md`
 
-### ШАГ 2: Архитектура
+### STEP 2: Architecture
 
 - `ai-tasks/<JIRA-TASK-ID>/20-architecture.md`
 
-### ШАГ 3: Разработка
+### STEP 3: Development
 
-- Исходный код
-- Тесты
-- Обновления документации
+- Source code
+- Tests
+- Documentation updates
 
-### ШАГ 4: Ревью
+### STEP 4: Review
 
 - `ai-tasks/<JIRA-TASK-ID>/40-tech-debt.md`

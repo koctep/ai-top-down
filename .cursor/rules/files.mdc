@@ -23,3 +23,4 @@ Read and follow the guidelines in the specific language file before making chang
 - **Line Length**: Maximum 100 characters. This global limit can ONLY be reduced (made stricter) by specific language rules, never increased.
 - **Trailing Whitespace**: Remove trailing whitespace from all lines.
 - **Final Newline**: Ensure a single newline at the end of the file.
+- **Language**: All code, comments, and documentation must be in English.

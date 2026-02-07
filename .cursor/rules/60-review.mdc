@@ -36,23 +36,23 @@
 
 ## Shortcuts Taken
 
-Опишите здесь любые "быстрые решения" или компромиссы, на которые пришлось пойти ради скорости разработки.
+Describe here any "quick fixes" or compromises made for the sake of development speed.
 
 ## Code Quality Issues
 
-Перечислите участки кода, которые можно улучшить (рефакторинг, нейминг, разбиение на функции).
+List code sections that can be improved (refactoring, naming, function breakdown).
 
 ## Missing Tests
 
-Укажите сценарии или модули, которые остались без тестового покрытия.
+Indicate scenarios or modules that remain without test coverage.
 
 ## Performance Concerns
 
-Опишите потенциальные проблемы с производительностью, если они есть.
+Describe potential performance issues, if any.
 
 ## Follow-up Tasks
 
-Список конкретных задач, которые нужно создать в будущем для устранения описанных проблем.
+List specific tasks that need to be created in the future to address the described issues.
 ```
 
 ## Критерии завершения

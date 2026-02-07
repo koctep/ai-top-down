@@ -38,27 +38,27 @@
 Когда задача понятна, создай файл, используя следующий шаблон (удалив комментарии):
 
 ```markdown
-# <TASK-ID>: <Краткое описание задачи>
+# <TASK-ID>: <Short description of the task>
 
-## Цели
+## Goals
 
-Раздел описывает, зачем нужна эта задача.
+This section describes why this task is needed.
 
-## Пользовательские истории
+## User Stories
 
-Раздел со списком пользовательских историй. Используй роли определенные в проекте (если применимо)
+Section with a list of user stories. Use roles defined in the project (if applicable).
 
-## Критерии готовности
+## Definition of Done
 
-Раздел описывает, когда задача считается выполненной (`done`), со списком критериев приемки.
+This section describes when the task is considered `done`, with a list of acceptance criteria.
 
-## Описание задачи
+## Task Description
 
-Этот раздел описывает проблему, цели и ограничения.
+This section describes the problem, goals, and constraints.
 
-## Вопросы и ответы
+## Q&A
 
-Список вопросов и ответов. Добавь ссылки, если использовались.
+List of questions and answers. Add links if used.
 ```
 
 ## Критерии завершения

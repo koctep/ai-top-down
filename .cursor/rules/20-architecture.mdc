@@ -34,23 +34,23 @@
 🔍 **Важно**: В процессе заполнения секции `Исследования` необходимо использовать все доступные инструменты, включая `websearch`, для сбора актуальной информации.
 
 ```markdown
-# <TASK-ID>: <Краткое описание задачи>
+# <TASK-ID>: <Short description of the task>
 
-## Исследования
+## Research
 
-Разместите здесь результаты исследований
+Place research results here.
 
-## План реализации
+## Implementation Plan
 
-Опишите высокоуровневый план реализации
+Describe the high-level implementation plan.
 
-## Архитектура
+## Architecture
 
-Опишите архитектурные изменения здесь
+Describe architectural changes here.
 
-## Вопросы и ответы
+## Q&A
 
-Список вопросов и ответов. Добавьте ссылки, если они использовались.
+List of questions and answers. Add links if used.
 ```
 
 ## Критерии завершения

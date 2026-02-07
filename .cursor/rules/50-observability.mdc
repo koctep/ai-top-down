@@ -64,46 +64,46 @@
 
 ### Added Logs
 
-Опишите добавленное логгирование:
-- **EMERG**: [местоположение] - [критические системные сбои]
-- **ALERT**: [местоположение] - [требует немедленного вмешательства]
-- **CRIT**: [местоположение] - [критические ошибки]
-- **ERR**: [местоположение] - [ошибки выполнения]
-- **WARNING**: [местоположение] - [предупреждения о потенциальных проблемах]
-- **NOTICE**: [местоположение] - [важные уведомления]
-- **INFO**: [местоположение] - [общая информация о работе]
-- **DEBUG**: [местоположение] - [отладочная информация]
+Describe added logging:
+- **EMERG**: [location] - [critical system failures]
+- **ALERT**: [location] - [immediate action required]
+- **CRIT**: [location] - [critical errors]
+- **ERR**: [location] - [execution errors]
+- **WARNING**: [location] - [potential issues warnings]
+- **NOTICE**: [location] - [significant notifications]
+- **INFO**: [location] - [general operational info]
+- **DEBUG**: [location] - [debug information]
 
 ### Log Structure
 
-Формат используемых логов:
-- Структурированные логи: [да/нет]
-- Включают контекст: [да/нет]
-- Уровни логирования: [перечислить используемые]
+Log format used:
+- Structured logs: [yes/no]
+- Includes context: [yes/no]
+- Log levels: [list used levels]
 
-## Metrics Implementation (если применимо)
+## Metrics Implementation (if applicable)
 
 ### Performance Metrics
 
-Добавленные метрики производительности:
-- **Response time**: [метрика] - [местоположение]
-- **Throughput**: [метрика] - [местоположение]
-- **Error rate**: [метрика] - [местоположение]
+Added performance metrics:
+- **Response time**: [metric] - [location]
+- **Throughput**: [metric] - [location]
+- **Error rate**: [metric] - [location]
 
 ### Business Metrics
 
-Бизнес-метрики:
-- [метрика]: [описание] - [местоположение]
+Business metrics:
+- [metric]: [description] - [location]
 
 ### System Health Metrics
 
-Метрики здоровья системы:
-- **Resource usage**: CPU, память, диск - [местоположение]
-- **Component status**: [компоненты] - [местоположение]
+System health metrics:
+- **Resource usage**: CPU, memory, disk - [location]
+- **Component status**: [components] - [location]
 
 ## Monitoring Integration
 
-Интеграция с системами мониторинга:
+Integration with monitoring systems:
 - [ ] Prometheus metrics
 - [ ] Grafana dashboards
 - [ ] Alerting rules
@@ -111,16 +111,16 @@
 
 ## Validation Results
 
-Результаты проверки:
-- [ ] Логи корректно форматированы
-- [ ] Метрики собираются правильно
-- [ ] Логгирование работает в error scenarios
-- [ ] В логах не выводятся большие структуры данных
-- [ ] Метрики доступны для мониторинга
+Validation results:
+- [ ] Logs are correctly formatted
+- [ ] Metrics are collected correctly
+- [ ] Logging works in error scenarios
+- [ ] Large data structures are not logged
+- [ ] Metrics are available for monitoring
 
 ## Notes
 
-Дополнительные замечания по наблюдаемости или особые случаи.
+Additional notes on observability or special cases.
 ```
 
 ## Критерии завершения

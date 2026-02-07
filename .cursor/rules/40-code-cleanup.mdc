@@ -52,36 +52,36 @@
 
 ## Linter Fixes
 
-Опишите исправленные ошибки и предупреждения линтера:
-- Исправлено: [описание проблемы]
-- Исправлено: [описание проблемы]
+Describe fixed linter errors and warnings:
+- Fixed: [description of the issue]
+- Fixed: [description of the issue]
 
 ## Code Formatting
 
-Примененные изменения форматирования:
-- [ ] Автоматическое форматирование кода
-- [ ] Исправление отступов и выравнивания
-- [ ] Коррекция длины строк
+Applied formatting changes:
+- [ ] Automatic code formatting
+- [ ] Indentation and alignment fixes
+- [ ] Line length correction
 
 ## Code Cleanup
 
-Выполненные действия по очистке:
-- Удалено неиспользуемых импортов: [количество]
-- Удалено неиспользуемых переменных: [количество]
-- Удален закомментированный код: [описание]
-- Удалены отладочные выводы: [местоположение]
+Cleanup actions performed:
+- Removed unused imports: [count]
+- Removed unused variables: [count]
+- Removed commented-out code: [description]
+- Removed debug prints: [location]
 
 ## Validation Results
 
-Результаты проверки:
-- [ ] Все тесты проходят
-- [ ] Нет конфликтов слияния
-- [ ] Синтаксис валиден
-- [ ] Типы корректны (если применимо)
+Validation results:
+- [ ] All tests passed
+- [ ] No merge conflicts
+- [ ] Syntax is valid
+- [ ] Types are correct (if applicable)
 
 ## Notes
 
-Дополнительные замечания или особые случаи, требующие внимания ревьюера.
+Additional notes or special cases requiring reviewer attention.
 ```
 
 ## Критерии завершения
