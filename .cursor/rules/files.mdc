@@ -13,6 +13,7 @@ When working with any file, ALWAYS check if there is a corresponding language gu
 - Markdown: `.cursor/lsr/do-markdown.md`
 - Erlang: `.cursor/lsr/do-erlang.md`
 - Kazoo: `.cursor/lsr/do-kazoo.md`
+- Flutter/Dart: `.cursor/lsr/do-flutter.md`
 
 Read and follow the guidelines in the specific language file before making changes.
 
