@@ -9,6 +9,7 @@
 - [ ] **STEP 4: Code Cleanup**
 - [ ] **STEP 5: Observability**
 - [ ] **STEP 6: Review and Technical Debt**
+- [ ] **STEP 7: Dev Docs**
 
 ## Status Legend
 
@@ -43,3 +44,7 @@
 ### STEP 6: Review
 
 - `ai-tasks/<JIRA-TASK-ID>/60-tech-debt.md`
+
+### STEP 7: Dev Docs
+
+- `doc/dev/`

@@ -2,7 +2,7 @@
 
 ## General Principle
 
-⚠️ **This step is the final stage of work on the task**. Before closing the task, it is necessary to honestly evaluate and document all trade-offs, assumptions, and technical debt that arose during the development process.
+⚠️ **This step is the technical debt analysis stage**. Before proceeding to documentation, it is necessary to honestly evaluate and document all trade-offs, assumptions, and technical debt that arose during the development process.
 
 ## Goal
 
@@ -18,10 +18,9 @@ Ensure long-term project maintainability by explicitly recording technical debt 
    - Deviations from the initial architecture
    - Hardcoded values
 3. Create file `ai-tasks/<JIRA-TASK-ID>/60-tech-debt.md`.
-4. Update developer documentation in `doc/dev`.
-5. Update user documentation in `doc`.
-6. 📋 **Request review from the user** to verify technical debt documentation.
-7. After receiving approval from the user, mark STEP 6 in the roadmap as `[x]` (completed).
+4. Update user documentation in `doc` (if applicable).
+5. 📋 **Request review from the user** to verify technical debt documentation.
+6. After receiving approval from the user, mark STEP 6 in the roadmap as `[x]` (completed) and proceed to STEP 7.
 
 ## Artifacts
 
@@ -58,4 +57,4 @@ List specific tasks that need to be created in the future to address the describ
 ## Completion Criteria
 
 - Technical debt file created and filled (even if there is no debt, this must be explicitly stated).
-- ✅ **Received review and approval from the user** to close the task.
+- ✅ **Received review and approval from the user** to proceed to STEP 7.
