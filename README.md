@@ -49,3 +49,27 @@ Each agent strictly performs their part of the work. Here is what the full cycle
    - Call them: `/agent team_lead perform final review and tech debt`
    - They will analyze technical debt (`60-tech-debt.md`), create developer docs (`70-dev-docs.md`), and formulate the final git commit with the correct message.
    - *Note: If at this stage the Team Lead finds critical tech debt, they will return the task back to the Senior/Junior engineers.*
+
+## How to Use the Agent Pipeline in Gemini CLI
+
+The process in Gemini CLI is largely autonomous (if running in YOLO mode) but follows the same core methodology via custom commands.
+
+### 1. Starting the Process
+Start a new task by calling the analyst command:
+
+```bash
+/analyst I want to add OAuth2 authentication functionality, task AUTH-123
+```
+
+### 2. The Handoff Flow
+In Gemini CLI, agents are configured to automatically trigger the next agent using commands. The flow works as follows:
+
+1. **Analyst (`/analyst`)** -> Will gather requirements and automatically call `/po`.
+2. **Product Owner (`/po`)** -> Will review requirements and automatically call `/senior`.
+3. **Senior Engineer (`/senior`)** -> Will prepare the architecture and call `/team_lead` for review.
+4. **Team Lead (`/team_lead`)** -> Will approve the architecture and call `/junior` to start coding.
+5. **Junior Engineer (`/junior`)** -> Will code iteratively, calling `/senior` for reviews. After cleanup, calls `/senior` for observability.
+6. **Senior Engineer (`/senior`)** -> Will add observability and call `/team_lead` for final steps.
+7. **Team Lead (`/team_lead`)** -> Will perform final reviews, write dev docs, and create the commit.
+
+*Note: For the best experience with this pipeline in Gemini CLI, ensure your CLI is configured to allow agents to execute commands autonomously, or be prepared to confirm the execution of the next command in the chain.*
