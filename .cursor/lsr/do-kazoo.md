@@ -178,10 +178,15 @@ function_test() ->
 ## Logging
 
 - Use macros: `?LOG_<DEBUG|INFO|NOTICE|WARNING|ERROR|CRITICAL|ALERT|EMERGENCY>`
-- // TODO: describe logging rules
+- **NEVER log large objects directly**: Do not print entire request/response payloads, big JSONs, or complex state records directly into the logs (e.g. `?LOG_DEBUG("req: ~p", [Req])` where `Req` contains `kapps_call` object). This pollutes the logs and creates performance issues.
+- **Log specific context**: Extract and log only the necessary fields and metadata that provide context (e.g., Scenario name, Provider, Call ID, etc.).
 
 ```erlang
+%% BAD: logs a huge list/object
 ?LOG_DEBUG("processing request: ~p", [Request])
+
+%% GOOD: logs only relevant parts
+?LOG_DEBUG("processing request for scenario ~ts with provider ~ts", [Scenario, Provider])
 ```
 
 ## Configuration
