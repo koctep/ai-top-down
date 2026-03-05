@@ -6,43 +6,21 @@
 - **Audience**: Write documentation for developers who will use or maintain the code.
 - **Clarity**: Keep descriptions short, precise, and to the point.
 
-## Code Documentation (Docstrings)
+## Code Documentation and Comments
 
-- **Use Docstrings**: Always use `"""` (triple double quotes) for docstrings, following [PEP 257](https://peps.python.org/pep-0257/).
-- **Document Public APIs**: Every public module, class, method, and function must have a docstring.
-- **Style Standard**: Use a consistent docstring format throughout the project. The **Google style** is recommended for readability.
-- **Summary Line**: The first line of a docstring should be a concise, single-sentence summary of the object's purpose, ending with a period. It should be written in the imperative mood (e.g., "Return the...", "Calculate...", not "Returns" or "Calculates").
-- **Parameters and Returns**: Clearly describe all arguments, keyword arguments, return values, and exceptions raised.
-
-### Example (Google Style)
-
-```python
-def fetch_data(url: str, timeout: int = 10) -> dict:
-    """Fetch data from the given URL and parse it as JSON.
-
-    Args:
-        url (str): The endpoint URL to fetch data from.
-        timeout (int, optional): The maximum time in seconds to wait for a response. Defaults to 10.
-
-    Returns:
-        dict: A dictionary containing the parsed JSON data.
-
-    Raises:
-        ConnectionError: If the server cannot be reached.
-        ValueError: If the response is not valid JSON.
-    """
-    pass
-```
+- **Self-Documenting Code**: Code must be clear, readable, and self-documenting. Use descriptive variable, function, and class names so that the code's intent is obvious without requiring additional explanation.
+- **No Redundant Comments**: Avoid using comments or docstrings to explain what the code does. The code should be clear enough that it doesn't need comments. If the code is too complex to understand without comments, refactor it to be simpler and more readable.
+- **Exceptions for Comments**: Comments should ONLY be used to explain the "why" behind complex business logic, non-obvious workarounds, or external constraints that cannot be expressed through code alone.
 
 ## Type Hinting
 
 - **Mandatory Typing**: Always use type hints ([PEP 484](https://peps.python.org/pep-0484/)) for all function signatures (arguments and return types) and class attributes.
-- **Clarity**: Type hints complement docstrings by providing static analysis benefits and making the code self-documenting.
+- **Clarity**: Type hints complement the self-documenting nature of the code by providing static analysis benefits.
 
 ## Code Examples
 
-- **Doctests**: For utility functions and complex logic, include examples in the docstring using the interactive Python console format (`>>>`). This allows testing the examples using `doctest`.
-- **Markdown Blocks**: For larger examples, use standard Markdown code blocks within docstrings or external documentation.
+- **Test Files**: For utility functions and complex logic, include examples in the test files rather than in docstrings.
+- **Markdown Blocks**: For larger examples, use standard Markdown code blocks within external documentation.
 
 ## Project-Level Documentation
 
@@ -90,5 +68,5 @@ classDiagram
 
 ## Maintenance and Code Review
 
-- **Update with Code**: Documentation is a living entity. You must update docstrings, type hints, and markdown files in the same commit where the relevant code changes.
-- **Review Requirement**: Reviewers must check documentation accuracy, docstring formats, and type hints as part of the standard PR review process.
+- **Update with Code**: Documentation is a living entity. You must update type hints and markdown files in the same commit where the relevant code changes.
+- **Review Requirement**: Reviewers must check documentation accuracy and type hints as part of the standard PR review process.
