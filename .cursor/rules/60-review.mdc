@@ -14,7 +14,7 @@ Ensure long-term project maintainability by explicitly recording technical debt 
 2. Analyze the implemented solution for:
    - Temporary solutions ("crutches")
    - Missing tests
-   - Tests missing explicit `@pytest.mark.timeout` markers (**BLOCKER** — see
+   - Tests missing explicit timeout markers for Python/pytest projects (**BLOCKER** — see
      `.cursor/lsr/do-testing.md`)
    - Areas requiring optimization
    - Deviations from the initial architecture
@@ -33,7 +33,7 @@ Ensure long-term project maintainability by explicitly recording technical debt 
 Use the following template for `ai-tasks/<JIRA-TASK-ID>/60-tech-debt.md`.
 
 ```markdown
-# <TASK-ID>: Technical Debt Analysis
+# <JIRA-TASK-ID>: Technical Debt Analysis
 
 ## Shortcuts Taken
 

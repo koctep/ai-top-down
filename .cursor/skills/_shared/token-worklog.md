@@ -44,7 +44,7 @@ Read `jira_add_worklog` schema before calling.
 
 ```text
 jira_add_worklog(
-  issue_key: "PYPOST-###",
+  issue_key: "<JIRA-TASK-ID>",
   time_spent: "<from convert_tokens_to_time_spent>",
   comment: "<markdown comment below>"
 )

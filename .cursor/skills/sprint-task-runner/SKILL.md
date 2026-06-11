@@ -6,10 +6,12 @@ description: Autonomously run one Jira sprint task end-to-end (Steps 1-7) with p
 # Sprint Task Runner
 
 Orchestrates one sprint task from Jira activation through commit and closure.
-Uses **Atlassian MCP** (`project-0-pypost-mcp-atlassian`) and the **top-down workflow**
+Uses **Atlassian MCP** (`<JIRA-MCP-SERVER>`) and the **top-down workflow**
 (`.cursor/skills/top-down-workflow/SKILL.md`).
 
-PYPOST board id: `34`.
+Board id: `<JIRA-BOARD-ID>`.
+
+Configure placeholders — see [jira-sprint-planning](../jira-sprint-planning/SKILL.md).
 
 ## Autonomous Mode (mandatory)
 
@@ -50,12 +52,13 @@ explicitly requests a batch.
 and passed a specific issue key, **skip steps 1–4** and use that key for steps 5–6.
 
 1. Read MCP tool schemas before calling.
-2. Find the sprint: `jira_get_sprints_from_board` (board `34`) or JQL `Sprint = <id>`.
+2. Find the sprint: `jira_get_sprints_from_board` (board `<JIRA-BOARD-ID>`) or JQL `Sprint = <id>`.
 3. Activate if needed: `jira_update_sprint` with `state: active`.
 4. List open sprint issues: JQL `Sprint = <id> AND status != Done ORDER BY priority DESC`.
 5. **Pick one task** — prefer highest-priority open issue that fits the sprint goal.
    Tell the user which task was chosen and why.
-6. Transition to In Progress: `jira_get_transitions` → `jira_transition_issue` (id `21`).
+6. Transition to In Progress: `jira_get_transitions` → `jira_transition_issue`
+   (id `<IN-PROGRESS-TRANSITION-ID>`).
    Do not pass `comment` unless using Atlassian Document Format.
 
 ---
@@ -112,7 +115,7 @@ Log worklog after each blocker-review and fix subagent (same orchestration rules
 
 After Step 6 completes, launch an **independent** review subagent (`readonly: true`):
 
-- Read `ai-tasks/<TASK-ID>/60-tech-debt.md` and the implementation
+- Read `ai-tasks/<JIRA-TASK-ID>/60-tech-debt.md` and the implementation
 - Classify each item: **BLOCKER** (must fix before close) or **NON-BLOCKER**
 - A blocker = broken/incomplete/unsafe relative to acceptance criteria, not deferred work
 
@@ -129,8 +132,9 @@ After Step 6 completes, launch an **independent** review subagent (`readonly: tr
 When **SAFE TO CLOSE**:
 
 1. For each follow-up in `60-tech-debt.md` **without** a Jira link, create an issue via
-   `jira_create_issue` (`project_key: PYPOST`, `issue_type: Debt`).
-2. Update `60-tech-debt.md` with `Jira: [PYPOST-###](https://pypost.atlassian.net/browse/PYPOST-###)`.
+   `jira_create_issue` (`project_key: <JIRA-PROJECT-KEY>`, `issue_type: <JIRA-DEBT-ISSUE-TYPE>`).
+2. Update `60-tech-debt.md` with
+   `Jira: [<JIRA-TASK-ID>](<JIRA-BASE-URL>/browse/<JIRA-TASK-ID>)`.
 3. Skip creating duplicates when a linked issue already exists.
 
 ---
@@ -151,22 +155,22 @@ Run the same **execution + review** pair as Phase B (with worklog after each sub
 2. Follow `.cursor/rules/99-commit.mdc`:
    - `git status` and `git diff`
    - Stage relevant files, commit with Conventional Commits + JIRA ID **on the current branch**
-   - Optionally record a suggested branch name in `ai-tasks/<TASK-ID>/00-roadmap.md`
+   - Optionally record a suggested branch name in `ai-tasks/<JIRA-TASK-ID>/00-roadmap.md`
      (reference only — for PR naming or future use)
-3. Transition Jira task to Done: `jira_transition_issue` (transition id `31`)
+3. Transition Jira task to Done: `jira_transition_issue` (transition id `<DONE-TRANSITION-ID>`)
 4. Report: commit hash, branch name, Jira URL, `worklog_count`, `total_tokens`, remaining
    sprint tasks
 
 **Do not** run `git checkout -b`, `git switch`, or otherwise create/switch branches. The project
-commits directly on the working branch (e.g. `master`).
+commits directly on the working branch (e.g. `main`).
 
 ---
 
 ## Subagent Prompt Template
 
 ```markdown
-Task: PYPOST-### — Step N (<step name>)
-Repo: /Users/il/src/pypost
+Task: <JIRA-TASK-ID> — Step N (<step name>)
+Repo: <REPO-PATH>
 
 Rule file: .cursor/rules/<NN>-*.mdc (read before acting)
 Language guide: .cursor/lsr/do-python.md
@@ -174,7 +178,7 @@ Language guide: .cursor/lsr/do-python.md
 Jira summary: ...
 Jira description: ...
 
-Execute ONLY Step N. Update ai-tasks/PYPOST-###/00-roadmap.md ([/] → [x]).
+Execute ONLY Step N. Update ai-tasks/<JIRA-TASK-ID>/00-roadmap.md ([/] → [x]).
 Do NOT ask the user for approval — sprint-task-runner is fully autonomous.
 Return: summary, files changed, test results, issues found.
 

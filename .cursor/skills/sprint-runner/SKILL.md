@@ -12,7 +12,9 @@ description: >-
 Orchestrates a **full sprint lifecycle**: discover sprints → select → start → run every
 open task via [sprint-task-runner](../sprint-task-runner/SKILL.md) → close sprint.
 
-Uses **Atlassian MCP** (`project-0-pypost-mcp-atlassian`). PYPOST board id: `34`.
+Uses **Atlassian MCP** (`<JIRA-MCP-SERVER>`). Board id: `<JIRA-BOARD-ID>`.
+
+Configure placeholders — see [jira-sprint-planning](../jira-sprint-planning/SKILL.md).
 
 ## Autonomous Mode (mandatory)
 
@@ -45,7 +47,7 @@ Sprint run:
 ## Phase 1: Discover Sprints
 
 1. Read MCP tool schemas before calling.
-2. Fetch sprints from board `34`:
+2. Fetch sprints from board `<JIRA-BOARD-ID>`:
    - `jira_get_sprints_from_board` with `state: future` (paginate with `start_at` / `limit`)
    - `jira_get_sprints_from_board` with `state: active`
 3. For each candidate sprint, count **open** issues:
@@ -83,7 +85,7 @@ short message, then **proceed without waiting**.
 
 1. If the chosen sprint is already `active`, skip activation.
 2. If the chosen sprint is `future`:
-   - Check for another `active` sprint on board `34`.
+   - Check for another `active` sprint on board `<JIRA-BOARD-ID>`.
    - If an active sprint has open issues → **stop** and report the conflict (do not
      auto-close another team's active sprint).
    - If the active sprint has **no** open issues → close it:
@@ -111,7 +113,8 @@ Read `.cursor/skills/sprint-task-runner/SKILL.md` and execute it for **one** iss
 
 - **Skip** sprint-task-runner Phase A steps 1–4 (sprint already selected and active).
 - **Do** Phase A step 5–6 for the chosen issue key:
-  - Transition to In Progress: `jira_get_transitions` → `jira_transition_issue` (id `21`).
+  - Transition to In Progress: `jira_get_transitions` → `jira_transition_issue`
+    (id `<IN-PROGRESS-TRANSITION-ID>`).
   - Do not pass `comment` unless using Atlassian Document Format.
 - **Run** sprint-task-runner Phases B → F end-to-end for that issue.
 
@@ -119,9 +122,9 @@ Pick the **first** issue from the JQL result (highest priority).
 
 ### 4.3 After each task
 
-- Confirm the issue reached Done (transition id `31` from Phase F).
+- Confirm the issue reached Done (transition id `<DONE-TRANSITION-ID>` from Phase F).
 - Log a one-line progress note:
-  `PYPOST-### done ({worklog_entries} worklogs, {total_tokens} tokens, <n> remaining)`.
+  `<JIRA-TASK-ID> done ({worklog_entries} worklogs, {total_tokens} tokens, <n> remaining)`.
 - **Immediately** start the next open task — no user gate.
 - On **hard blocker** from sprint-task-runner: stop the loop, leave sprint **active**,
   report blocker + remaining issues. Do **not** close the sprint.
@@ -146,15 +149,15 @@ When JQL returns **zero** open issues:
 
 | Action | Tool | Key args |
 |--------|------|----------|
-| List sprints | `jira_get_sprints_from_board` | `board_id: "34"`, `state` |
+| List sprints | `jira_get_sprints_from_board` | `board_id: "<JIRA-BOARD-ID>"`, `state` |
 | Open issues | `jira_search` | `Sprint = <id> AND statusCategory != Done` |
 | Activate | `jira_update_sprint` | `state: active` |
 | Close | `jira_update_sprint` | `state: closed` |
-| Start work | `jira_transition_issue` | transition id `21` |
-| Finish issue | `jira_transition_issue` | transition id `31` |
+| Start work | `jira_transition_issue` | transition id `<IN-PROGRESS-TRANSITION-ID>` |
+| Finish issue | `jira_transition_issue` | transition id `<DONE-TRANSITION-ID>` |
 | Log work | `jira_add_worklog` | `time_spent`, `comment` (orchestrator only) |
 
-Sprint custom field id: `customfield_10020` (for spot-checks via `jira_get_issue`).
+Sprint custom field id: `<JIRA-SPRINT-CUSTOM-FIELD-ID>` (for spot-checks via `jira_get_issue`).
 
 ---
 

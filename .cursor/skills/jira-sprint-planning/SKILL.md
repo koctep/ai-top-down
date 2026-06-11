@@ -1,9 +1,24 @@
 ---
 name: jira-sprint-planning
-description: Analyze Jira backlog, propose sprint topics, create future sprints, and assign issues via Atlassian MCP. Use when the user asks to plan sprints, analyze PYPOST backlog, propose sprint themes, create Jira sprints, or add issues to sprints.
+description: Analyze Jira backlog, propose sprint topics, create future sprints, and assign issues via Atlassian MCP. Use when the user asks to plan sprints, analyze backlog, propose sprint themes, create Jira sprints, or add issues to sprints.
 ---
 
-# Jira Sprint Planning (PYPOST)
+# Jira Sprint Planning
+
+Configure placeholders for your Jira instance before use:
+
+| Placeholder | Meaning | Example |
+| --- | --- | --- |
+| `<JIRA-MCP-SERVER>` | Atlassian MCP server id | `user-mcp-atlassian` |
+| `<JIRA-PROJECT-KEY>` | Jira project key | `PROJ` |
+| `<JIRA-TASK-ID>` | Full issue key | `PROJ-123` |
+| `<JIRA-BOARD-ID>` | Agile board id | `12` |
+| `<JIRA-BASE-URL>` | Jira instance base URL | `https://your-org.atlassian.net` |
+| `<JIRA-SPRINT-CUSTOM-FIELD-ID>` | Sprint custom field id | `customfield_XXXXX` |
+| `<JIRA-DEBT-ISSUE-TYPE>` | Issue type for tech-debt follow-ups | `Debt`, `Task` |
+| `<IN-PROGRESS-TRANSITION-ID>` | Transition id → In Progress | `21` |
+| `<DONE-TRANSITION-ID>` | Transition id → Done | `31` |
+| `<REPO-PATH>` | Local path to the target repository | `/path/to/repo` |
 
 ## Quick Start
 
@@ -17,19 +32,19 @@ When the user asks to analyze backlog and plan sprints:
 
 ## MCP Server
 
-Use `project-0-pypost-mcp-atlassian`.
+Use `<JIRA-MCP-SERVER>`.
 
-PYPOST board id: `34` (`PYPOST board`).
+Board id: `<JIRA-BOARD-ID>` (`<JIRA-PROJECT-KEY> board`).
 
 ## Backlog Analysis
 
 ```jql
-project = PYPOST AND statusCategory != Done ORDER BY priority DESC, updated DESC
+project = <JIRA-PROJECT-KEY> AND statusCategory != Done ORDER BY priority DESC, updated DESC
 ```
 
 Also fetch:
 
-- `jira_get_agile_boards` with `project_key: PYPOST`
+- `jira_get_agile_boards` with `project_key: <JIRA-PROJECT-KEY>`
 - `jira_get_sprints_from_board` for `active`, `future`, and recent `closed` sprints
 
 Paginate with `page_token` when `next_page_token` is present. Sample at least 100–150 open issues before proposing topics.
@@ -40,10 +55,10 @@ Group by coherent themes, not random priority slices:
 
 | Cluster signal | Examples |
 |---|---|
-| Recent feature follow-ups | Environment UX, secrets/masking, collections/tree |
+| Recent feature follow-ups | Subsystem UX polish, security hardening, tree/list correctness |
 | Shared labels | `tech-debt`, `security`, `testing`, `ui` |
-| Parent/source ticket in summary | `[PYPOST-447]`, `[PYPOST-163]`, `[PYPOST-35]` |
-| Cross-cutting debt | MainWindow growth, missing integration tests |
+| Parent/source ticket in summary | `[<JIRA-TASK-ID>]`, `[<JIRA-TASK-ID>]` |
+| Cross-cutting debt | Large component growth, missing integration tests |
 
 Prefer themes that:
 
@@ -64,7 +79,7 @@ Present exactly **3 topics**. For each:
 1. **Sprint name** (≤ 30 chars — Jira limit)
 2. **Goal** (1 sentence)
 3. **Why now** (link to recent closed sprints or fresh backlog cluster)
-4. **Candidate issues** (explicit `PYPOST-###` keys)
+4. **Candidate issues** (explicit `<JIRA-TASK-ID>` keys)
 5. **Expected outcome**
 
 If the user asked for analysis only, stop after the proposal. Do not create sprints until they confirm.
@@ -104,8 +119,8 @@ Use `jira_add_issues_to_sprint`:
 
 ```json
 {
-  "sprint_id": "268",
-  "issue_keys": "PYPOST-498,PYPOST-494,PYPOST-493"
+  "sprint_id": "<sprint-id>",
+  "issue_keys": "<JIRA-TASK-ID>,<JIRA-TASK-ID>,<JIRA-TASK-ID>"
 }
 ```
 
@@ -123,18 +138,18 @@ After adding issues:
 2. Verify with JQL:
 
 ```jql
-Sprint = 268 ORDER BY key ASC
+Sprint = <sprint-id> ORDER BY key ASC
 ```
 
 3. Spot-check individual issues when JQL is slow:
 
 ```text
-jira_get_issue with fields: summary,customfield_10020
+jira_get_issue with fields: summary,<JIRA-SPRINT-CUSTOM-FIELD-ID>
 ```
 
-Sprint field id: `customfield_10020`.
+Sprint field id: `<JIRA-SPRINT-CUSTOM-FIELD-ID>`.
 
-`jira_get_sprint_issues` may return empty for future sprints immediately after assignment — treat JQL + `customfield_10020` as source of truth.
+`jira_get_sprint_issues` may return empty for future sprints immediately after assignment — treat JQL + `<JIRA-SPRINT-CUSTOM-FIELD-ID>` as source of truth.
 
 Report final counts per sprint and list issue keys.
 
@@ -142,17 +157,17 @@ Report final counts per sprint and list issue keys.
 
 Use as starting points, then adapt to current backlog:
 
-### 1. Environment Management UX
+### 1. Feature UX Polish
 
-Typical candidates: inline rename/edit cleanup, delete confirmation, dialog sync/validation, variable naming helper/tests.
+Typical candidates: inline edit cleanup, delete confirmation, dialog sync/validation, naming helper/tests.
 
-### 2. Secrets and Storage Hardening
+### 2. Security and Storage Hardening
 
-Typical candidates: key provider chain, encryption settings UI, storage adapter refactor, async crypto, masking/logging integration tests.
+Typical candidates: credential provider chain, encryption settings UI, storage adapter refactor, async crypto, masking/logging integration tests.
 
-### 3. Collections / Request Tree Correctness
+### 3. Data Structure / Navigation Correctness
 
-Typical candidates: stable collection identity, stale-tab reconciliation after delete, incremental tree updates, MainWindow extraction, delete/rename regression tests.
+Typical candidates: stable entity identity, stale-state reconciliation after delete, incremental tree updates, large component extraction, delete/rename regression tests.
 
 ## Related Skills
 

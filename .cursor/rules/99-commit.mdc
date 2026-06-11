@@ -28,13 +28,13 @@ Use the following format for branch names:
 ### Components
 
 1. **type**: Type of changes matching the commit type (feature, fix, refactoring, etc.).
-2. **JIRA-TASK-ID**: Task ID from the tracker (e.g., `PYPOST-15`).
+2. **JIRA-TASK-ID**: Task ID from the tracker (e.g., `<JIRA-PROJECT-KEY>-15`).
 3. **short-description**: Short description of changes in English in `kebab-case`.
 
 ### Examples
 
-- `feature/PYPOST-15-login-validation`
-- `fix/PYPOST-42-timeout-error`
+- `feature/<JIRA-TASK-ID>-login-validation`
+- `fix/<JIRA-TASK-ID>-timeout-error`
 - `refactoring/async-db-driver`
 
 ## Formatting Rules (Conventional Commits)
@@ -64,7 +64,8 @@ Format:
 
 ### Subject Requirements
 
-1. **JIRA ID**: At the beginning of the description, mandatory specify the task ID (e.g., `PYPOST-15`).
+1. **JIRA ID**: At the beginning of the description, mandatory specify the task ID
+   (e.g., `<JIRA-TASK-ID>`).
 2. **Imperative**: Use imperative mood: "Add feature", not "Added feature".
 3. **No period**: Do not put a period at the end of the subject.
 4. **Brevity**: First line (including type and ID) should not exceed **72 characters**.
@@ -82,17 +83,17 @@ Format:
 ### Examples
 
 ```bash
-git commit -m "feature(user): PYPOST-15 add login validation"
+git commit -m "feature(user): <JIRA-TASK-ID> add login validation"
 ```
 
 ```bash
-git commit -m "fix(api): PYPOST-42 handle timeout error correctly"
+git commit -m "fix(api): <JIRA-TASK-ID> handle timeout error correctly"
 ```
 
 With message body:
 
 ```bash
-git commit -m "refactoring(core): PYPOST-20 switch to async database driver
+git commit -m "refactoring(core): <JIRA-TASK-ID> switch to async database driver
 
 This change improves performance under high load by avoiding blocking calls.
 

@@ -3,32 +3,33 @@
 ## Scope
 
 This file defines **rules for AI agents writing and running automated pytest tests** in
-PyPost. It is **not** a manual-only verification checklist and does **not** replace the
+`<PROJECT-NAME>`. It is **not** a manual-only verification checklist and does **not** replace the
 project test suite or CI.
 
 | Document | Audience | Covers |
 | --- | --- | --- |
-| **This file** (`.cursor/lsr/do-testing.md`) | Cursor AI agents | Per-test timeouts, bounded waits, Qt patterns, `caplog` contract |
-| [`doc/dev/testing.md`](../doc/dev/testing.md) | Developers and CI | `make test`, pytest.ini, coverage, guardrails, MCP/Prometheus checks |
+| **This file** (`.cursor/lsr/do-testing.md`) | Cursor AI agents | Per-test timeouts, bounded waits, GUI/event-loop patterns, `caplog` contract |
+| [`doc/dev/testing.md`](../doc/dev/testing.md) | Developers and CI | `make test`, pytest.ini, coverage, guardrails |
 
-Run the automated suite with `make test` (see `doc/dev/testing.md`). Rules here apply when
-**authoring or editing tests**, not instead of pytest.
+Run the automated suite with `make test` (see project testing docs when present). Rules here
+apply when **authoring or editing tests**, not instead of pytest.
 
-## Documentation sync (PYPOST-371)
+## Documentation sync
 
-When you change testing rules in **this file**, update the matching section in
-`doc/dev/testing.md` in the same PR (or open a follow-up Debt issue). Keep these pairs aligned:
+When you change testing rules in **this file**, update the matching section in the project's
+developer testing docs (e.g. `doc/dev/testing.md`) in the same PR (or open a follow-up Debt
+issue). Keep these pairs aligned:
 
-| Topic in `do-testing.md` | Mirror in `doc/dev/testing.md` |
+| Topic in `do-testing.md` | Mirror in project testing docs |
 | --- | --- |
 | Per-test timeout (mandatory) | § Per-test timeouts |
-| Qt / event-loop tests | § GUI / Qt widget tests |
+| GUI / event-loop tests | § GUI / widget tests |
 | Running tests (`make test`) | § Makefile automation tests, pytest commands |
 | `caplog` contract (error-path tests) | § Error-path test logging, § CI guardrails |
 | References | § References (cross-links) |
 
-When you change **developer-facing** pytest/CI docs in `doc/dev/testing.md`, verify agent
-rules here still match (timeouts, caplog, exit-code policy).
+When you change **developer-facing** pytest/CI docs, verify agent rules here still match
+(timeouts, caplog, exit-code policy).
 
 ## General Principles
 
@@ -76,7 +77,7 @@ markers.
 | Test kind | Suggested timeout (seconds) |
 | --------- | --------------------------- |
 | Pure unit (mocked I/O) | 10–30 |
-| Qt widget / presenter | 30–60 |
+| GUI widget / presenter | 30–60 |
 | Integration / e2e / benchmark | 60–120 |
 
 When in doubt, start conservative and lower only after the suite is stable.
@@ -86,38 +87,37 @@ When in doubt, start conservative and lower only after the suite is stable.
 Timeouts on the test function do not replace bounded waits inside the test body:
 
 - `threading.Event.wait(timeout=...)` — always pass `timeout`
-- Qt event loops — use a `QTimer` with a maximum duration (see `_process_until` in
-  `tests/test_env_storage_responsiveness.py`)
+- GUI event loops — use a timer with a maximum duration (see project test helpers)
 - Polling loops — include a deadline or iteration cap
 
-## Qt / Event-Loop Tests
+## GUI / Event-Loop Tests
 
-When a test runs the Qt event loop on the main thread, use the default signal-based
-timeout — do **not** use `method="thread"` (it can segfault while `QEventLoop.exec()` is
+When a test runs a GUI event loop on the main thread, use the default signal-based
+timeout — do **not** use `method="thread"` (it can segfault while the event loop is
 running):
 
 ```python
 pytestmark = pytest.mark.timeout(60)
 ```
 
-Combine with bounded internal waits (`QTimer`, `_process_until`) so event-loop polling
-cannot run forever even if the outer timeout is generous.
+Combine with bounded internal waits so event-loop polling cannot run forever even if the
+outer timeout is generous.
 
 ## Running Tests
 
 - Run the project test target (`make test`) after adding or changing tests — this executes the
-  full automated pytest suite documented in `doc/dev/testing.md`.
+  full automated pytest suite documented in project testing docs.
 - Fix timeout failures by correcting hangs or raising the explicit mark — never by removing
   the marker.
 
-## Error-path logging (`caplog` contract, PYPOST-574)
+## Error-path logging (`caplog` contract)
 
 Tests that deliberately trigger production ERROR logs must satisfy **one** of:
 
 | Rule | Requirement |
 | --- | --- |
 | **C1** | Assert expected log lines with `caplog.at_level(logging.ERROR, logger="...")` |
-| **C2** | Register the message prefix in `tests/expected_log_allowlist.yaml` (same PR) |
+| **C2** | Register the message prefix in the project's expected-log allowlist (same PR) |
 | **C3** | Keep strong behavioral assertions (signals, metrics, exceptions) as primary |
 | **C4** | Do not rely on live `log_cli` output alone — caplog or allowlist required for new ERROR paths |
 | **C5** | One caplog block per logger under test; match structured event prefixes when possible |
@@ -128,7 +128,7 @@ Example:
 def test_worker_logs_unexpected_error(caplog):
     import logging
 
-    with caplog.at_level(logging.ERROR, logger="pypost.core.worker"):
+    with caplog.at_level(logging.ERROR, logger="<package>.<module>.<component>"):
         worker.run()
     assert any("unexpected error" in r.message for r in caplog.records)
 ```

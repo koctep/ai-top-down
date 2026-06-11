@@ -58,7 +58,7 @@ Add necessary logging and metrics to ensure application observability in product
 Use the following template for `ai-tasks/<JIRA-TASK-ID>/50-observability.md`:
 
 ```markdown
-# <TASK-ID>: Observability Implementation
+# <JIRA-TASK-ID>: Observability Implementation
 
 ## Logging Implementation
 

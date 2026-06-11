@@ -44,7 +44,7 @@ Create a single document with a full description of business tasks and functiona
 When the task is clear, create a file using the following template (removing comments):
 
 ```markdown
-# <TASK-ID>: <Short description of the task>
+# <JIRA-TASK-ID>: <Short description of the task>
 
 ## Goals
 

@@ -9,7 +9,7 @@
 
 ## Project Structure
 
-- **MANDATORY**: all project files must be located in `app-name/` directory (where `app-name` is the application name)
+- **MANDATORY**: all project files must be located in `<APP-NAME>/` directory
 - Modules in `.py` files
 - Packages via directories with `__init__.py`
 - Tests in `tests/` or `test_*.py` files
@@ -81,7 +81,7 @@ def function_name(arg: Type) -> ReturnType:
   	. venv/bin/activate && pip install -r requirements.txt
 
   run:
-  	. venv/bin/activate && python app-name/main.py
+  	. venv/bin/activate && python <APP-NAME>/main.py
   ```
 - Activation: `source venv/bin/activate` (Linux/Mac) or `venv\Scripts\activate` (Windows)
 

@@ -10,7 +10,7 @@ You need to act as a "dispatcher" and reviewer: launch the necessary agent, answ
 Start a new task by calling the main analyst agent and giving them the essence of the task in the terminal with Claude Code running:
 
 ```bash
-/agent analyst I want to add OAuth2 authentication functionality, task AUTH-123
+/agent analyst I want to add OAuth2 authentication functionality, task <JIRA-TASK-ID>
 ```
 
 ### 2. The Handoff Flow
@@ -58,7 +58,7 @@ The process in Gemini CLI is largely autonomous (if running in YOLO mode) but fo
 Start a new task by calling the analyst command:
 
 ```bash
-/analyst I want to add OAuth2 authentication functionality, task AUTH-123
+/analyst I want to add OAuth2 authentication functionality, task <JIRA-TASK-ID>
 ```
 
 ### 2. The Handoff Flow

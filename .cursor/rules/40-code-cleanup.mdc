@@ -32,7 +32,7 @@ Prepare code for review by cleaning, formatting, and fixing technical issues so 
 
 4. **Quality Check**
    - Ensure all tests pass
-   - Verify every test has an explicit timeout marker (see `.cursor/lsr/do-testing.md`)
+   - Verify every test has an explicit timeout marker for Python/pytest projects (see `.cursor/lsr/do-testing.md`)
    - Check for absence of merge conflicts
    - Validate syntax and types (if applicable)
 
@@ -49,7 +49,7 @@ Prepare code for review by cleaning, formatting, and fixing technical issues so 
 Use the following template for `ai-tasks/<JIRA-TASK-ID>/40-code-cleanup.md`:
 
 ```markdown
-# <TASK-ID>: Code Cleanup Report
+# <JIRA-TASK-ID>: Code Cleanup Report
 
 ## Linter Fixes
 

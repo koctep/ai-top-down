@@ -34,7 +34,7 @@ Use the following template for `ai-tasks/<JIRA-TASK-ID>/20-architecture.md`.
 🔍 **Important**: When filling out the `Research` section, you must use all available tools, including `websearch`, to gather up-to-date information.
 
 ```markdown
-# <TASK-ID>: <Short description of the task>
+# <JIRA-TASK-ID>: <Short description of the task>
 
 ## Research
 
