@@ -43,7 +43,9 @@ During development, **MANDATORY** ensure code quality:
 
 2. **Testing**
    - Write tests for new functionality
-   - Run existing tests before each change
+   - **MANDATORY**: every new or changed test must have an explicit
+     `@pytest.mark.timeout(...)` or module/class `pytestmark` (see `.cursor/lsr/do-testing.md`)
+   - Run existing tests before each change (e.g. `make test`)
    - Ensure all tests pass
 
 3. **Code review**

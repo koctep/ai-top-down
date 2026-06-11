@@ -50,6 +50,8 @@ def function_name(arg: Type) -> ReturnType:
 - **pytest**: popular alternative framework
 - **mock/unittest.mock**: for mocks and stubs
 - **coverage**: for measuring code coverage
+- **MANDATORY**: every test must declare `@pytest.mark.timeout(...)` or module/class
+  `pytestmark` — see `.cursor/lsr/do-testing.md` for full rules
 
 ## Typing
 

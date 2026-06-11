@@ -1,0 +1,26 @@
+---
+alwaysApply: true
+---
+# Makefile Standard Workflows
+
+## General Principle
+Standardize build, test, analysis, and dependency operations across the Dokio workspace using the root `Makefile` as the primary interface.
+
+## Rules for Developers and AI Agents
+
+### 1. Use Makefile Commands by Default
+Whenever you need to run common workspace commands, ALWAYS prefer the corresponding `make` target over raw `flutter` or `dart` commands:
+- **Dependency Resolution**: Use `make deps` instead of `flutter pub get`.
+- **Static Analysis**: Use `make analyze` instead of `flutter analyze`.
+- **Testing**: Use `make test` instead of `flutter test` or package-specific test runs.
+- **Convenience Quality Gate**: Use `make check` to run both `analyze` and `test`.
+- **Building**: Use `make build` instead of `flutter build apk`.
+- **Running**: Use `make run` instead of `flutter run`.
+
+### 2. Extensibility
+- If a task requires a new repeatable build, test, verification, or code generation workflow, add a target for it in the root `Makefile` and document it in the `help` target.
+- Do not document or use one-off shell commands in rules or developer docs when they can be represented as a clean `Makefile` target.
+
+### 3. Self-Documenting
+- Every target in the `Makefile` must have a description comment starting with `##` on the same line.
+- The `make help` command (and the default target) must parse and print these comments.

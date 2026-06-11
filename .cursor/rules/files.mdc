@@ -17,6 +17,9 @@ When working with any file, ALWAYS check if there is a corresponding language gu
 
 Read and follow the guidelines in the specific language file before making changes.
 
+When editing test files (`tests/**`, `test_*.py`, `*_test.py`), also read
+`.cursor/lsr/do-testing.md` for mandatory per-test timeout rules.
+
 ## General Principles
 
 - **Encoding**: Use UTF-8.
