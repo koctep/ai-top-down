@@ -39,11 +39,13 @@ During development, **MANDATORY** ensure code quality:
 
 1. **Static Code Analysis**
    - Use linters and static analyzers for the selected programming language
+   - For flake8 checks on retry/settings files, use `scripts/lint.sh`
    - Fix all warnings before requesting a review
 
 2. **Testing**
    - Write tests for new functionality
    - Run existing tests before each change
+   - For retry/settings related test runs, use `scripts/test.sh`
    - Ensure all tests pass
 
 3. **Code review**

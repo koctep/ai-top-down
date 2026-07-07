@@ -11,6 +11,7 @@
 ## Goal
 
 Create a single document with a full description of business tasks and functional requirements.
+
 - **Focus**: Business value, user needs, and functional scope.
 - **Exclude**: Technical implementation details, architecture diagrams, and tech stack decisions (except for the high-level language choice if mandated).
 
@@ -25,6 +26,7 @@ Create a single document with a full description of business tasks and functiona
 7. Identify main entities and their interactions (business entities, not database tables).
 8. 📋 **Request review from user** to verify all step artifacts.
 9. After receiving approval from the user mark STEP 1 in roadmap as `[x]` (completed).
+10. Before requesting review, run `scripts/check-line-length.sh` for updated artifacts.
 
 ## Artifacts
 
@@ -76,3 +78,4 @@ List of questions and answers. Add links if used.
 - No technical/architectural solutions present.
 - Main system components defined at a high level (business domain).
 - ✅ **Received review and approval from user** before proceeding to the next step.
+- ✅ Line length of changed files validated via `scripts/check-line-length.sh`.

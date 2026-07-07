@@ -1,6 +1,7 @@
 # Top-Down AI Development Pipeline
 
-This repository uses the "Top-Down" methodology and a role-based agent model for development with Claude Code. The process is broken down into strict steps, each executed by a specialized subagent.
+This repository uses the "Top-Down" methodology and a role-based agent model for AI-assisted
+development. The process is broken down into strict steps, each executed by a specialized role.
 
 ## How to Use the Agent Pipeline in Claude Code
 
@@ -73,3 +74,84 @@ In Gemini CLI, agents are configured to automatically trigger the next agent usi
 7. **Team Lead (`/team_lead`)** -> Will perform final reviews, write dev docs, and create the commit.
 
 *Note: For the best experience with this pipeline in Gemini CLI, ensure your CLI is configured to allow agents to execute commands autonomously, or be prepared to confirm the execution of the next command in the chain.*
+
+## How to Use the Agent Pipeline in Codex
+
+In Codex, the default workflow is manual: you keep a single session open and explicitly tell
+Codex which role to execute next. Codex should only perform the responsibilities of the current
+role and then stop for review or handoff.
+
+Autonomous execution is allowed only when you explicitly request it. If you do not clearly say
+that Codex must work autonomously, the default manual handoff behavior remains in effect.
+
+### 1. Starting the Process
+
+Start a new task by asking Codex to act as the analyst and provide the task context:
+
+```text
+Act as the analyst for task AUTH-123. Gather requirements only, follow the repository rules,
+and create ai-tasks/AUTH-123/00-roadmap.md and ai-tasks/AUTH-123/10-requirements.md.
+```
+
+### 2. The Handoff Flow
+
+Each role is invoked with a direct prompt in the same Codex session:
+
+1. **Analyst**
+   - Gathers requirements from you.
+   - Creates `00-roadmap.md` and `10-requirements.md`.
+   - Stops after requirements are complete.
+
+2. **Product Owner**
+   - Prompt Codex to review requirements as the Product Owner.
+   - Checks `10-requirements.md` for business logic, scope, and absence of technical design.
+
+3. **Senior Engineer**
+   - Prompt Codex to prepare architecture as the Senior Engineer.
+   - Creates `20-architecture.md`.
+
+4. **Team Lead**
+   - Prompt Codex to review architecture as the Team Lead.
+   - Verifies compliance with project rules.
+
+5. **Junior Engineer**
+   - Prompt Codex to implement the feature as the Junior Engineer.
+   - Works in small iterations and stops after each iteration for Senior review.
+   - Performs cleanup and creates `40-code-cleanup.md` when implementation is complete.
+
+6. **Senior Engineer again**
+   - Prompt Codex to review the latest iteration or add observability.
+   - Creates `50-observability.md` after implementation is done.
+
+7. **Final step: Team Lead**
+   - Prompt Codex to perform final review, tech debt analysis, and developer docs.
+   - Produces `60-review.md`, `70-dev-docs.md`, and the final commit message proposal.
+
+### 3. Autonomous Mode
+
+If you want Codex to execute the full pipeline without waiting between roles, say so explicitly.
+For example:
+
+```text
+Work in autonomous mode for task AUTH-123.
+Follow CODEX.md and the .cursor/rules/ files.
+Run the full Top-Down workflow end-to-end and stop only if a required business decision is
+missing.
+```
+
+Without an explicit request like `work autonomously`, `run end-to-end autonomously`, or
+`autonomous mode`, Codex should stay in manual handoff mode.
+
+### 4. Recommended Prompt Pattern
+
+Use prompts in this format to keep the handoffs explicit:
+
+```text
+Act as the <ROLE> for task <JIRA-ID>.
+Read the relevant rules in .cursor/rules/.
+Only perform the responsibilities of this role.
+If the step is complete, summarize the result and stop.
+```
+
+This keeps the Codex workflow aligned with the same Top-Down process used in Claude Code and
+Gemini CLI, but without requiring slash-command agents.

@@ -39,6 +39,11 @@ Prepare code for review by cleaning, formatting, and fixing technical issues so 
    - Create file `ai-tasks/<JIRA-TASK-ID>/40-code-cleanup.md`
    - Document cleanup actions performed
 
+6. **Review Changes for Overly Verbose Implementation**
+   - Review the final diff before handoff to ensure implementation is concise
+   - Identify places where logic is correct but expressed with unnecessary complexity
+   - Add findings and concrete simplification proposals to the cleanup artifact
+
 ## Artifacts
 
 - **File**: `ai-tasks/<JIRA-TASK-ID>/40-code-cleanup.md`
@@ -79,6 +84,16 @@ Validation results:
 - [ ] Syntax is valid
 - [ ] Types are correct (if applicable)
 
+## Verbosity Review Findings
+
+List implementation areas that look too verbose and should be simplified:
+- Location: [file/symbol]
+  - Why verbose: [brief reason]
+  - Suggested simplification: [concise proposal]
+- Location: [file/symbol]
+  - Why verbose: [brief reason]
+  - Suggested simplification: [concise proposal]
+
 ## Notes
 
 Additional notes or special cases requiring reviewer attention.
@@ -90,4 +105,5 @@ Additional notes or special cases requiring reviewer attention.
 - All linter errors fixed
 - All unnecessary code and imports removed
 - File `40-code-cleanup.md` created and filled
+- Overly verbose implementation areas reviewed and documented with suggestions
 - ✅ **Code is ready for review**

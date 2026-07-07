@@ -1,0 +1,27 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__jira__jira_get_projects",
+      "Bash(.venv/bin/python -m flake8 pypost/ui/widgets/request_editor.py pypost/core/metrics.py tests/test_request_editor_method_tab_switch.py 2>&1)",
+      "mcp__jira__jira_transition_issue",
+      "mcp__jira__jira_get_issue",
+      "mcp__jira__jira_get_transitions",
+      "Bash(make test *)",
+      "Bash(git -C /home/src log --oneline -10)",
+      "mcp__jira__jira_get_agile_boards",
+      "mcp__jira__jira_search",
+      "mcp__jira__jira_get_sprints_from_board",
+      "mcp__jira__jira_add_comment",
+      "Bash(python -m pytest tests/ -x)",
+      "mcp__jira__jira_create_issue",
+      "mcp__jira__jira_update_issue"
+    ]
+  },
+  "enabledMcpjsonServers": [
+    "jira",
+    "pypost"
+  ],
+  "disabledMcpjsonServers": [
+    "github"
+  ]
+}

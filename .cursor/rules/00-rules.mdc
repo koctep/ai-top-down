@@ -127,3 +127,9 @@ Steps are performed **strictly sequentially**. Do not proceed to the next step u
 ### File Handling
 
 - **MANDATORY** use rules from the file `.cursor/rules/files.mdc`
+
+### Line Length Validation
+
+- **MANDATORY** use `scripts/check-line-length.sh` to validate line length for changed files
+- Default maximum line length is 100 characters unless stricter language rules apply
+- Do not use ad-hoc one-liners for line-length checks when the script is available
