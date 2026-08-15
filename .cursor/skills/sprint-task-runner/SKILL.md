@@ -1,6 +1,6 @@
 ---
 name: sprint-task-runner
-description: Autonomously run one Jira sprint task end-to-end (Steps 1-7) with per-step subagents and reviews, tech-debt blockers, follow-up Jira issues, commit, and close — no per-step user approval. Use when the user asks to run a single sprint task or execute one issue through the top-down workflow. For full sprint cycles (all tasks + close sprint), use sprint-runner instead.
+description: Autonomously run one Jira sprint task end-to-end (Steps 1-8) with per-step subagents and reviews, tech-debt blockers, follow-up Jira issues, commit, and close — no per-step user approval. Use when the user asks to run a single sprint task or execute one issue through the top-down workflow. For full sprint cycles (all tasks + close sprint), use sprint-runner instead.
 ---
 
 # Sprint Task Runner
@@ -34,14 +34,14 @@ At the **end** (after Phase F), provide one consolidated summary — not step-by
 ```
 Sprint task run:
 - [ ] Phase A: Activate sprint and pick task
-- [ ] Phase B: Steps 1–6 (execution + review subagent per step; worklog per subagent)
+- [ ] Phase B: Steps 1–7 (execution + review subagent per step; worklog per subagent)
 - [ ] Phase C: Tech-debt blocker review (+ fix loop if needed; worklog per subagent)
 - [ ] Phase D: Create Jira follow-ups and update 60-tech-debt.md
-- [ ] Phase E: Step 7 (execution + review subagent; worklog per subagent)
+- [ ] Phase E: Step 8 (execution + review subagent; worklog per subagent)
 - [ ] Phase F: Orchestrator worklog, commit (99-commit.mdc), and close Jira task
 ```
 
-Run phases sequentially. Do **not** batch Steps 1–6 into one subagent unless the user
+Run phases sequentially. Do **not** batch Steps 1–7 into one subagent unless the user
 explicitly requests a batch.
 
 ---
@@ -63,14 +63,14 @@ and passed a specific issue key, **skip steps 1–4** and use that key for steps
 
 ---
 
-## Phase B: Steps 1–6 (Top-Down Workflow)
+## Phase B: Steps 1–7 (Top-Down Workflow)
 
 Follow **Worklog Orchestration** in
 [top-down-workflow/SKILL.md](../top-down-workflow/SKILL.md) and
 [_shared/token-worklog.md](../_shared/token-worklog.md): after each subagent, the
 orchestrator calls `jira_add_worklog` with that subagent's `tokens_used`.
 
-For **each step** (1 through 6), run **two subagents** in order:
+For **each step** (1 through 7), run **two subagents** in order:
 
 ### B1. Execution subagent
 
@@ -80,18 +80,25 @@ Launch `Task` with `subagent_type: generalPurpose`. Prompt must include:
 - Rule file: `.cursor/rules/<step-file>.mdc` (see mapping below)
 - Language guide: `.cursor/lsr/do-python.md` (or relevant language)
 - Roadmap template: `.cursor/templates/top-to-bottom/roadmap.md`
-- Instruction: execute **only this step**; mark roadmap `[/]` then `[x]`
+- Instruction: execute **only this step**; mark roadmap `[/]` then `[x]` after
+  review passes (for Step 3, leave `[/]` until B2 review completes)
 
 | Step | Rule file | Main artifacts |
 |------|-----------|----------------|
 | 1 | `10-requirements.mdc` | `00-roadmap.md`, `10-requirements.md` |
 | 2 | `20-architecture.mdc` | `20-architecture.md` |
-| 3 | `30-development.mdc` | code, tests, roadmap updates |
-| 4 | `40-code-cleanup.mdc` | `40-code-cleanup.md` |
-| 5 | `50-observability.mdc` | `50-observability.md` |
-| 6 | `60-review.mdc` | `60-tech-debt.md` |
+| 3 | `25-failing-repro.mdc` | red test(s) under `tests/` (or N/A note) |
+| 4 | `30-development.mdc` | code, green tests, roadmap updates |
+| 5 | `40-code-cleanup.mdc` | `40-code-cleanup.md` |
+| 6 | `50-observability.mdc` | `50-observability.md` |
+| 7 | `60-review.mdc` | `60-tech-debt.md` |
 
-Step 3: iterate until requirements are met; each iteration ≤ 100 LOC when possible.
+**Step 3 (Failing Repro):** Write the red test only — **no production fix**. Test must
+fail on current code for the intended reason. Do **not** merge B1 and B2 into one
+`Task` call.
+
+**Step 4 (Development):** Iterate until requirements are met; each iteration ≤ 100 LOC
+when possible. First priority: make the Step 3 red test green.
 
 ### B2. Review subagent
 
@@ -102,8 +109,13 @@ Launch `Task` with `subagent_type: generalPurpose`, `readonly: true`. Prompt mus
 - Instruction: verify full compliance with the rule file; classify gaps as fixable or
   blocking; **do not implement fixes** (readonly)
 
-If review finds fixable gaps, launch a **fix subagent** (generalPurpose, not readonly),
-log its worklog, then re-run the review subagent for that step. Repeat until review passes.
+**Step 3 review:** Confirm failure mode is the intended defect / missing behavior (not
+a broken fixture). If the test harness needs fixes, launch a **fix** subagent that
+may edit tests only — never the product fix. Re-run review until PASS.
+
+If review finds fixable gaps (other steps), launch a **fix subagent** (generalPurpose,
+not readonly), log its worklog, then re-run the review subagent for that step. Repeat
+until review passes.
 
 **Immediately proceed to the next step** — no user confirmation.
 
@@ -113,7 +125,7 @@ log its worklog, then re-run the review subagent for that step. Repeat until rev
 
 Log worklog after each blocker-review and fix subagent (same orchestration rules as Phase B).
 
-After Step 6 completes, launch an **independent** review subagent (`readonly: true`):
+After Step 7 completes, launch an **independent** review subagent (`readonly: true`):
 
 - Read `ai-tasks/<JIRA-TASK-ID>/60-tech-debt.md` and the implementation
 - Classify each item: **BLOCKER** (must fix before close) or **NON-BLOCKER**
@@ -132,18 +144,21 @@ After Step 6 completes, launch an **independent** review subagent (`readonly: tr
 When **SAFE TO CLOSE**:
 
 1. For each follow-up in `60-tech-debt.md` **without** a Jira link, create an issue via
-   `jira_create_issue` (`project_key: <JIRA-PROJECT-KEY>`, `issue_type: <JIRA-DEBT-ISSUE-TYPE>`).
+   [jira-create-issue](../jira-create-issue/SKILL.md)
+   (`project_key: <JIRA-PROJECT-KEY>`, `issue_type: <JIRA-DEBT-ISSUE-TYPE>`,
+   `labels: ["tech-debt"]`, priority from the debt row, related artifact
+   `ai-tasks/<JIRA-TASK-ID>/60-tech-debt.md`). Do **not** call `jira_create_issue` raw.
 2. Update `60-tech-debt.md` with
-   `Jira: [<JIRA-TASK-ID>](<JIRA-BASE-URL>/browse/<JIRA-TASK-ID>)`.
+   `Jira: [<KEY>](<JIRA-BASE-URL>/browse/<KEY>)` using the returned key.
 3. Skip creating duplicates when a linked issue already exists.
 
 ---
 
-## Phase E: Step 7 (Dev Docs)
+## Phase E: Step 8 (Dev Docs)
 
 Run the same **execution + review** pair as Phase B (with worklog after each subagent):
 
-- Execution: `.cursor/rules/70-dev-docs.mdc` → `70-dev-docs.md`, `doc/dev/` updates
+- Execution: `.cursor/rules/70-dev-docs.mdc` → `doc/dev/` updates
 - Review: verify against `70-dev-docs.mdc`
 
 ---
@@ -192,15 +207,21 @@ step_name: <name>
 Review subagent adds: `Readonly. Do not edit files. Return PASS/FAIL with gap list.` and the
 same `## Worklog` block (`role: review` or `blocker_review`).
 
+For Step 3 use `step_name: Failing Repro`. Step 3 review may allow a fix subagent for
+**test harness only** if readonly review cannot edit.
+
 ---
 
 ## Anti-Patterns
 
 - **Do not** ask for user approval between steps or phases (autonomous mode)
-- **Do not** merge Steps 1–6 into one subagent (unless user explicitly asks)
+- **Do not** merge Steps 1–7 into one subagent (unless user explicitly asks)
+- **Do not** merge Step 3 write-test and review-test into one `Task` call
+- **Do not** implement the production fix inside the Step 3 execution subagent
 - **Do not** skip per-step review subagents
 - **Do not** close the Jira task while blocker review says BLOCKED
 - **Do not** create Jira follow-ups before blocker review passes
+- **Do not** create follow-ups with raw `jira_create_issue` — use jira-create-issue
 - **Do not** use `jira_transition_issue` `comment` with plain Markdown (ADF required)
 - **Do not** create or switch git branches — commit on the current branch only
 - **Do not** close the Jira task without orchestrator worklog when orchestrator `tokens_used > 0`
@@ -212,5 +233,6 @@ same `## Worklog` block (`role: review` or `blocker_review`).
 ## Related Skills
 
 - Full sprint orchestration (all tasks + close): [sprint-runner](../sprint-runner/SKILL.md)
+- Create follow-ups with estimate: [jira-create-issue](../jira-create-issue/SKILL.md)
 - Step details and critical rules: [top-down-workflow](../top-down-workflow/SKILL.md)
 - Sprint planning and backlog analysis: [jira-sprint-planning](../jira-sprint-planning/SKILL.md)

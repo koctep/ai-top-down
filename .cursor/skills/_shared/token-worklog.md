@@ -3,8 +3,9 @@
 Shared rules for converting AI token usage into Jira `time_spent` worklog entries.
 
 Referenced by [top-down-workflow](../top-down-workflow/SKILL.md),
-[sprint-task-runner](../sprint-task-runner/SKILL.md), and
-[sprint-runner](../sprint-runner/SKILL.md).
+[sprint-task-runner](../sprint-task-runner/SKILL.md),
+[sprint-runner](../sprint-runner/SKILL.md), and
+[jira-create-issue](../jira-create-issue/SKILL.md).
 
 ## Constants
 
@@ -59,7 +60,7 @@ Every subagent must end its response with:
 ```markdown
 ## Worklog
 tokens_used: <number>
-role: execution|review|fix|blocker_review
+role: execution|review|fix|blocker_review|estimation
 step: <N>
 step_name: <name>
 ```

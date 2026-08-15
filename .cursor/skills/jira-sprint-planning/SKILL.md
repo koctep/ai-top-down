@@ -15,6 +15,7 @@ Configure placeholders for your Jira instance before use:
 | `<JIRA-BOARD-ID>` | Agile board id | `12` |
 | `<JIRA-BASE-URL>` | Jira instance base URL | `https://your-org.atlassian.net` |
 | `<JIRA-SPRINT-CUSTOM-FIELD-ID>` | Sprint custom field id | `customfield_XXXXX` |
+| `<JIRA-STORY-POINTS-FIELD-ID>` | Story point estimate field id | `customfield_10016` |
 | `<JIRA-DEBT-ISSUE-TYPE>` | Issue type for tech-debt follow-ups | `Debt`, `Task` |
 | `<IN-PROGRESS-TRANSITION-ID>` | Transition id → In Progress | `21` |
 | `<DONE-TRANSITION-ID>` | Transition id → Done | `31` |
@@ -171,6 +172,7 @@ Typical candidates: stable entity identity, stale-state reconciliation after del
 
 ## Related Skills
 
+- Create issues with story-point estimate: [jira-create-issue](../jira-create-issue/SKILL.md)
 - Run a started sprint end-to-end: [sprint-runner](../sprint-runner/SKILL.md)
 - Execute a single sprint task: [sprint-task-runner](../sprint-task-runner/SKILL.md)
 

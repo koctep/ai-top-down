@@ -22,11 +22,15 @@ Create a **Code Audit** epic and child issues for each audit focus in any Jira p
 
 When the user asks to create audit tickets:
 
-1. Read MCP tool schemas before calling (`jira_search`, `jira_create_issue`, `jira_link_to_epic`).
+1. Read MCP tool schemas before calling (`jira_search`, `jira_create_issue`,
+   `jira_link_to_epic`). For focus stories, follow
+   [jira-create-issue](../jira-create-issue/SKILL.md).
 2. Discover issue types used in the project (search recent epics and their children).
 3. Check whether a Code Audit epic already exists.
-4. Create the epic (if missing), then create audit focus stories linked via `parent`.
-5. Verify with JQL and return issue keys + URLs.
+4. Create the epic if missing (**no** story points — epic only).
+5. Create audit focus stories via jira-create-issue (estimate → create with SP +
+   `parent`).
+6. Verify with JQL and return issue keys + URLs + story points.
 
 ## MCP Server
 
@@ -66,6 +70,9 @@ for remediation.
 
 **Labels:** `audit`
 
+Create with raw `jira_create_issue` — **do not** set story points on epics, and
+**do not** use jira-create-issue for the epic:
+
 ```text
 jira_create_issue(
   project_key: <JIRA-PROJECT-KEY>,
@@ -80,13 +87,19 @@ Record the epic key as `<JIRA-AUDIT-EPIC-KEY>`.
 
 ## Step 3 — Create audit focus stories
 
-Create one `<JIRA-AUDIT-ISSUE-TYPE>` per focus area. Link each to the epic:
+Create one `<JIRA-AUDIT-ISSUE-TYPE>` per focus area via
+[jira-create-issue](../jira-create-issue/SKILL.md) (estimation subagent → create
+with story points). Pass:
 
-```json
-{"parent": "<JIRA-AUDIT-EPIC-KEY>", "labels": ["audit"]}
-```
+| Input | Value |
+| --- | --- |
+| `issue_type` | `<JIRA-AUDIT-ISSUE-TYPE>` |
+| `summary` | Focus summary from the table below |
+| `description` | From the description template |
+| `labels` | `["audit"]` plus any extra labels |
+| `parent` | `<JIRA-AUDIT-EPIC-KEY>` |
 
-Add extra labels where noted (`security`, `testing`).
+Do **not** call `jira_create_issue` raw for focus stories.
 
 ### Standard focus areas
 
@@ -148,15 +161,15 @@ Ask the user only when the stack is unclear and the choice materially changes sc
 
 ## Step 4 — Linking children to epic
 
-**Preferred (next-gen hierarchy):** set `parent` in `additional_fields` when creating each story.
+**Preferred (next-gen hierarchy):** set `parent` via jira-create-issue when creating
+each story (Step 3).
 
-**Fallback (classic epic link):** create stories, then call `jira_link_to_epic` for each:
+**Fallback (classic epic link):** if `parent` fails on create, call
+`jira_link_to_epic` for each story:
 
 ```text
 jira_link_to_epic(issue_key: <STORY-KEY>, epic_key: <JIRA-AUDIT-EPIC-KEY>)
 ```
-
-If `parent` fails, retry with `jira_link_to_epic`.
 
 ## Step 5 — Verify
 
@@ -168,16 +181,17 @@ Confirm:
 
 - Expected number of focus stories created
 - All have label `audit`
+- Each story has non-zero story points
 - None duplicated from a prior run
 
 ## Reporting
 
 Return a table:
 
-| Key | Summary |
-| --- | --- |
-| `<JIRA-AUDIT-EPIC-KEY>` | Code Audit (Epic) |
-| … | Audit: … |
+| Key | Summary | Story points |
+| --- | --- | ---: |
+| `<JIRA-AUDIT-EPIC-KEY>` | Code Audit (Epic) | — |
+| … | Audit: … | N |
 
 Include browse URLs: `<JIRA-BASE-URL>/browse/<KEY>`.
 
@@ -196,9 +210,9 @@ Audit ticket creation:
 - [ ] Read MCP tool schemas
 - [ ] Discover epic/story issue types in project
 - [ ] Check for existing Code Audit epic (label audit)
-- [ ] Create epic if missing
-- [ ] Create 8 focus stories with descriptions
+- [ ] Create epic if missing (no story points)
+- [ ] Create 8 focus stories via jira-create-issue (with SP)
 - [ ] Link stories to epic (parent or epic link)
 - [ ] Verify via JQL
-- [ ] Report keys and URLs
+- [ ] Report keys, URLs, and story points
 ```

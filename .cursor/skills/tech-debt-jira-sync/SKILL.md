@@ -15,15 +15,18 @@ Uses **Atlassian MCP** (`<JIRA-MCP-SERVER>`). Configure placeholders — see
 For a **single sprint task** closing flow, prefer Phase D in
 [sprint-task-runner](../sprint-task-runner/SKILL.md) (same ticket format).
 
+Create Debt issues via [jira-create-issue](../jira-create-issue/SKILL.md) (estimate
+subagent → create with story points). Do **not** call `jira_create_issue` raw.
+
 ## Quick Start
 
 ```
 - [ ] Read MCP tool schemas before calling
 - [ ] Scan all ai-tasks/*/60-tech-debt.md for unticketed items
 - [ ] Dedupe and skip accepted/out-of-scope/resolved items
-- [ ] Create issues via jira_create_issue (verify persistence)
+- [ ] Create issues via jira-create-issue (verify persistence)
 - [ ] Update each ai-tasks/<TASK>/60-tech-debt.md in place with Jira links
-- [ ] Report summary (count, key range, files updated, skipped categories)
+- [ ] Report summary (count, key range, story points, files updated, skipped)
 ```
 
 ---
@@ -67,9 +70,11 @@ Extract from the artifact row (`High` / `Medium` / `Low`). Default: `Low`.
 
 ## Phase 2: Create Jira Issues
 
-**Read** `jira_create_issue` schema before calling.
+Follow [jira-create-issue](../jira-create-issue/SKILL.md) for each unticketed item
+(estimation subagent → create with story points). Do **not** call `jira_create_issue`
+directly or use `jira_batch_create_issues`.
 
-### Required fields
+### Required inputs to jira-create-issue
 
 | Field | Value |
 | --- | --- |
@@ -77,9 +82,11 @@ Extract from the artifact row (`High` / `Medium` / `Low`). Default: `Low`.
 | `issue_type` | `<JIRA-DEBT-ISSUE-TYPE>` (usually `Debt`) |
 | `summary` | `[<parent-key>] <short description>` (max ~240 chars) |
 | `description` | Source file, line, parent key, original notes |
-| `additional_fields` | `{"priority": {"name": "<High\|Medium\|Low>"}, "labels": ["tech-debt"]}` |
+| `priority` | From Phase 1 (`High` / `Medium` / `Low`) |
+| `labels` | `["tech-debt"]` |
+| `related_artifacts` | Path to the source `60-tech-debt.md` |
 
-### Example
+### Example draft
 
 ```json
 {
@@ -87,20 +94,19 @@ Extract from the artifact row (`High` / `Medium` / `Low`). Default: `Low`.
   "summary": "[PYPOST-579] Wire OTel adapter in production composition root",
   "issue_type": "Debt",
   "description": "Source: `ai-tasks/PYPOST-579/60-tech-debt.md` line 12\n\nParent: PYPOST-579",
-  "additional_fields": "{\"priority\": {\"name\": \"Low\"}, \"labels\": [\"tech-debt\"]}"
+  "priority": "Low",
+  "labels": ["tech-debt"],
+  "related_artifacts": ["ai-tasks/PYPOST-579/60-tech-debt.md"]
 }
 ```
 
-### Critical: use single create only
+Story points are set by the create skill — do not hardcode them here.
 
-**Do not use `jira_batch_create_issues`** — it may return success without persisting
-issues. Always use `jira_create_issue` per item.
+### Batching
 
-For large backlogs (>20 items):
-
-1. Create in parallel batches of **8–10** `jira_create_issue` calls.
-2. After the first batch, **verify** with `jira_get_issue` on one new key.
-3. If verification fails, stop and report — do not update markdown with phantom keys.
+For large backlogs (>20 items), follow jira-create-issue multi-issue rules:
+parallel estimation batches of **8–10**, estimate → create per item, verify the first
+new key with `jira_get_issue` before updating markdown.
 
 ### Deduping
 
@@ -137,7 +143,14 @@ only — links must still live in `60-tech-debt.md`):
 
 ```json
 [
-  {"key": "PYPOST-583", "file": "ai-tasks/PYPOST-579/60-tech-debt.md", "line": 12, "parent": "PYPOST-579", "summary": "..."}
+  {
+    "key": "PYPOST-583",
+    "file": "ai-tasks/PYPOST-579/60-tech-debt.md",
+    "line": 12,
+    "parent": "PYPOST-579",
+    "summary": "...",
+    "story_points": 2
+  }
 ]
 ```
 
@@ -165,6 +178,7 @@ the consolidated file by hand to add tickets.
 | Files scanned | N |
 | Tickets created | N |
 | Key range | PYPOST-X – PYPOST-Y |
+| Story points (sum) | N |
 | `60-tech-debt.md` files updated | N |
 | Skipped (accepted/out of scope) | N |
 
@@ -181,6 +195,7 @@ the consolidated file by hand to add tickets.
 ## Anti-Patterns
 
 - **Do not** read or update `00-tech-debt-consolidated.md` instead of per-task `60-tech-debt.md`
+- **Do not** call `jira_create_issue` raw — use [jira-create-issue](../jira-create-issue/SKILL.md)
 - **Do not** use `jira_batch_create_issues` without verifying keys exist afterward
 - **Do not** update markdown before `jira_get_issue` confirms at least one new key
 - **Do not** ticket items marked accepted / out of scope / resolved
@@ -189,5 +204,6 @@ the consolidated file by hand to add tickets.
 
 ## Related
 
+- Create with estimate: [jira-create-issue](../jira-create-issue/SKILL.md)
 - Single-task close: [sprint-task-runner](../sprint-task-runner/SKILL.md) Phase D
 - Derived rollup (optional): `python scripts/consolidate_tech_debt.py` → `ai-tasks/00-tech-debt-consolidated.md`
