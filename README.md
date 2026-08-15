@@ -4,8 +4,9 @@ This repository uses the "Top-Down" methodology and a role-based agent model for
 
 ## Sharing Skills with AI Tools
 
-The canonical skill set lives in `.agents/skills`. Link it into the selected tool's
-configuration in the current directory:
+The canonical skill set lives in `.agents/skills`; shared workflow rules live in
+`.agents/rules`. Link both into the selected tool's configuration in the current
+directory:
 
 ```bash
 ./scripts/ai-init.sh claude
@@ -13,9 +14,10 @@ configuration in the current directory:
 ./scripts/ai-init.sh --all
 ```
 
-Use another source directory with `AI_SKILLS_DIR=/path/to/skills`, or preview the
-changes with `--dry-run`. Existing files and directories are never replaced; use
-`--force` only to replace a conflicting symlink.
+Use another source directory with `AI_SKILLS_DIR=/path/to/skills` and
+`AI_RULES_DIR=/path/to/rules`, or preview the changes with `--dry-run`. Existing
+files and directories are never replaced; use `--force` only to replace a
+conflicting symlink.
 
 ## How to Use the Agent Pipeline in Claude Code
 

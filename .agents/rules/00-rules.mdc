@@ -130,4 +130,4 @@ allowed and required for behavioral changes; the product fix belongs to Step 4.
 
 ### File Handling
 
-- **MANDATORY** use rules from the file `.cursor/rules/files.mdc`
+- **MANDATORY** use rules from the file `.agents/rules/files.mdc`

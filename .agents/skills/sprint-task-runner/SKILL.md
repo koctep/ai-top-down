@@ -77,7 +77,7 @@ For **each step** (1 through 7), run **two subagents** in order:
 Launch `Task` with `subagent_type: generalPurpose`. Prompt must include:
 
 - Jira task key, summary, description
-- Rule file: `.cursor/rules/<step-file>.mdc` (see mapping below)
+- Rule file: `.agents/rules/<step-file>.mdc` (see mapping below)
 - Language guide: `.cursor/lsr/do-python.md` (or relevant language)
 - Roadmap template: `.cursor/templates/top-to-bottom/roadmap.md`
 - Instruction: execute **only this step**; mark roadmap `[/]` then `[x]` after
@@ -158,7 +158,7 @@ When **SAFE TO CLOSE**:
 
 Run the same **execution + review** pair as Phase B (with worklog after each subagent):
 
-- Execution: `.cursor/rules/70-dev-docs.mdc` → `doc/dev/` updates
+- Execution: `.agents/rules/70-dev-docs.mdc` → `doc/dev/` updates
 - Review: verify against `70-dev-docs.mdc`
 
 ---
@@ -167,7 +167,7 @@ Run the same **execution + review** pair as Phase B (with worklog after each sub
 
 1. **Orchestrator worklog** — log orchestrator-only `tokens_used` via `jira_add_worklog`
    (see [_shared/token-worklog.md](../_shared/token-worklog.md)). Do this **before** commit.
-2. Follow `.cursor/rules/99-commit.mdc`:
+2. Follow `.agents/rules/99-commit.mdc`:
    - `git status` and `git diff`
    - Stage relevant files, commit with Conventional Commits + JIRA ID **on the current branch**
    - Optionally record a suggested branch name in `ai-tasks/<JIRA-TASK-ID>/00-roadmap.md`
@@ -187,7 +187,7 @@ commits directly on the working branch (e.g. `main`).
 Task: <JIRA-TASK-ID> — Step N (<step name>)
 Repo: <REPO-PATH>
 
-Rule file: .cursor/rules/<NN>-*.mdc (read before acting)
+Rule file: .agents/rules/<NN>-*.mdc (read before acting)
 Language guide: .cursor/lsr/do-python.md
 
 Jira summary: ...

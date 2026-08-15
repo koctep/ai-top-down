@@ -11,7 +11,7 @@ When asked to implement a Jira task using the top-down approach, follow these 8 
 steps. **NEVER skip steps** and **always get user approval** before proceeding to the next
 step (unless explicitly requested to run them sequentially in a batch).
 
-The workflow relies on specific `.cursor/rules/*.mdc` files for detailed instructions. Always
+The workflow relies on specific `.agents/rules/*.mdc` files for detailed instructions. Always
 read the relevant rule file before starting a step.
 
 ## The 8 Steps
