@@ -5,7 +5,7 @@ description: Analyze Jira backlog, propose sprint topics, create future sprints,
 
 # Jira Sprint Planning
 
-Configure placeholders for your Jira instance before use:
+Configure placeholders for your Jira instance and repository before use:
 
 | Placeholder | Meaning | Example |
 | --- | --- | --- |
@@ -20,6 +20,7 @@ Configure placeholders for your Jira instance before use:
 | `<IN-PROGRESS-TRANSITION-ID>` | Transition id → In Progress | `21` |
 | `<DONE-TRANSITION-ID>` | Transition id → Done | `31` |
 | `<REPO-PATH>` | Local path to the target repository | `/path/to/repo` |
+| `<SKILLS-DIR>` | Skill directory in the target repo (`scripts/ai-init.sh`) | `.claude/skills` |
 
 ## Quick Start
 

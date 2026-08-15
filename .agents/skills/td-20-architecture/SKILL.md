@@ -7,7 +7,7 @@ description: Step 2 of the Top-Down workflow: design and document high-level arc
 
 ## General Principle
 
-⚠️ **Transition to this step is possible only after full completion of Step 1** and fixation of all requirements in `ai-tasks/<JIRA-TASK-ID>/10-requirements.md`. Architectural changes must be based on already agreed requirements. **MANDATORY** consider the selected language's `.agents/skills/lsr-<language-name>/SKILL.md` skill.
+⚠️ **Transition to this step is possible only after full completion of Step 1** and fixation of all requirements in `ai-tasks/<JIRA-TASK-ID>/10-requirements.md`. Architectural changes must be based on already agreed requirements. **MANDATORY** consider the selected language's `../lsr-<language-name>/SKILL.md` skill.
 
 ## Goal
 

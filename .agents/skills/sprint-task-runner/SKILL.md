@@ -77,8 +77,8 @@ For **each step** (1 through 7), run **two subagents** in order:
 Launch `Task` with `subagent_type: generalPurpose`. Prompt must include:
 
 - Jira task key, summary, description
-- Step skill: `.agents/skills/td-<step-file-name>/SKILL.md` (see mapping below)
-- Language skill: `.agents/skills/lsr-python/SKILL.md` (or relevant language)
+- Step skill: `<SKILLS-DIR>/td-<step-file-name>/SKILL.md` (see mapping below)
+- Language skill: `<SKILLS-DIR>/lsr-python/SKILL.md` (or relevant language)
 - Roadmap template: [td-10-requirements/assets/roadmap.md](../td-10-requirements/assets/roadmap.md)
 - Instruction: execute **only this step**; mark roadmap `[/]` then `[x]` after
   review passes (for Step 3, leave `[/]` until B2 review completes)
@@ -187,8 +187,8 @@ commits directly on the working branch (e.g. `main`).
 Task: <JIRA-TASK-ID> — Step N (<step name>)
 Repo: <REPO-PATH>
 
-Step skill: .agents/skills/td-<NN>-<name>/SKILL.md (read before acting)
-Language skill: .agents/skills/lsr-python/SKILL.md
+Step skill: <SKILLS-DIR>/td-<NN>-<name>/SKILL.md (read before acting)
+Language skill: <SKILLS-DIR>/lsr-python/SKILL.md
 
 Jira summary: ...
 Jira description: ...

@@ -22,7 +22,7 @@ Prepare code for review by cleaning, formatting, and fixing technical issues so 
 1. **Perform Static Code Analysis**
    - Run [run-analyze](../run-analyze/SKILL.md) for the selected programming language
    - Fix all linter warnings and errors
-   - Follow the appropriate `.agents/skills/lsr-<language>/SKILL.md` skill
+   - Follow the appropriate `../lsr-<language>/SKILL.md` skill
 
 2. **Code Formatting**
    - Apply automatic formatting according to project standards
@@ -37,7 +37,8 @@ Prepare code for review by cleaning, formatting, and fixing technical issues so 
 
 4. **Quality Check**
    - Ensure all tests pass
-   - Verify every test has an explicit timeout marker for Python/pytest projects (see `.agents/skills/do-testing/SKILL.md`)
+   - Verify every test has an explicit timeout marker for Python/pytest projects (see
+     [do-testing](../do-testing/SKILL.md))
    - Check for absence of merge conflicts
    - Validate syntax and types (if applicable)
 

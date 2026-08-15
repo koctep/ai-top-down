@@ -130,7 +130,8 @@ allowed and required for behavioral changes; the product fix belongs to Step 4.
 - The project can be developed in different languages
 - **MANDATORY** determine the programming language at STEP 1 (requirements) before starting work on the task
 - When designing and implementing, consider the features of the selected language
-- Language-specific guidance is in `.agents/skills/lsr-<language-name>/SKILL.md`
+- Language-specific guidance is in `../lsr-<language-name>/SKILL.md` (see
+  [lsr-requirements](../lsr-requirements/SKILL.md) for the full list)
 - When working on steps 2–7 (architecture, development, cleanup, observability, review, dev docs) **MANDATORY** consider the specifics of the selected language from the corresponding file
 
 ### File Handling

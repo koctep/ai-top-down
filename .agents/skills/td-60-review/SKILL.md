@@ -20,7 +20,7 @@ Ensure long-term project maintainability by explicitly recording technical debt 
    - Temporary solutions ("crutches")
    - Missing tests
    - Tests missing explicit timeout markers for Python/pytest projects (**BLOCKER** — see
-     `.agents/skills/do-testing/SKILL.md`)
+     [do-testing](../do-testing/SKILL.md))
    - Areas requiring optimization
    - Deviations from the initial architecture
    - Hardcoded values

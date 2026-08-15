@@ -45,8 +45,8 @@ review subagent to confirm the N/A rationale.
 1. Mark STEP 3 in `ai-tasks/<JIRA-TASK-ID>/00-roadmap.md` as `[/]` (work started).
 2. Read `20-architecture.md` failing-repro plan (what to assert, where, how to
    force without live external deps when architecture says so).
-3. Read `.agents/skills/do-testing/SKILL.md` and the relevant language skill
-   (`.agents/skills/lsr-<language>/SKILL.md`).
+3. Read [do-testing](../do-testing/SKILL.md) and the relevant language skill
+   (`../lsr-<language>/SKILL.md`).
 4. Write the automated test asserting **desired** behavior (so it fails today and
    passes after the fix). Prefer mirroring existing test fixtures.
 5. Run [run-test](../run-test/SKILL.md), using targeted `PYTEST_ARGS` when the Makefile supports them.

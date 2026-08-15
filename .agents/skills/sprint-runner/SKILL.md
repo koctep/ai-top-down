@@ -155,7 +155,7 @@ If the result is empty → go to **Phase 6**.
 
 ### 5.2 Run sprint-task-runner for the next task
 
-Read `.cursor/skills/sprint-task-runner/SKILL.md` and execute it for **one** issue:
+Read [sprint-task-runner](../sprint-task-runner/SKILL.md) and execute it for **one** issue:
 
 - **Skip** sprint-task-runner Phase A steps 1–4 (sprint already selected and active).
 - **Do** Phase A step 5–6 for the chosen issue key:
