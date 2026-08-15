@@ -2,6 +2,21 @@
 
 This repository uses the "Top-Down" methodology and a role-based agent model for development with Claude Code. The process is broken down into strict steps, each executed by a specialized subagent.
 
+## Sharing Skills with AI Tools
+
+The canonical skill set lives in `.agents/skills`. Link it into the selected tool's
+configuration in the current directory:
+
+```bash
+./scripts/ai-init.sh claude
+./scripts/ai-init.sh cursor gemini
+./scripts/ai-init.sh --all
+```
+
+Use another source directory with `AI_SKILLS_DIR=/path/to/skills`, or preview the
+changes with `--dry-run`. Existing files and directories are never replaced; use
+`--force` only to replace a conflicting symlink.
+
 ## How to Use the Agent Pipeline in Claude Code
 
 You need to act as a "dispatcher" and reviewer: launch the necessary agent, answer their questions, and pass the baton to the next agent after a stage is completed.
