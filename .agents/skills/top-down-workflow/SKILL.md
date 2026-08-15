@@ -11,30 +11,30 @@ When asked to implement a Jira task using the top-down approach, follow these 8 
 steps. **NEVER skip steps** and **always get user approval** before proceeding to the next
 step (unless explicitly requested to run them sequentially in a batch).
 
-The workflow relies on specific `.agents/rules/*.mdc` files for detailed instructions. Always
-read the relevant rule file before starting a step.
+The workflow relies on specific `td-*` skills for detailed instructions. Always read the
+relevant step skill before starting a step.
 
 ## The 8 Steps
 
-1. **Requirements** (`10-requirements.mdc`)
+1. **Requirements** ([td-10-requirements](../td-10-requirements/SKILL.md))
    Gather business requirements and create `00-roadmap.md` and `10-requirements.md`. Do not
    write code or architecture.
-2. **Architecture** (`20-architecture.mdc`)
+2. **Architecture** ([td-20-architecture](../td-20-architecture/SKILL.md))
    High-level architectural design and implementation plan. Create `20-architecture.md`.
    Must include a failing-repro plan for Step 3 (or document N/A for docs-only work).
-3. **Failing Repro** (`25-failing-repro.mdc`)
+3. **Failing Repro** ([td-25-failing-repro](../td-25-failing-repro/SKILL.md))
    Write an automated red test that demonstrates the defect or missing behavior. **No
    production fix.** Execution and review **must** run in separate subagents.
-4. **Development** (`30-development.mdc`)
+4. **Development** ([td-30-development](../td-30-development/SKILL.md))
    Iterative implementation with minimal meaningful changes; make the red test green.
    Update `00-roadmap.md`.
-5. **Code Cleanup** (`40-code-cleanup.mdc`)
+5. **Code Cleanup** ([td-40-code-cleanup](../td-40-code-cleanup/SKILL.md))
    Lint, format, and prepare code for review. Create `40-code-cleanup.md`.
-6. **Observability** (`50-observability.mdc`)
+6. **Observability** ([td-50-observability](../td-50-observability/SKILL.md))
    Add logging and metrics. Create `50-observability.md`.
-7. **Review** (`60-review.mdc`)
+7. **Review** ([td-60-review](../td-60-review/SKILL.md))
    Technical debt analysis and follow-up task creation. Create `60-tech-debt.md`.
-8. **Dev Docs** (`70-dev-docs.mdc`)
+8. **Dev Docs** ([td-70-dev-docs](../td-70-dev-docs/SKILL.md))
    Create or update developer documentation in `doc/dev`.
 
 ## Worklog Orchestration
@@ -82,10 +82,10 @@ To maximize efficiency and ensure high quality, use the `Task` tool (subagents) 
 each step:
 
 1. **Execution Subagent**: Launch a subagent with `generalPurpose` type to execute the step.
-   Pass the relevant `.mdc` file path and the Jira task details in the prompt.
+   Pass the relevant `td-*` skill path and the Jira task details in the prompt.
 2. **Log worklog**: Parse subagent `## Worklog` → `jira_add_worklog` (orchestrator).
-3. **Review Subagent**: Launch a second subagent to review artifacts against the `.mdc` rule
-   file. Have it fix any issues it finds (or launch a fix subagent if readonly).
+3. **Review Subagent**: Launch a second subagent to review artifacts against the step skill.
+   Have it fix any issues it finds (or launch a fix subagent if readonly).
 4. **Log worklog**: Parse review subagent `## Worklog` → `jira_add_worklog` (orchestrator).
 5. **User Approval**: Present results and wait for approval before the next step (unless the
    user explicitly asked to run multiple steps automatically).

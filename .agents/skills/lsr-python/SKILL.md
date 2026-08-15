@@ -1,4 +1,12 @@
+---
+name: lsr-python
+description: Python coding, architecture, testing, and documentation guidance. Use for Python changes.
+---
+
 # Python Development Guidelines
+
+For Python documentation guidance, read
+[references/documentation.md](references/documentation.md).
 
 ## General Principles
 
@@ -51,7 +59,7 @@ def function_name(arg: Type) -> ReturnType:
 - **mock/unittest.mock**: for mocks and stubs
 - **coverage**: for measuring code coverage
 - **MANDATORY**: every test must declare `@pytest.mark.timeout(...)` or module/class
-  `pytestmark` — see `.cursor/lsr/do-testing.md` for full rules
+  `pytestmark` — see [do-testing](../do-testing/SKILL.md) for full rules
 
 ## Typing
 

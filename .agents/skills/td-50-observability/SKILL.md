@@ -1,3 +1,8 @@
+---
+name: td-50-observability
+description: Step 6 of the Top-Down workflow: add production logging and metrics.
+---
+
 # STEP 6: Observability Implementation
 
 ## General Principle

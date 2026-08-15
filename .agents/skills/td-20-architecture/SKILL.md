@@ -1,8 +1,13 @@
+---
+name: td-20-architecture
+description: Step 2 of the Top-Down workflow: design and document high-level architecture from approved requirements.
+---
+
 # STEP 2: High-Level Architectural Design
 
 ## General Principle
 
-⚠️ **Transition to this step is possible only after full completion of Step 1** and fixation of all requirements in `ai-tasks/<JIRA-TASK-ID>/10-requirements.md`. Architectural changes must be based on already agreed requirements. **MANDATORY** consider the features of the selected programming language from the file `.cursor/lsr/do-<language-name>.md`.
+⚠️ **Transition to this step is possible only after full completion of Step 1** and fixation of all requirements in `ai-tasks/<JIRA-TASK-ID>/10-requirements.md`. Architectural changes must be based on already agreed requirements. **MANDATORY** consider the selected language's `.agents/skills/lsr-<language-name>/SKILL.md` skill.
 
 ## Goal
 

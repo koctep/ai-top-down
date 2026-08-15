@@ -1,3 +1,8 @@
+---
+name: lsr-markdown
+description: Markdown formatting and documentation-writing standards. Use when editing Markdown files.
+---
+
 # Markdown Guidelines
 
 ## General Principles

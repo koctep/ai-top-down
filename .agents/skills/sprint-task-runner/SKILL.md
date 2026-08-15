@@ -7,7 +7,7 @@ description: Autonomously run one Jira sprint task end-to-end (Steps 1-8) with p
 
 Orchestrates one sprint task from Jira activation through commit and closure.
 Uses **Atlassian MCP** (`<JIRA-MCP-SERVER>`) and the **top-down workflow**
-(`.cursor/skills/top-down-workflow/SKILL.md`).
+([top-down-workflow](../top-down-workflow/SKILL.md)).
 
 Board id: `<JIRA-BOARD-ID>`.
 
@@ -19,7 +19,7 @@ When this skill is active, run **all phases A–F without stopping for user appr
 
 - **Do not** ask "Shall I proceed to Step N?" or similar after each step.
 - **Do not** wait for confirmation between phases B, C, D, E, or F.
-- **Override** top-down-workflow and `.mdc` rule files that say "request review from user"
+- **Override** top-down-workflow and `td-*` skills that say "request review from user"
   or "wait for approval" — treat sprint-task-runner as pre-approved for the full run.
 - Subagents must **not** pause for user gates; fix review failures via fix subagents instead.
 - Only stop and ask the user when:
@@ -38,7 +38,7 @@ Sprint task run:
 - [ ] Phase C: Tech-debt blocker review (+ fix loop if needed; worklog per subagent)
 - [ ] Phase D: Create Jira follow-ups and update 60-tech-debt.md
 - [ ] Phase E: Step 8 (execution + review subagent; worklog per subagent)
-- [ ] Phase F: Orchestrator worklog, commit (99-commit.mdc), and close Jira task
+- [ ] Phase F: Orchestrator worklog, commit (td-99-commit), and close Jira task
 ```
 
 Run phases sequentially. Do **not** batch Steps 1–7 into one subagent unless the user
@@ -77,21 +77,21 @@ For **each step** (1 through 7), run **two subagents** in order:
 Launch `Task` with `subagent_type: generalPurpose`. Prompt must include:
 
 - Jira task key, summary, description
-- Rule file: `.agents/rules/<step-file>.mdc` (see mapping below)
-- Language guide: `.cursor/lsr/do-python.md` (or relevant language)
-- Roadmap template: `.cursor/templates/top-to-bottom/roadmap.md`
+- Step skill: `.agents/skills/td-<step-file-name>/SKILL.md` (see mapping below)
+- Language skill: `.agents/skills/lsr-python/SKILL.md` (or relevant language)
+- Roadmap template: [td-10-requirements/assets/roadmap.md](../td-10-requirements/assets/roadmap.md)
 - Instruction: execute **only this step**; mark roadmap `[/]` then `[x]` after
   review passes (for Step 3, leave `[/]` until B2 review completes)
 
-| Step | Rule file | Main artifacts |
+| Step | Step skill | Main artifacts |
 |------|-----------|----------------|
-| 1 | `10-requirements.mdc` | `00-roadmap.md`, `10-requirements.md` |
-| 2 | `20-architecture.mdc` | `20-architecture.md` |
-| 3 | `25-failing-repro.mdc` | red test(s) under `tests/` (or N/A note) |
-| 4 | `30-development.mdc` | code, green tests, roadmap updates |
-| 5 | `40-code-cleanup.mdc` | `40-code-cleanup.md` |
-| 6 | `50-observability.mdc` | `50-observability.md` |
-| 7 | `60-review.mdc` | `60-tech-debt.md` |
+| 1 | `td-10-requirements/SKILL.md` | `00-roadmap.md`, `10-requirements.md` |
+| 2 | `td-20-architecture/SKILL.md` | `20-architecture.md` |
+| 3 | `td-25-failing-repro/SKILL.md` | red test(s) under `tests/` (or N/A note) |
+| 4 | `td-30-development/SKILL.md` | code, green tests, roadmap updates |
+| 5 | `td-40-code-cleanup/SKILL.md` | `40-code-cleanup.md` |
+| 6 | `td-50-observability/SKILL.md` | `50-observability.md` |
+| 7 | `td-60-review/SKILL.md` | `60-tech-debt.md` |
 
 **Step 3 (Failing Repro):** Write the red test only — **no production fix**. Test must
 fail on current code for the intended reason. Do **not** merge B1 and B2 into one
@@ -104,9 +104,9 @@ when possible. First priority: make the Step 3 red test green.
 
 Launch `Task` with `subagent_type: generalPurpose`, `readonly: true`. Prompt must include:
 
-- Same rule file path
+- Same step-skill path
 - Paths to artifacts produced in B1
-- Instruction: verify full compliance with the rule file; classify gaps as fixable or
+- Instruction: verify full compliance with the step skill; classify gaps as fixable or
   blocking; **do not implement fixes** (readonly)
 
 **Step 3 review:** Confirm failure mode is the intended defect / missing behavior (not
@@ -158,8 +158,8 @@ When **SAFE TO CLOSE**:
 
 Run the same **execution + review** pair as Phase B (with worklog after each subagent):
 
-- Execution: `.agents/rules/70-dev-docs.mdc` → `doc/dev/` updates
-- Review: verify against `70-dev-docs.mdc`
+- Execution: [td-70-dev-docs](../td-70-dev-docs/SKILL.md) → `doc/dev/` updates
+- Review: verify against `td-70-dev-docs`
 
 ---
 
@@ -167,7 +167,7 @@ Run the same **execution + review** pair as Phase B (with worklog after each sub
 
 1. **Orchestrator worklog** — log orchestrator-only `tokens_used` via `jira_add_worklog`
    (see [_shared/token-worklog.md](../_shared/token-worklog.md)). Do this **before** commit.
-2. Follow `.agents/rules/99-commit.mdc`:
+2. Follow [td-99-commit](../td-99-commit/SKILL.md):
    - `git status` and `git diff`
    - Stage relevant files, commit with Conventional Commits + JIRA ID **on the current branch**
    - Optionally record a suggested branch name in `ai-tasks/<JIRA-TASK-ID>/00-roadmap.md`
@@ -187,8 +187,8 @@ commits directly on the working branch (e.g. `main`).
 Task: <JIRA-TASK-ID> — Step N (<step name>)
 Repo: <REPO-PATH>
 
-Rule file: .agents/rules/<NN>-*.mdc (read before acting)
-Language guide: .cursor/lsr/do-python.md
+Step skill: .agents/skills/td-<NN>-<name>/SKILL.md (read before acting)
+Language skill: .agents/skills/lsr-python/SKILL.md
 
 Jira summary: ...
 Jira description: ...

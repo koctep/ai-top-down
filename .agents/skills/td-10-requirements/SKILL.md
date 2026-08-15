@@ -1,3 +1,8 @@
+---
+name: td-10-requirements
+description: Step 1 of the Top-Down workflow: gather and document business requirements without implementation details.
+---
+
 # STEP 1: Requirements Gathering and Documentation
 
 ## General Principle
@@ -16,7 +21,7 @@ Create a single document with a full description of business tasks and functiona
 
 ## Actions
 
-1. Create file `ai-tasks/<JIRA-TASK-ID>/00-roadmap.md` from template `.cursor/templates/top-to-bottom/roadmap.md` and replace `<JIRA-TASK-ID>` with the actual task ID.
+1. Create file `ai-tasks/<JIRA-TASK-ID>/00-roadmap.md` from [assets/roadmap.md](assets/roadmap.md) and replace `<JIRA-TASK-ID>` with the actual task ID.
 2. Mark STEP 1 in roadmap as `[/]` (work started).
 3. 🔍 **Determine programming language** for task implementation and record it in 00-roadmap.md
 4. Gather all requirements from the user. **If the user provides a technical solution**, you must ask clarifying questions to understand the underlying business reason before proceeding.
@@ -28,7 +33,7 @@ Create a single document with a full description of business tasks and functiona
 
 ## Artifacts
 
-- **File**: `ai-tasks/<JIRA-TASK-ID>/00-roadmap.md` (created from template `.cursor/templates/top-to-bottom/roadmap.md`).
+- **File**: `ai-tasks/<JIRA-TASK-ID>/00-roadmap.md` (created from [assets/roadmap.md](assets/roadmap.md)).
 - **File**: `ai-tasks/<JIRA-TASK-ID>/10-requirements.md`.
 - **Content of requirements.md**:
   - Description of the problem/task.

@@ -1,3 +1,8 @@
+---
+name: lsr-javascript
+description: JavaScript coding, architecture, testing, and error-handling guidance. Use for JavaScript changes.
+---
+
 # JavaScript Development Guidelines
 
 ## General Principles

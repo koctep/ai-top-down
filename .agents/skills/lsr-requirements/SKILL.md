@@ -1,24 +1,25 @@
 ---
-alwaysApply: true
+name: lsr-requirements
+description: File-handling standards and language-specific guidance for all repository edits.
 ---
 # File Handling Rules
 
 ## Language-Specific Guidelines
 
-When working with any file, ALWAYS check if there is a corresponding language guide in `.cursor/lsr/`.
+When working with any file, ALWAYS use the corresponding language skill.
 
-- Python: `.cursor/lsr/do-python.md`
-- TypeScript: `.cursor/lsr/do-typescript.md`
-- JavaScript: `.cursor/lsr/do-javascript.md`
-- Markdown: `.cursor/lsr/do-markdown.md`
-- Erlang: `.cursor/lsr/do-erlang.md`
-- Kazoo: `.cursor/lsr/do-kazoo.md`
-- Flutter/Dart: `.cursor/lsr/do-flutter.md`
+- Python: [lsr-python](../lsr-python/SKILL.md)
+- TypeScript: [lsr-typescript](../lsr-typescript/SKILL.md)
+- JavaScript: [lsr-javascript](../lsr-javascript/SKILL.md)
+- Markdown: [lsr-markdown](../lsr-markdown/SKILL.md)
+- Erlang: [lsr-erlang](../lsr-erlang/SKILL.md)
+- Kazoo: [lsr-kazoo](../lsr-kazoo/SKILL.md)
+- Flutter/Dart: [lsr-flutter](../lsr-flutter/SKILL.md)
 
 Read and follow the guidelines in the specific language file before making changes.
 
 When editing test files (`tests/**`, `test_*.py`, `*_test.py`), also read
-`.cursor/lsr/do-testing.md` for mandatory per-test timeout rules.
+[do-testing](../do-testing/SKILL.md) for mandatory per-test timeout rules.
 
 ## General Principles
 

@@ -1,3 +1,8 @@
+---
+name: lsr-typescript
+description: TypeScript coding, architecture, testing, and error-handling guidance. Use for TypeScript changes.
+---
+
 # TypeScript Development Guidelines
 
 ## General Principles

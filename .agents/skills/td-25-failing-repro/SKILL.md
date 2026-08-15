@@ -1,3 +1,8 @@
+---
+name: td-25-failing-repro
+description: Step 3 of the Top-Down workflow: create and independently review a red automated repro without changing production code.
+---
+
 # STEP 3: Failing Repro Test
 
 ## General Principle
@@ -40,11 +45,11 @@ review subagent to confirm the N/A rationale.
 1. Mark STEP 3 in `ai-tasks/<JIRA-TASK-ID>/00-roadmap.md` as `[/]` (work started).
 2. Read `20-architecture.md` failing-repro plan (what to assert, where, how to
    force without live external deps when architecture says so).
-3. Read `.cursor/lsr/do-testing.md` and the language guide
-   (`.cursor/lsr/do-<language>.md`).
+3. Read `.agents/skills/do-testing/SKILL.md` and the relevant language skill
+   (`.agents/skills/lsr-<language>/SKILL.md`).
 4. Write the automated test asserting **desired** behavior (so it fails today and
    passes after the fix). Prefer mirroring existing test fixtures.
-5. Run via Makefile (`make test` with targeted `PYTEST_ARGS` when available).
+5. Run [run-test](../run-test/SKILL.md), using targeted `PYTEST_ARGS` when the Makefile supports them.
 6. Confirm the failure reason matches the intended defect / missing feature — not
    a broken fixture or import error. Fix the test setup until the failure is
    meaningful; still do not fix production.

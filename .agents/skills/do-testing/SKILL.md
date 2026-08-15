@@ -1,3 +1,8 @@
+---
+name: do-testing
+description: Automated pytest testing requirements, including timeouts, bounded waits, GUI patterns, and caplog contracts.
+---
+
 # Testing Guidelines for AI Agents
 
 ## Scope
@@ -8,23 +13,23 @@ project test suite or CI.
 
 | Document | Audience | Covers |
 | --- | --- | --- |
-| **This file** (`.cursor/lsr/do-testing.md`) | Cursor AI agents | Per-test timeouts, bounded waits, GUI/event-loop patterns, `caplog` contract |
-| [`doc/dev/testing.md`](../doc/dev/testing.md) | Developers and CI | `make test`, pytest.ini, coverage, guardrails |
+| **This skill** (`do-testing`) | AI agents | Per-test timeouts, bounded waits, GUI/event-loop patterns, `caplog` contract |
+| `doc/dev/testing.md` | Developers and CI | `make test`, pytest.ini, coverage, guardrails |
 
-Run the automated suite with `make test` (see project testing docs when present). Rules here
+Run the automated suite with [run-test](../run-test/SKILL.md) (see project testing docs when present). Rules here
 apply when **authoring or editing tests**, not instead of pytest.
 
 ## Documentation sync
 
-When you change testing rules in **this file**, update the matching section in the project's
+When you change testing rules in **this skill**, update the matching section in the project's
 developer testing docs (e.g. `doc/dev/testing.md`) in the same PR (or open a follow-up Debt
 issue). Keep these pairs aligned:
 
-| Topic in `do-testing.md` | Mirror in project testing docs |
+| Topic in `do-testing` | Mirror in project testing docs |
 | --- | --- |
 | Per-test timeout (mandatory) | § Per-test timeouts |
 | GUI / event-loop tests | § GUI / widget tests |
-| Running tests (`make test`) | § Makefile automation tests, pytest commands |
+| Running tests (`run-test`) | § Makefile automation tests, pytest commands |
 | `caplog` contract (error-path tests) | § Error-path test logging, § CI guardrails |
 | References | § References (cross-links) |
 
@@ -105,7 +110,7 @@ outer timeout is generous.
 
 ## Running Tests
 
-- Run the project test target (`make test`) after adding or changing tests — this executes the
+- Run [run-test](../run-test/SKILL.md) after adding or changing tests — this executes the
   full automated pytest suite documented in project testing docs.
 - Fix timeout failures by correcting hangs or raising the explicit mark — never by removing
   the marker.
@@ -135,5 +140,5 @@ def test_worker_logs_unexpected_error(caplog):
 
 ## References
 
-- Language-specific notes: `.cursor/lsr/do-python.md` (Testing section)
+- Language-specific notes: [lsr-python](../lsr-python/SKILL.md) (Testing section)
 - Project docs: `doc/dev/testing.md` (when present)

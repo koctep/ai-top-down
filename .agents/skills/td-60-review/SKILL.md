@@ -1,3 +1,8 @@
+---
+name: td-60-review
+description: Step 7 of the Top-Down workflow: review implementation and record technical debt.
+---
+
 # STEP 7: Review and Technical Debt
 
 ## General Principle
@@ -15,7 +20,7 @@ Ensure long-term project maintainability by explicitly recording technical debt 
    - Temporary solutions ("crutches")
    - Missing tests
    - Tests missing explicit timeout markers for Python/pytest projects (**BLOCKER** — see
-     `.cursor/lsr/do-testing.md`)
+     `.agents/skills/do-testing/SKILL.md`)
    - Areas requiring optimization
    - Deviations from the initial architecture
    - Hardcoded values

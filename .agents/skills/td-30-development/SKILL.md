@@ -1,3 +1,8 @@
+---
+name: td-30-development
+description: Step 4 of the Top-Down workflow: implement the approved design and make the reviewed failing repro pass.
+---
+
 # STEP 4: Development
 
 ## General Principle
@@ -50,8 +55,8 @@ During development, **MANDATORY** ensure code quality:
 2. **Testing**
    - Keep the Step 3 repro green; add further tests for new functionality as needed
    - For Python/pytest projects: every new or changed test must have an explicit
-     `@pytest.mark.timeout(...)` or module/class `pytestmark` (see `.cursor/lsr/do-testing.md`)
-   - Run existing tests before each change (e.g. `make test`)
+     `@pytest.mark.timeout(...)` or module/class `pytestmark` (see `.agents/skills/do-testing/SKILL.md`)
+   - Run existing tests before each change with [run-test](../run-test/SKILL.md)
    - Ensure all tests pass
 
 3. **Code review**

@@ -1,10 +1,15 @@
+---
+name: lsr-kazoo
+description: 2600Hz Kazoo development guidance. Use for Kazoo code and configuration changes.
+---
+
 # Kazoo Development Guidelines by 2600Hz
 
 ## General Principles
 
 - **Language**: All communication and file content must be in English
 - **Kazoo** — is an open-source telephony platform based on Erlang/OTP
-- All Erlang/OTP principles apply (see `.cursor/lsr/do-erlang.md`)
+- All Erlang/OTP principles apply (see [lsr-erlang](../lsr-erlang/SKILL.md))
 - **Modular Architecture**: Kazoo consists of many applications (apps)
 - **Microservice Architecture**: each service runs independently
 - **Event-driven**: extensive use of events and AMQP for communication

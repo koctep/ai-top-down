@@ -1,3 +1,8 @@
+---
+name: td-40-code-cleanup
+description: Step 5 of the Top-Down workflow: format, lint, and clean code before review.
+---
+
 # STEP 5: Code Cleanup
 
 ## General Principle
@@ -15,9 +20,9 @@ Prepare code for review by cleaning, formatting, and fixing technical issues so 
 ## Actions
 
 1. **Perform Static Code Analysis**
-   - Run linters and static analyzers for the selected programming language
+   - Run [run-analyze](../run-analyze/SKILL.md) for the selected programming language
    - Fix all linter warnings and errors
-   - Follow rules from `.cursor/lsr/` for the language used
+   - Follow the appropriate `.agents/skills/lsr-<language>/SKILL.md` skill
 
 2. **Code Formatting**
    - Apply automatic formatting according to project standards
@@ -32,7 +37,7 @@ Prepare code for review by cleaning, formatting, and fixing technical issues so 
 
 4. **Quality Check**
    - Ensure all tests pass
-   - Verify every test has an explicit timeout marker for Python/pytest projects (see `.cursor/lsr/do-testing.md`)
+   - Verify every test has an explicit timeout marker for Python/pytest projects (see `.agents/skills/do-testing/SKILL.md`)
    - Check for absence of merge conflicts
    - Validate syntax and types (if applicable)
 

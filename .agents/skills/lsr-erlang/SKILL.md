@@ -1,3 +1,8 @@
+---
+name: lsr-erlang
+description: Erlang/OTP coding, architecture, testing, and error-handling guidance. Use for Erlang changes.
+---
+
 # Erlang/OTP Development Guidelines
 
 ## General Principles

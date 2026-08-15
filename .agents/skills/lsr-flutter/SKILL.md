@@ -1,4 +1,12 @@
+---
+name: lsr-flutter
+description: Flutter and Dart coding, architecture, testing, and documentation guidance. Use for Flutter changes.
+---
+
 # Flutter Development Guidelines
+
+For Flutter documentation guidance, read
+[references/documentation.md](references/documentation.md).
 
 ## General Principles
 
@@ -82,4 +90,3 @@ Future<void> doSomething() async {
 - **Keys**: Use keys (`ValueKey`, `ObjectKey`) appropriately when working with lists and state preservation.
 - **Async/Await**: Use `async`/`await` for readable asynchronous code; avoid `.then()` chains.
 - **Resource Disposal**: Always dispose `Controllers` (TextEditingController, AnimationController) in `dispose()`.
-

@@ -1,3 +1,8 @@
+---
+name: td-00-rules
+description: Core Top-Down workflow principles and mandatory execution order. Use for any task following the Top-Down process.
+---
+
 # Top-Down Approach to Programming
 
 ## Philosophy of the Approach
@@ -115,7 +120,7 @@ allowed and required for behavioral changes; the product fix belongs to Step 4.
 ### Roadmap Maintenance
 
 - **MANDATORY** maintain the file `ai-tasks/<JIRA-TASK-ID>/00-roadmap.md` to track progress
-- At STEP 1 create the file `ai-tasks/<JIRA-TASK-ID>/00-roadmap.md` from the template `.cursor/templates/top-to-bottom/roadmap.md`
+- At STEP 1 create `ai-tasks/<JIRA-TASK-ID>/00-roadmap.md` from [td-10-requirements' roadmap template](../td-10-requirements/assets/roadmap.md)
 - When starting work on a step, mark it as `[/]` (in progress)
 - When completing a step, mark it as `[x]` (completed)
 - Replace `<JIRA-TASK-ID>` with the actual task ID from JIRA
@@ -125,9 +130,9 @@ allowed and required for behavioral changes; the product fix belongs to Step 4.
 - The project can be developed in different languages
 - **MANDATORY** determine the programming language at STEP 1 (requirements) before starting work on the task
 - When designing and implementing, consider the features of the selected language
-- Description of features for each language is in `.cursor/lsr/do-<language-name>.md` files
+- Language-specific guidance is in `.agents/skills/lsr-<language-name>/SKILL.md`
 - When working on steps 2–7 (architecture, development, cleanup, observability, review, dev docs) **MANDATORY** consider the specifics of the selected language from the corresponding file
 
 ### File Handling
 
-- **MANDATORY** use rules from the file `.agents/rules/files.mdc`
+- **MANDATORY** use [lsr-requirements](../lsr-requirements/SKILL.md)
