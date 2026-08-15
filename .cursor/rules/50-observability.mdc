@@ -1,4 +1,4 @@
-# STEP 5: Observability Implementation
+# STEP 6: Observability Implementation
 
 ## General Principle
 
@@ -10,7 +10,7 @@ Add necessary logging and metrics to ensure application observability in product
 
 ## Preparation
 
-1. Mark STEP 5 in the roadmap (`ai-tasks/<JIRA-TASK-ID>/00-roadmap.md`) as `[/]` (work started).
+1. Mark STEP 6 in the roadmap (`ai-tasks/<JIRA-TASK-ID>/00-roadmap.md`) as `[/]` (work started).
 
 ## Actions
 

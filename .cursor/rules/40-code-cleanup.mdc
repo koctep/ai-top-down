@@ -1,4 +1,4 @@
-# STEP 4: Code Cleanup
+# STEP 5: Code Cleanup
 
 ## General Principle
 
@@ -10,7 +10,7 @@ Prepare code for review by cleaning, formatting, and fixing technical issues so 
 
 ## Preparation
 
-1. Mark STEP 4 in the roadmap (`ai-tasks/<JIRA-TASK-ID>/00-roadmap.md`) as `[/]` (work started).
+1. Mark STEP 5 in the roadmap (`ai-tasks/<JIRA-TASK-ID>/00-roadmap.md`) as `[/]` (work started).
 
 ## Actions
 

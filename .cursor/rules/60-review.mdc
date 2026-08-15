@@ -1,4 +1,4 @@
-# STEP 6: Review and Technical Debt
+# STEP 7: Review and Technical Debt
 
 ## General Principle
 
@@ -10,7 +10,7 @@ Ensure long-term project maintainability by explicitly recording technical debt 
 
 ## Actions
 
-1. Mark STEP 6 in the roadmap (`ai-tasks/<JIRA-TASK-ID>/00-roadmap.md`) as `[/]` (work started).
+1. Mark STEP 7 in the roadmap (`ai-tasks/<JIRA-TASK-ID>/00-roadmap.md`) as `[/]` (work started).
 2. Analyze the implemented solution for:
    - Temporary solutions ("crutches")
    - Missing tests
@@ -22,7 +22,7 @@ Ensure long-term project maintainability by explicitly recording technical debt 
 3. Create file `ai-tasks/<JIRA-TASK-ID>/60-tech-debt.md`.
 4. Update user documentation in `doc` (if applicable).
 5. 📋 **Request review from the user** to verify technical debt documentation.
-6. After receiving approval from the user, mark STEP 6 in the roadmap as `[x]` (completed) and proceed to STEP 7.
+6. After receiving approval from the user, mark STEP 7 in the roadmap as `[x]` (completed) and proceed to STEP 8.
 
 ## Artifacts
 
@@ -59,4 +59,4 @@ List specific tasks that need to be created in the future to address the describ
 ## Completion Criteria
 
 - Technical debt file created and filled (even if there is no debt, this must be explicitly stated).
-- ✅ **Received review and approval from the user** to proceed to STEP 7.
+- ✅ **Received review and approval from the user** to proceed to STEP 8.

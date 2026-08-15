@@ -44,6 +44,12 @@ Place research results here.
 
 Describe the high-level implementation plan.
 
+**Mandatory — Failing Repro (next Step 3):** Describe the automated red test to
+write *before* any production fix: what it asserts (desired behavior), where it
+lives, how to force the failure without live external deps when possible, and
+sequencing (research → red test → fix until green). If this task has no runtime
+behavioral change, state `N/A — no behavioral change` and why.
+
 ## Architecture
 
 Describe architectural changes here.
@@ -58,4 +64,5 @@ List of questions and answers. Add links if used.
 - All modules defined and described.
 - Dependencies between modules are clear.
 - Main interfaces defined.
-- ✅ **Received review and approval from the user** before proceeding to the next step.
+- Implementation Plan includes a failing-repro design for Step 3 (or explicit N/A).
+- ✅ **Received review and approval from the user** before proceeding to Step 3.

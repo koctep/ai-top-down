@@ -1,8 +1,13 @@
-# STEP 3: Development
+# STEP 4: Development
 
 ## General Principle
 
 This step combines design, creating stubs, implementation, and integration. It is performed cyclically until the task is fully completed.
+
+⚠️ **Prerequisite**: Step 3 (Failing Repro) must be complete — a reviewed red
+automated test exists (or documented N/A for no behavioral change). The first
+Development work for behavioral tasks is to implement the fix until that test
+goes green. Do not reverse red → green order.
 
 ## Goal
 
@@ -10,7 +15,7 @@ Implement the task iteratively, in small steps, with constant quality control an
 
 ## Preparation
 
-1. Mark STEP 3 in the roadmap (`ai-tasks/<JIRA-TASK-ID>/00-roadmap.md`) as `[/]` (work started).
+1. Mark STEP 4 in the roadmap (`ai-tasks/<JIRA-TASK-ID>/00-roadmap.md`) as `[/]` (work started).
 
 ## Development Process
 
@@ -19,6 +24,7 @@ Implement the task iteratively, in small steps, with constant quality control an
 1. 📋 **Define minimal meaningful change**
    - The size of the change should not exceed **100 edited lines of code**.
    - The change must be logically complete (even if part of the functionality is implemented via stubs).
+   - Prefer making the Step 3 red test pass as the first (or early) meaningful change.
 
 2. **Implement the change**
    - Write code implementing the selected change.
@@ -26,7 +32,7 @@ Implement the task iteratively, in small steps, with constant quality control an
    - Follow the architecture defined in Step 2.
 
 3. **Update Roadmap**
-   - Add a brief summary (what was done) to `ai-tasks/<JIRA-TASK-ID>/00-roadmap.md` as a sub-item of STEP 3.
+   - Add a brief summary (what was done) to `ai-tasks/<JIRA-TASK-ID>/00-roadmap.md` as a sub-item of STEP 4.
    - Format: `- [x] Implemented functionality X...`
 
 4. 📋 **Request review**
@@ -42,7 +48,7 @@ During development, **MANDATORY** ensure code quality:
    - Fix all warnings before requesting a review
 
 2. **Testing**
-   - Write tests for new functionality
+   - Keep the Step 3 repro green; add further tests for new functionality as needed
    - For Python/pytest projects: every new or changed test must have an explicit
      `@pytest.mark.timeout(...)` or module/class `pytestmark` (see `.cursor/lsr/do-testing.md`)
    - Run existing tests before each change (e.g. `make test`)
@@ -66,7 +72,8 @@ During development, **MANDATORY** ensure code quality:
 ## Completion Criteria
 
 - All functionality described in requirements and architecture is implemented.
+- Step 3 red test(s) pass (unless Step 3 was N/A).
 - All stubs replaced with real code.
 - Tests pass (if applicable).
 - ✅ **Received final approval from the user**.
-- After completing the entire stage, mark STEP 3 in the roadmap as `[x]` (completed) and proceed to STEP 4.
+- After completing the entire stage, mark STEP 4 in the roadmap as `[x]` (completed) and proceed to STEP 5.

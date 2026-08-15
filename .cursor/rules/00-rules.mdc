@@ -28,15 +28,17 @@
 
 ## Development Process
 
-Development using the top-down approach consists of **7 sequential steps**:
+Development using the top-down approach consists of **8 sequential steps**:
 
 1. **Requirements** — gathering and documenting requirements, what needs to be built
 2. **Architecture** — high-level architectural design, how it is organized
-3. **Development** — iterative implementation with minimal meaningful changes using stubs
-4. **Code Cleanup** — preparing code for review (linting, formatting, cleanup)
-5. **Observability** — adding logging and metrics
-6. **Review** — technical debt analysis and task finalization
-7. **Dev Docs** — creating/updating developer documentation in `doc/dev`
+3. **Failing Repro** — automated red test that demonstrates the defect or missing behavior
+   (no production fix; execution and review in separate subagents)
+4. **Development** — iterative implementation with minimal meaningful changes using stubs
+5. **Code Cleanup** — preparing code for review (linting, formatting, cleanup)
+6. **Observability** — adding logging and metrics
+7. **Review** — technical debt analysis and task finalization
+8. **Dev Docs** — creating/updating developer documentation in `doc/dev`
 
 ### Execution Sequence
 
@@ -82,7 +84,9 @@ Steps are performed **strictly sequentially**. Do not proceed to the next step u
 
 ## Critical Rules
 
-⚠️ **DO NOT START WRITING CODE** until steps 1–2 (requirements, architecture) are completed.
+⚠️ **DO NOT START WRITING PRODUCTION CODE** until steps 1–3 (requirements,
+architecture, failing repro) are completed. A red automated test on Step 3 is
+allowed and required for behavioral changes; the product fix belongs to Step 4.
 
 ⚠️ **DO NOT SKIP STEPS** — each step is mandatory and creates the foundation for the next.
 

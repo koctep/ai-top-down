@@ -1,35 +1,40 @@
 ---
 name: top-down-workflow
-description: Execute the top-down development workflow (Steps 1-7) for implementing Jira tasks, following project rules. Use when the user asks to implement a Jira task, follow the top-down approach, or work on sprint tasks.
+description: Execute the top-down development workflow (Steps 1-8) for implementing Jira tasks, following project rules. Use when the user asks to implement a Jira task, follow the top-down approach, or work on sprint tasks.
 ---
 
 # Top-Down Development Workflow
 
 ## Quick Start
 
-When asked to implement a Jira task using the top-down approach, follow these 7 sequential
+When asked to implement a Jira task using the top-down approach, follow these 8 sequential
 steps. **NEVER skip steps** and **always get user approval** before proceeding to the next
 step (unless explicitly requested to run them sequentially in a batch).
 
 The workflow relies on specific `.cursor/rules/*.mdc` files for detailed instructions. Always
 read the relevant rule file before starting a step.
 
-## The 7 Steps
+## The 8 Steps
 
 1. **Requirements** (`10-requirements.mdc`)
    Gather business requirements and create `00-roadmap.md` and `10-requirements.md`. Do not
    write code or architecture.
 2. **Architecture** (`20-architecture.mdc`)
    High-level architectural design and implementation plan. Create `20-architecture.md`.
-3. **Development** (`30-development.mdc`)
-   Iterative implementation with minimal meaningful changes. Update `00-roadmap.md`.
-4. **Code Cleanup** (`40-code-cleanup.mdc`)
+   Must include a failing-repro plan for Step 3 (or document N/A for docs-only work).
+3. **Failing Repro** (`25-failing-repro.mdc`)
+   Write an automated red test that demonstrates the defect or missing behavior. **No
+   production fix.** Execution and review **must** run in separate subagents.
+4. **Development** (`30-development.mdc`)
+   Iterative implementation with minimal meaningful changes; make the red test green.
+   Update `00-roadmap.md`.
+5. **Code Cleanup** (`40-code-cleanup.mdc`)
    Lint, format, and prepare code for review. Create `40-code-cleanup.md`.
-5. **Observability** (`50-observability.mdc`)
+6. **Observability** (`50-observability.mdc`)
    Add logging and metrics. Create `50-observability.md`.
-6. **Review** (`60-review.mdc`)
+7. **Review** (`60-review.mdc`)
    Technical debt analysis and follow-up task creation. Create `60-tech-debt.md`.
-7. **Dev Docs** (`70-dev-docs.mdc`)
+8. **Dev Docs** (`70-dev-docs.mdc`)
    Create or update developer documentation in `doc/dev`.
 
 ## Worklog Orchestration
@@ -49,7 +54,7 @@ details.
 | Review subagent returned | Orchestrator | Immediately after subagent |
 | Fix subagent returned | Orchestrator | Immediately after each fix |
 | Blocker review / fix returned | Orchestrator | Immediately after each subagent |
-| Workflow complete | Orchestrator | After Step 7, **before** commit and Done |
+| Workflow complete | Orchestrator | After Step 8, **before** commit and Done |
 
 ### After each subagent
 
@@ -64,7 +69,7 @@ Subagents **do not** call Jira. They only return the `## Worklog` block.
 
 ### Final orchestrator worklog
 
-After Step 7 (and any blocker-review phases), **before commit**:
+After Step 8 (and any blocker-review phases), **before commit**:
 
 1. Compute orchestrator-only `tokens_used` (coordination, prompts, MCP, git — excluding
    subagent totals already logged).
@@ -84,7 +89,10 @@ each step:
 4. **Log worklog**: Parse review subagent `## Worklog` → `jira_add_worklog` (orchestrator).
 5. **User Approval**: Present results and wait for approval before the next step (unless the
    user explicitly asked to run multiple steps automatically).
-6. After Step 7: **orchestrator worklog** → commit → close Jira task.
+6. After Step 8: **orchestrator worklog** → commit → close Jira task.
+
+**Step 3 (Failing Repro):** Never merge writing the red test and reviewing it into one
+`Task` call. Always run execution, then a separate review subagent.
 
 ### Example Execution
 
@@ -95,7 +103,11 @@ each step:
 4. Agent: *Parses Worklog → jira_add_worklog (subagent, Step 1 review)*
 5. Agent: "Step 1 is complete and reviewed. Here is the summary... Shall I proceed to Step 2?"
 ...
-N. Agent: *After Step 7 → jira_add_worklog (orchestrator)*
+A. Agent: *After Step 2 approval → execution subagent writes failing repro (Step 3)*
+B. Agent: *Worklog → separate review subagent for Step 3 red test*
+C. Agent: *Worklog → approval → Step 4 Development (make tests green)*
+...
+N. Agent: *After Step 8 → jira_add_worklog (orchestrator)*
 N+1. Agent: *Commit and close Jira task*
 ```
 
@@ -113,7 +125,7 @@ step: <N>
 step_name: <name>
 ```
 
-Use `tokens_used: 0` when unavailable.
+Use `tokens_used: 0` when unavailable. For Step 3 use `step_name: Failing Repro`.
 
 ## Critical Rules
 
@@ -121,7 +133,10 @@ Use `tokens_used: 0` when unavailable.
   the current step as `[/]` when starting, and `[x]` when completed.
 - **No Technical Details in Requirements**: Step 1 MUST NOT contain database schemas, API
   designs, or implementation details. Focus strictly on business goals and user stories.
-- **Clean Before Review**: Step 4 (Code Cleanup) is mandatory before Step 6 (Review).
+- **Red Before Green**: Do not implement the production fix until Step 3 (Failing Repro) has
+  a reviewed red test (or documented N/A for no behavioral change). Step 3 execution and
+  review **must** be separate subagents.
+- **Clean Before Review**: Step 5 (Code Cleanup) is mandatory before Step 7 (Review).
 - **Subagents**: Use subagents to keep context clean and focused, especially for the
   Development loop and code reviews.
 - **Worklog per subagent**: Log immediately after each subagent — never batch all tokens into
