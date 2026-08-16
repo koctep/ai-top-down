@@ -259,6 +259,7 @@ Estimation details: [_shared/story-points.md](../_shared/story-points.md).
 - **Do not** re-run Phase 1–4 inside each task — sprint context is set once
 - **Do not** skip Phase 3 when open issues lack story points (unless user opted out)
 - **Do not** run estimation subagents with write access; verify the tree is unchanged after
+  (same integrity check as [td-review](../td-review/SKILL.md))
 - **Do not** skip sprint-task-runner per-step reviews inside each task
 - **Do not** ask for approval between tasks in autonomous mode
 
@@ -270,3 +271,4 @@ Estimation details: [_shared/story-points.md](../_shared/story-points.md).
 - Create issues with estimate: [jira-create-issue](../jira-create-issue/SKILL.md)
 - Sprint planning and backlog grooming: [jira-sprint-planning](../jira-sprint-planning/SKILL.md)
 - Step details: [top-down-workflow](../top-down-workflow/SKILL.md)
+- Review subagent procedure: [td-review](../td-review/SKILL.md)

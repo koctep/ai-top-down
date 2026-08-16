@@ -15,7 +15,7 @@ Ensure long-term project maintainability by explicitly recording technical debt 
 
 ## Actions
 
-1. Mark STEP 7 in the roadmap (`ai-tasks/<JIRA-TASK-ID>/00-roadmap.md`) as `[/]` (work started).
+1. Update the roadmap per [td-roadmap](../td-roadmap/SKILL.md): STEP 7 → `[/]`.
 2. Analyze the implemented solution for:
    - Temporary solutions ("crutches")
    - Missing tests
@@ -27,7 +27,8 @@ Ensure long-term project maintainability by explicitly recording technical debt 
 3. Create file `ai-tasks/<JIRA-TASK-ID>/60-tech-debt.md`.
 4. Update user documentation in `doc` (if applicable).
 5. 📋 **Request review from the user** to verify technical debt documentation.
-6. After receiving approval from the user, mark STEP 7 in the roadmap as `[x]` (completed) and proceed to STEP 8.
+6. The acceptance gate owner marks STEP 7 as `[x]` once the gate passes
+   ([td-roadmap](../td-roadmap/SKILL.md)); then proceed to STEP 8.
 
 ## Artifacts
 
@@ -60,6 +61,11 @@ Describe potential performance issues, if any.
 
 List specific tasks that need to be created in the future to address the described issues.
 ```
+
+## Related Skills
+
+- Running the review subagent that checks this step's artifacts (and the tech-debt blocker
+  review): [td-review](../td-review/SKILL.md)
 
 ## Completion Criteria
 

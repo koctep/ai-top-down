@@ -26,6 +26,9 @@ allowed. Do not use `xfail`, `skip`, or similar to hide a red failure.
 2. **Review subagent** (new `Task` context) — verify the failure mode, fix
    test-only issues if needed, never implement the product fix.
 
+Launch the review per [td-review](../td-review/SKILL.md); the test-harness exception below is
+the only case where a reviewer may edit files.
+
 ## Goal
 
 Prove the problem (or missing acceptance behavior) with an automated check that
@@ -34,15 +37,16 @@ fails on current code and will pass after Step 4.
 ## When N/A
 
 If Architecture explicitly concludes there is **no runtime behavioral change**
-(docs-only / process-only), mark STEP 3 `[x]` with a roadmap note
-`N/A — no behavioral change` and do **not** write a test. Still run a brief
-review subagent to confirm the N/A rationale.
+(docs-only / process-only), add the roadmap sub-item `N/A — no behavioral change`
+and do **not** write a test. Still run a brief review subagent to confirm the N/A
+rationale; STEP 3 goes `[x]` through the normal gate
+([td-roadmap](../td-roadmap/SKILL.md)).
 
 ## Actions
 
 ### Execution subagent
 
-1. Mark STEP 3 in `ai-tasks/<JIRA-TASK-ID>/00-roadmap.md` as `[/]` (work started).
+1. Update the roadmap per [td-roadmap](../td-roadmap/SKILL.md): STEP 3 → `[/]`.
 2. Read `20-architecture.md` failing-repro plan (what to assert, where, how to
    force without live external deps when architecture says so).
 3. Read [do-testing](../do-testing/SKILL.md) and the relevant language skill
@@ -53,8 +57,8 @@ review subagent to confirm the N/A rationale.
 6. Confirm the failure reason matches the intended defect / missing feature — not
    a broken fixture or import error. Fix the test setup until the failure is
    meaningful; still do not fix production.
-7. Add a roadmap sub-bullet with the test path (leave STEP 3 as `[/]` until
-   review completes).
+7. Add a roadmap sub-bullet with the test path. The execution subagent leaves STEP 3
+   as `[/]` — it never marks its own step `[x]` ([td-roadmap](../td-roadmap/SKILL.md)).
 
 ### Review subagent (separate launch — mandatory)
 
@@ -63,8 +67,8 @@ review subagent to confirm the N/A rationale.
 3. Re-run the test if needed; confirm still red for the right reason.
 4. Fix test-only issues (timeouts, fixtures, asserts). **Do not** implement the
    product fix.
-5. After review passes (and user approval, unless batch override), mark STEP 3
-   `[x]` in the roadmap.
+5. Report PASS/FAIL. The acceptance gate owner — not this subagent — marks STEP 3
+   `[x]` once the gate passes ([td-roadmap](../td-roadmap/SKILL.md)).
 
 ## Artifacts
 

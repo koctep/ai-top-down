@@ -21,6 +21,8 @@ changes with `--dry-run`. Existing files and directories are never replaced; use
 ## Core Workflows
 
 - `top-down-workflow` — the eight-step Top-Down process.
+- `td-roadmap` — roadmap template, status legend, and who marks a step done.
+- `td-review` — how to run a review subagent: prompt, verdict, integrity check, fix loop.
 - `sprint-task-runner` and `sprint-runner` — Jira sprint execution.
 - `td-*` — individual Top-Down steps.
 - `lsr-*`, `do-testing`, and `run-*` — language, testing, and Makefile guidance.

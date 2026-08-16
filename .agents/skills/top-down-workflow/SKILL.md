@@ -90,12 +90,13 @@ described capability; never guess a type name.
    access — to execute the step. Pass the relevant `td-*` skill path and the Jira task
    details in the prompt.
 2. **Log worklog**: Parse subagent `## Worklog` → `jira_add_worklog` (orchestrator).
-3. **Review Subagent**: Launch a read-only subagent — file read and search — to review
-   artifacts against the step skill. It reports gaps; it never fixes them. Launch a
-   separate fix subagent for anything it finds.
+3. **Review Subagent**: Launch a review subagent per [td-review](../td-review/SKILL.md) — it
+   owns the prompt template, the verdict format, the working-tree integrity check, and the
+   fix loop. **MANDATORY** read it before launching any review.
 4. **Log worklog**: Parse review subagent `## Worklog` → `jira_add_worklog` (orchestrator).
 5. **User Approval**: Present results and wait for approval before the next step (unless the
-   user explicitly asked to run multiple steps automatically).
+   user explicitly asked to run multiple steps automatically). The orchestrator — as gate
+   owner — marks the step `[x]` in the roadmap at this point, never the execution subagent.
 6. After Step 8: **orchestrator worklog** → commit → close Jira task.
 
 **Step 3 (Failing Repro):** Never merge writing the red test and reviewing it into one
@@ -103,19 +104,11 @@ described capability; never guess a type name.
 
 ### Review subagent integrity check
 
-Read-only review is an **instruction in the subagent prompt, not an enforced parameter**.
-The subagent-launch tool has no read-only flag, and any agent with shell access can write
-regardless of which other tools it holds. Verify instead of trusting:
-
-1. Before launching a review subagent, record the working tree: `git status --porcelain`
-   and the output of `git diff`.
-2. After it returns, record both again and compare.
-3. If they differ, the review is **invalid** — revert the subagent's changes (`git checkout`
-   for tracked files, delete untracked ones), then re-run the review, restating that it
-   must not edit.
-
-Apply the same check to the Step 3 fix subagent, which may edit tests only: its diff must
-touch the test layout alone. Anything outside it is reverted and re-run.
+Read-only review is an **instruction in the subagent prompt, not an enforced parameter** —
+compare `git status --porcelain` and `git diff` before and after every review subagent, and
+treat a changed tree as an invalid review. The full procedure, including the Step 3 fix
+subagent whose diff must stay inside the test layout, is in
+[td-review](../td-review/SKILL.md).
 
 ### Example Execution
 
@@ -152,8 +145,13 @@ Use `tokens_used: 0` when unavailable. For Step 3 use `step_name: Failing Repro`
 
 ## Critical Rules
 
-- **Roadmap Tracking**: Always maintain the `ai-tasks/<JIRA-TASK-ID>/00-roadmap.md` file. Mark
-  the current step as `[/]` when starting, and `[x]` when completed.
+- **Roadmap Tracking**: Always maintain `ai-tasks/<JIRA-TASK-ID>/00-roadmap.md` per
+  [td-roadmap](../td-roadmap/SKILL.md) — it owns the status legend, the step-to-artifact
+  mapping, and the rule for who writes `[x]`. In short: the executing agent marks `[/]` and
+  fills in sub-items; **`[x]` is written by the agent owning the step's acceptance gate**, and
+  only after that gate passes — user approval when a user drives this workflow, review-subagent
+  PASS in autonomous mode, both when both apply. An execution subagent never marks its own
+  step `[x]`.
 - **No Technical Details in Requirements**: Step 1 MUST NOT contain database schemas, API
   designs, or implementation details. Focus strictly on business goals and user stories.
 - **Red Before Green**: Do not implement the production fix until Step 3 (Failing Repro) has
@@ -162,12 +160,18 @@ Use `tokens_used: 0` when unavailable. For Step 3 use `step_name: Failing Repro`
 - **Clean Before Review**: Step 5 (Code Cleanup) is mandatory before Step 7 (Review).
 - **Subagents**: Use subagents to keep context clean and focused, especially for the
   Development loop and code reviews.
+- **Independent Review**: Every step's artifacts are reviewed by a separate subagent per
+  [td-review](../td-review/SKILL.md). Never let the agent that produced the work review it.
 - **Worklog per subagent**: Log immediately after each subagent — never batch all tokens into
   one entry at task close.
 - **Orchestrator worklog**: Always log orchestrator tokens separately at the end.
 
 ## Related Skills
 
+- Roadmap legend, mark ownership, and step-to-artifact mapping:
+  [td-roadmap](../td-roadmap/SKILL.md)
+- Review subagent procedure (prompt, verdict, integrity check, fix loop):
+  [td-review](../td-review/SKILL.md)
 - Full sprint cycle (discover → start → all tasks → close):
   [sprint-runner](../sprint-runner/SKILL.md)
 - End-to-end single sprint task (Jira + commit + close):

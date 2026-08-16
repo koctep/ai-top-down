@@ -80,9 +80,9 @@ Prompt must include:
 - Jira task key, summary, description
 - Step skill: `<SKILLS-DIR>/td-<step-file-name>/SKILL.md` (see mapping below)
 - Language skill: `<SKILLS-DIR>/lsr-python/SKILL.md` (or relevant language)
-- Roadmap template: [td-10-requirements/assets/roadmap.md](../td-10-requirements/assets/roadmap.md)
-- Instruction: execute **only this step**; mark roadmap `[/]` then `[x]` after
-  review passes (for Step 3, leave `[/]` until B2 review completes)
+- Roadmap rules and template: [td-roadmap](../td-roadmap/SKILL.md)
+- Instruction: execute **only this step**; mark the roadmap `[/]` and fill in sub-items, then
+  leave the step `[/]` — the orchestrator marks `[x]` after B2 review returns PASS
 
 | Step | Step skill | Main artifacts |
 |------|-----------|----------------|
@@ -103,25 +103,17 @@ when possible. First priority: make the Step 3 red test green.
 
 ### B2. Review subagent
 
-Launch a review subagent — read-only: file read and search, no edits. Prompt must include:
-
-- Same step-skill path
-- Paths to artifacts produced in B1
-- Instruction: verify full compliance with the step skill; classify gaps as fixable or
-  blocking; **do not implement fixes**
+Run the review per [td-review](../td-review/SKILL.md) — it owns the read-only prompt template,
+the verdict format, the working-tree integrity check, and the fix loop. Pass it the same
+step-skill path and the artifact paths produced in B1.
 
 **Step 3 review:** Confirm failure mode is the intended defect / missing behavior (not
 a broken fixture). If the test harness needs fixes, launch a **fix** subagent that
 may edit tests only — never the product fix. Re-run review until PASS.
 
-If review finds fixable gaps (other steps), launch a **fix subagent** (general-purpose,
-with write access), log its worklog, then re-run the review subagent for that step.
-Repeat until review passes.
-
-**After every review subagent, verify the working tree did not change** — read-only is a
-prompt instruction, not an enforced parameter. Follow the review subagent integrity check
-in [top-down-workflow](../top-down-workflow/SKILL.md). A changed tree invalidates the
-review: revert and re-run.
+**When review returns PASS**, the orchestrator marks the step `[x]` in the roadmap. In this
+autonomous mode the review PASS *is* the acceptance gate — there is no user approval to wait
+for ([td-roadmap](../td-roadmap/SKILL.md)). Subagents never mark their own step `[x]`.
 
 **Immediately proceed to the next step** — no user confirmation.
 
@@ -131,8 +123,8 @@ review: revert and re-run.
 
 Log worklog after each blocker-review and fix subagent (same orchestration rules as Phase B).
 
-After Step 7 completes, launch an **independent** read-only review subagent (same
-working-tree check as Phase B):
+After Step 7 completes, launch an **independent** review subagent per
+[td-review](../td-review/SKILL.md) with `role: blocker_review`:
 
 - Read `ai-tasks/<JIRA-TASK-ID>/60-tech-debt.md` and the implementation
 - Classify each item: **BLOCKER** (must fix before close) or **NON-BLOCKER**
@@ -177,8 +169,8 @@ Run the same **execution + review** pair as Phase B (with worklog after each sub
 2. Follow [td-99-commit](../td-99-commit/SKILL.md):
    - `git status` and `git diff`
    - Stage relevant files, commit with Conventional Commits + JIRA ID **on the current branch**
-   - Optionally record a suggested branch name in `ai-tasks/<JIRA-TASK-ID>/00-roadmap.md`
-     (reference only — for PR naming or future use)
+   - Record the suggested branch name and commit hash in the roadmap and mark its `COMMIT`
+     entry `[x]` (branch name is reference only — for PR naming or future use)
 3. Transition Jira task to Done: `jira_transition_issue` (transition id `<DONE-TRANSITION-ID>`)
 4. Report: commit hash, branch name, Jira URL, `worklog_count`, `total_tokens`, remaining
    sprint tasks
@@ -200,7 +192,8 @@ Language skill: <SKILLS-DIR>/lsr-python/SKILL.md
 Jira summary: ...
 Jira description: ...
 
-Execute ONLY Step N. Update ai-tasks/<JIRA-TASK-ID>/00-roadmap.md ([/] → [x]).
+Execute ONLY Step N. Mark Step N as [/] in ai-tasks/<JIRA-TASK-ID>/00-roadmap.md and add
+your artifacts as sub-items. Leave it [/] — the orchestrator marks [x] after review passes.
 Do NOT ask the user for approval — sprint-task-runner is fully autonomous.
 Return: summary, files changed, test results, issues found.
 
@@ -211,9 +204,9 @@ step: <N>
 step_name: <name>
 ```
 
-Review subagent adds: `Read-only. Do not edit any file. Return PASS/FAIL with a gap list.`
-and the
-same `## Worklog` block (`role: review` or `blocker_review`).
+For review subagents use the prompt template in [td-review](../td-review/SKILL.md) — it
+already carries the read-only constraint, the PASS/FAIL gap list, and the `## Worklog` block
+(`role: review` or `blocker_review`).
 
 For Step 3 use `step_name: Failing Repro`. The Step 3 review subagent never edits; a
 separate fix subagent makes **test harness only** changes, and its diff is checked to
@@ -228,6 +221,8 @@ confirm it touched nothing outside the test layout.
 - **Do not** merge Step 3 write-test and review-test into one `Task` call
 - **Do not** implement the production fix inside the Step 3 execution subagent
 - **Do not** skip per-step review subagents
+- **Do not** let an execution subagent mark its own step `[x]` — that is the orchestrator's
+  act after review PASS
 - **Do not** trust that a review subagent stayed read-only — compare the working tree
   before and after; a changed tree invalidates the review
 - **Do not** accept a Step 3 fix subagent whose diff reaches outside the test layout
@@ -247,4 +242,6 @@ confirm it touched nothing outside the test layout.
 - Full sprint orchestration (all tasks + close): [sprint-runner](../sprint-runner/SKILL.md)
 - Create follow-ups with estimate: [jira-create-issue](../jira-create-issue/SKILL.md)
 - Step details and critical rules: [top-down-workflow](../top-down-workflow/SKILL.md)
+- Roadmap legend, mark ownership, and template: [td-roadmap](../td-roadmap/SKILL.md)
+- Review subagent procedure and integrity check: [td-review](../td-review/SKILL.md)
 - Sprint planning and backlog analysis: [jira-sprint-planning](../jira-sprint-planning/SKILL.md)
