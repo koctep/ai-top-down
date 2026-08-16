@@ -1,6 +1,6 @@
 ---
 name: td-review
-description: How to run a review subagent in the Top-Down pipeline — when to launch one, the read-only prompt template, the working-tree integrity check, verdict format, and the fix loop. Use whenever a step's artifacts must be reviewed by a separate agent. This is the review *procedure*; Step 7 tech-debt analysis is td-60-review.
+description: How to run a review subagent in the Top-Down pipeline — when to launch one, the read-only prompt template, the working-tree integrity check, verdict format, and the fix loop. Use whenever a step's artifacts must be reviewed by a separate agent. This is the review *procedure*; Step 7 tech-debt analysis is td-60-tech-debt.
 ---
 
 # Review Subagent Procedure
@@ -8,9 +8,9 @@ description: How to run a review subagent in the Top-Down pipeline — when to l
 Every Top-Down step is verified by an **independent agent** that did not produce the work.
 This skill owns how that review is launched, constrained, verified, and closed out.
 
-> **Not to be confused with** [td-60-review](../td-60-review/SKILL.md) — that is Step 7 of the
-> workflow (technical-debt analysis and its artifact). This skill is the reusable *procedure*
-> for running any review subagent, including the one that reviews Step 7.
+> **Not to be confused with** [td-60-tech-debt](../td-60-tech-debt/SKILL.md) — that is Step 7
+> of the workflow (technical-debt analysis and its artifact). This skill is the reusable
+> *procedure* for running any review subagent, including the one that reviews Step 7.
 
 ## Core Rule
 
@@ -141,5 +141,5 @@ must touch the test layout alone. Anything outside it is reverted and re-run —
 - Workflow entry point and step list: [top-down-workflow](../top-down-workflow/SKILL.md)
 - Autonomous runs and blocker review: [sprint-task-runner](../sprint-task-runner/SKILL.md)
 - Step 7 tech-debt analysis (the artifact, not this procedure):
-  [td-60-review](../td-60-review/SKILL.md)
+  [td-60-tech-debt](../td-60-tech-debt/SKILL.md)
 - Worklog conversion: [_shared/token-worklog.md](../_shared/token-worklog.md)

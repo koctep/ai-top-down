@@ -32,7 +32,7 @@ relevant step skill before starting a step.
    Lint, format, and prepare code for review. Create `40-code-cleanup.md`.
 6. **Observability** ([td-50-observability](../td-50-observability/SKILL.md))
    Add logging and metrics. Create `50-observability.md`.
-7. **Review** ([td-60-review](../td-60-review/SKILL.md))
+7. **Technical Debt** ([td-60-tech-debt](../td-60-tech-debt/SKILL.md))
    Technical debt analysis and follow-up task creation. Create `60-tech-debt.md`.
 8. **Dev Docs** ([td-70-dev-docs](../td-70-dev-docs/SKILL.md))
    Create or update developer documentation in `doc/dev`.
@@ -157,7 +157,7 @@ Use `tokens_used: 0` when unavailable. For Step 3 use `step_name: Failing Repro`
 - **Red Before Green**: Do not implement the production fix until Step 3 (Failing Repro) has
   a reviewed red test (or documented N/A for no behavioral change). Step 3 execution and
   review **must** be separate subagents.
-- **Clean Before Review**: Step 5 (Code Cleanup) is mandatory before Step 7 (Review).
+- **Clean Before Review**: Step 5 (Code Cleanup) is mandatory before Step 7 (Technical Debt).
 - **Subagents**: Use subagents to keep context clean and focused, especially for the
   Development loop and code reviews.
 - **Independent Review**: Every step's artifacts are reviewed by a separate subagent per

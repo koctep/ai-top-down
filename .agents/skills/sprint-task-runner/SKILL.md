@@ -92,7 +92,7 @@ Prompt must include:
 | 4 | `td-30-development/SKILL.md` | code, green tests, roadmap updates |
 | 5 | `td-40-code-cleanup/SKILL.md` | `40-code-cleanup.md` |
 | 6 | `td-50-observability/SKILL.md` | `50-observability.md` |
-| 7 | `td-60-review/SKILL.md` | `60-tech-debt.md` |
+| 7 | `td-60-tech-debt/SKILL.md` | `60-tech-debt.md` |
 
 **Step 3 (Failing Repro):** Write the red test only — **no production fix**. Test must
 fail on current code for the intended reason. Do **not** merge B1 and B2 into one

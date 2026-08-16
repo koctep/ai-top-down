@@ -15,7 +15,7 @@
   - [ ] *[Add summaries of completed iterations here]*
 - [ ] **STEP 5: Code Cleanup**
 - [ ] **STEP 6: Observability**
-- [ ] **STEP 7: Review and Technical Debt**
+- [ ] **STEP 7: Technical Debt Analysis**
 - [ ] **STEP 8: Dev Docs**
 - [ ] **COMMIT: Commit Changes**
 
@@ -55,7 +55,7 @@ See the `td-roadmap` skill for who writes which mark and when.
 
 - `ai-tasks/<JIRA-TASK-ID>/50-observability.md`
 
-### STEP 7: Review
+### STEP 7: Technical Debt
 
 - `ai-tasks/<JIRA-TASK-ID>/60-tech-debt.md`
 

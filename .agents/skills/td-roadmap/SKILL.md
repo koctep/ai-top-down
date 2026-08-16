@@ -89,7 +89,7 @@ match skill-file prefixes** — this table is the source of truth for the mappin
 | 4 | `td-30-development` | STEP 4 | source code, green tests, iteration sub-items |
 | 5 | `td-40-code-cleanup` | STEP 5 | `40-code-cleanup.md` |
 | 6 | `td-50-observability` | STEP 6 | `50-observability.md` |
-| 7 | `td-60-review` | STEP 7 | `60-tech-debt.md` |
+| 7 | `td-60-tech-debt` | STEP 7 | `60-tech-debt.md` |
 | 8 | `td-70-dev-docs` | STEP 8 | `doc/dev/` |
 | — | `td-99-commit` | COMMIT | commit hash, branch name in the roadmap |
 

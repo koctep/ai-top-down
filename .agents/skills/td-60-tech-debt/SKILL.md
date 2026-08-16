@@ -1,9 +1,9 @@
 ---
-name: td-60-review
-description: Step 7 of the Top-Down workflow: review implementation and record technical debt.
+name: td-60-tech-debt
+description: "Step 7 of the Top-Down workflow: analyze the implemented solution for technical debt and record it in 60-tech-debt.md. This is the step and its artifact; for the procedure of running a review subagent see td-review."
 ---
 
-# STEP 7: Review and Technical Debt
+# STEP 7: Technical Debt Analysis
 
 ## General Principle
 
