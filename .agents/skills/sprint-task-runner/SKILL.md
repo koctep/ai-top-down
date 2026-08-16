@@ -103,21 +103,25 @@ when possible. First priority: make the Step 3 red test green.
 
 ### B2. Review subagent
 
-Launch a review subagent — read-only (file read and search, no edits), `readonly: true`.
-Prompt must include:
+Launch a review subagent — read-only: file read and search, no edits. Prompt must include:
 
 - Same step-skill path
 - Paths to artifacts produced in B1
 - Instruction: verify full compliance with the step skill; classify gaps as fixable or
-  blocking; **do not implement fixes** (readonly)
+  blocking; **do not implement fixes**
 
 **Step 3 review:** Confirm failure mode is the intended defect / missing behavior (not
 a broken fixture). If the test harness needs fixes, launch a **fix** subagent that
 may edit tests only — never the product fix. Re-run review until PASS.
 
 If review finds fixable gaps (other steps), launch a **fix subagent** (general-purpose,
-write access, not readonly), log its worklog, then re-run the review subagent for that
-step. Repeat until review passes.
+with write access), log its worklog, then re-run the review subagent for that step.
+Repeat until review passes.
+
+**After every review subagent, verify the working tree did not change** — read-only is a
+prompt instruction, not an enforced parameter. Follow the review subagent integrity check
+in [top-down-workflow](../top-down-workflow/SKILL.md). A changed tree invalidates the
+review: revert and re-run.
 
 **Immediately proceed to the next step** — no user confirmation.
 
@@ -127,7 +131,8 @@ step. Repeat until review passes.
 
 Log worklog after each blocker-review and fix subagent (same orchestration rules as Phase B).
 
-After Step 7 completes, launch an **independent** review subagent (`readonly: true`):
+After Step 7 completes, launch an **independent** read-only review subagent (same
+working-tree check as Phase B):
 
 - Read `ai-tasks/<JIRA-TASK-ID>/60-tech-debt.md` and the implementation
 - Classify each item: **BLOCKER** (must fix before close) or **NON-BLOCKER**
@@ -206,11 +211,13 @@ step: <N>
 step_name: <name>
 ```
 
-Review subagent adds: `Readonly. Do not edit files. Return PASS/FAIL with gap list.` and the
+Review subagent adds: `Read-only. Do not edit any file. Return PASS/FAIL with a gap list.`
+and the
 same `## Worklog` block (`role: review` or `blocker_review`).
 
-For Step 3 use `step_name: Failing Repro`. Step 3 review may allow a fix subagent for
-**test harness only** if readonly review cannot edit.
+For Step 3 use `step_name: Failing Repro`. The Step 3 review subagent never edits; a
+separate fix subagent makes **test harness only** changes, and its diff is checked to
+confirm it touched nothing outside the test layout.
 
 ---
 
@@ -221,6 +228,9 @@ For Step 3 use `step_name: Failing Repro`. Step 3 review may allow a fix subagen
 - **Do not** merge Step 3 write-test and review-test into one `Task` call
 - **Do not** implement the production fix inside the Step 3 execution subagent
 - **Do not** skip per-step review subagents
+- **Do not** trust that a review subagent stayed read-only — compare the working tree
+  before and after; a changed tree invalidates the review
+- **Do not** accept a Step 3 fix subagent whose diff reaches outside the test layout
 - **Do not** close the Jira task while blocker review says BLOCKED
 - **Do not** create Jira follow-ups before blocker review passes
 - **Do not** create follow-ups with raw `jira_create_issue` — use jira-create-issue

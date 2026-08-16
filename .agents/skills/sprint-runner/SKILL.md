@@ -258,7 +258,7 @@ Estimation details: [_shared/story-points.md](../_shared/story-points.md).
 - **Do not** auto-close another active sprint that still has open work
 - **Do not** re-run Phase 1–4 inside each task — sprint context is set once
 - **Do not** skip Phase 3 when open issues lack story points (unless user opted out)
-- **Do not** run estimation subagents with write access — readonly only
+- **Do not** run estimation subagents with write access; verify the tree is unchanged after
 - **Do not** skip sprint-task-runner per-step reviews inside each task
 - **Do not** ask for approval between tasks in autonomous mode
 

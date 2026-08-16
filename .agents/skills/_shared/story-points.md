@@ -1,6 +1,6 @@
 # Story Point Estimation
 
-Shared protocol for Fibonacci story-point estimates via readonly subagents.
+Shared protocol for Fibonacci story-point estimates via read-only subagents.
 
 Referenced by [jira-create-issue](../jira-create-issue/SKILL.md) and
 [sprint-runner](../sprint-runner/SKILL.md) Phase 3.
@@ -24,8 +24,10 @@ Repro). Do not implement.
 
 ## Estimation subagent
 
-Launch a read-only subagent — file read and search, no edits — `readonly: true`. Pick the
-agent type your harness offers for that capability; do not guess a type name.
+Launch a read-only subagent — file read and search, no edits. Pick the agent type your
+harness offers for that capability; do not guess a type name. Read-only is an instruction
+in the prompt, not an enforced parameter — verify the working tree is unchanged after the
+subagent returns.
 
 One subagent per issue (or draft). Independent estimates may run **in parallel**.
 

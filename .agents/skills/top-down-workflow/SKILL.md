@@ -90,8 +90,9 @@ described capability; never guess a type name.
    access — to execute the step. Pass the relevant `td-*` skill path and the Jira task
    details in the prompt.
 2. **Log worklog**: Parse subagent `## Worklog` → `jira_add_worklog` (orchestrator).
-3. **Review Subagent**: Launch a second subagent to review artifacts against the step skill.
-   Have it fix any issues it finds (or launch a fix subagent if readonly).
+3. **Review Subagent**: Launch a read-only subagent — file read and search — to review
+   artifacts against the step skill. It reports gaps; it never fixes them. Launch a
+   separate fix subagent for anything it finds.
 4. **Log worklog**: Parse review subagent `## Worklog` → `jira_add_worklog` (orchestrator).
 5. **User Approval**: Present results and wait for approval before the next step (unless the
    user explicitly asked to run multiple steps automatically).
@@ -99,6 +100,22 @@ described capability; never guess a type name.
 
 **Step 3 (Failing Repro):** Never merge writing the red test and reviewing it into one
 `Task` call. Always run execution, then a separate review subagent.
+
+### Review subagent integrity check
+
+Read-only review is an **instruction in the subagent prompt, not an enforced parameter**.
+The subagent-launch tool has no read-only flag, and any agent with shell access can write
+regardless of which other tools it holds. Verify instead of trusting:
+
+1. Before launching a review subagent, record the working tree: `git status --porcelain`
+   and the output of `git diff`.
+2. After it returns, record both again and compare.
+3. If they differ, the review is **invalid** — revert the subagent's changes (`git checkout`
+   for tracked files, delete untracked ones), then re-run the review, restating that it
+   must not edit.
+
+Apply the same check to the Step 3 fix subagent, which may edit tests only: its diff must
+touch the test layout alone. Anything outside it is reverted and re-run.
 
 ### Example Execution
 

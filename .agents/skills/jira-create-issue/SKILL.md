@@ -1,7 +1,7 @@
 ---
 name: jira-create-issue
 description: >-
-  Estimate Fibonacci story points via a readonly subagent, then create a Jira Story,
+  Estimate Fibonacci story points via a read-only subagent, then create a Jira Story,
   Task, or Debt issue with points set. Use when creating any non-epic Jira issue, or
   when another skill needs a create-with-estimate helper (tech-debt sync, audit stories,
   sprint-task-runner follow-ups).
@@ -30,7 +30,7 @@ Worklog rules: [_shared/token-worklog.md](../_shared/token-worklog.md).
 ```
 - [ ] Read MCP schemas (jira_create_issue, jira_add_worklog; jira_search_fields if needed)
 - [ ] Resolve <JIRA-STORY-POINTS-FIELD-ID> if unset
-- [ ] Launch readonly estimation subagent (draft fields)
+- [ ] Launch read-only estimation subagent (draft fields)
 - [ ] Parse story_points + rationale
 - [ ] jira_create_issue with SP in additional_fields
 - [ ] Worklog on new key if tokens_used > 0
@@ -54,9 +54,8 @@ Worklog rules: [_shared/token-worklog.md](../_shared/token-worklog.md).
 
 ## Flow (per issue)
 
-1. **Estimate** — launch one read-only subagent (file read and search, no edits,
-   `readonly: true`) using [_shared/story-points.md](../_shared/story-points.md)
-   **draft** mode.
+1. **Estimate** — launch one read-only subagent (file read and search, no edits) using
+   [_shared/story-points.md](../_shared/story-points.md) **draft** mode.
    Pass proposed summary, description, issue type, priority, labels, parent/epic,
    repo `<REPO-PATH>`, and any related artifacts.
 2. **Parse** — read `story_points` (must be one of 1, 2, 3, 5, 8, 13) and `rationale`.
@@ -109,7 +108,7 @@ When creating many issues (e.g. debt sync, audit focus stories):
 - **Do not** set story points on Epics
 - **Do not** use heuristic/default points — always use the subagent Fibonacci result
 - **Do not** use `jira_batch_create_issues`
-- **Do not** run estimation subagents with write access — readonly only
+- **Do not** run estimation subagents with write access; verify the tree is unchanged after
 - **Do not** ask the user for approval between estimate and create
 
 ## Related
