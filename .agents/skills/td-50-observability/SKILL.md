@@ -15,7 +15,7 @@ Add necessary logging and metrics to ensure application observability in product
 
 ## Preparation
 
-1. Mark STEP 6 in the roadmap (`ai-tasks/<JIRA-TASK-ID>/00-roadmap.md`) as `[/]` (work started).
+1. Update the roadmap per [td-roadmap](../td-roadmap/SKILL.md): STEP 6 → `[/]`.
 
 ## Actions
 
@@ -134,3 +134,4 @@ Additional notes on observability or special cases.
 - Metrics added for critical indicators (if applicable to the project)
 - File `50-observability.md` created and filled
 - ✅ **Observability is ready for production**
+- STEP 6 marked `[x]` by the acceptance gate owner ([td-roadmap](../td-roadmap/SKILL.md))

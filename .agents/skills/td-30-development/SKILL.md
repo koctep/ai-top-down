@@ -20,7 +20,7 @@ Implement the task iteratively, in small steps, with constant quality control an
 
 ## Preparation
 
-1. Mark STEP 4 in the roadmap (`ai-tasks/<JIRA-TASK-ID>/00-roadmap.md`) as `[/]` (work started).
+1. Update the roadmap per [td-roadmap](../td-roadmap/SKILL.md): STEP 4 → `[/]`.
 
 ## Development Process
 
@@ -37,8 +37,10 @@ Implement the task iteratively, in small steps, with constant quality control an
    - Follow the architecture defined in Step 2.
 
 3. **Update Roadmap**
-   - Add a brief summary (what was done) to `ai-tasks/<JIRA-TASK-ID>/00-roadmap.md` as a sub-item of STEP 4.
+   - Add a brief summary (what was done) as a sub-item of STEP 4 — see
+     [td-roadmap](../td-roadmap/SKILL.md).
    - Format: `- [x] Implemented functionality X...`
+   - STEP 4 itself stays `[/]` until the whole step passes its gate.
 
 4. 📋 **Request review**
    - **MANDATORY**: After each iteration (each minimal meaningful change), request a review from the user.
@@ -73,7 +75,7 @@ During development, **MANDATORY** ensure code quality:
 ## Artifacts
 
 - Project code.
-- Updates in `ai-tasks/<JIRA-TASK-ID>/00-roadmap.md` (mark progress if applicable).
+- Per-iteration sub-items under STEP 4 in `ai-tasks/<JIRA-TASK-ID>/00-roadmap.md`.
 
 ## Completion Criteria
 
@@ -82,4 +84,5 @@ During development, **MANDATORY** ensure code quality:
 - All stubs replaced with real code.
 - Tests pass (if applicable).
 - ✅ **Received final approval from the user**.
-- After completing the entire stage, mark STEP 4 in the roadmap as `[x]` (completed) and proceed to STEP 5.
+- After the acceptance gate passes, its owner marks STEP 4 as `[x]`
+  ([td-roadmap](../td-roadmap/SKILL.md)) and the workflow proceeds to STEP 5.

@@ -15,7 +15,7 @@ Create or update developer documentation in `doc/dev` to reflect the changes mad
 
 ## Actions
 
-1. Mark STEP 8 in the roadmap (`ai-tasks/<JIRA-TASK-ID>/00-roadmap.md`) as `[/]` (work started).
+1. Update the roadmap per [td-roadmap](../td-roadmap/SKILL.md): STEP 8 → `[/]`.
 2. Create or update documentation files in the `doc/dev` directory.
    - If a relevant file exists, update it.
    - If not, create a new markdown file (e.g., `doc/dev/<feature-name>.md`).
@@ -26,7 +26,8 @@ Create or update developer documentation in `doc/dev` to reflect the changes mad
    - **Configuration**: Any configuration settings or environment variables.
    - **Troubleshooting**: Common issues and how to resolve them.
 4. 📋 **Request review from the user** to verify the documentation.
-5. After receiving approval from the user, mark STEP 8 in the roadmap as `[x]` (completed).
+5. The acceptance gate owner marks STEP 8 as `[x]` once the gate passes — see
+   [td-roadmap](../td-roadmap/SKILL.md).
 
 ## Artifacts
 

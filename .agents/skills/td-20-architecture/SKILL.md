@@ -15,13 +15,14 @@ Define the general system architecture, main modules, and their interaction.
 
 ## Actions
 
-1. Mark STEP 2 in the roadmap (`ai-tasks/<JIRA-TASK-ID>/00-roadmap.md`) as `[/]` (work started).
+1. Update the roadmap per [td-roadmap](../td-roadmap/SKILL.md): STEP 2 → `[/]`.
 2. Break the system into main modules/components.
 3. Define dependencies between modules.
 4. Select architectural patterns.
 5. Define main interfaces between modules.
 6. 📋 **Request review from the user** to verify all step artifacts.
-7. After receiving approval from the user, mark STEP 2 in the roadmap as `[x]` (completed).
+7. The acceptance gate owner marks STEP 2 as `[x]` once the gate passes — see
+   [td-roadmap](../td-roadmap/SKILL.md).
 
 ## Artifacts
 

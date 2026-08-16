@@ -1,5 +1,10 @@
 # Roadmap: <JIRA-TASK-ID>
 
+## Task Metadata
+
+- **Implementation language**: *[determined at STEP 1 — mandatory]*
+- **Branch name**: *[recorded by the commit procedure — reference only, do not switch]*
+
 ## Step Status
 
 - [ ] **STEP 1: Requirements Gathering and Documentation**
@@ -12,12 +17,15 @@
 - [ ] **STEP 6: Observability**
 - [ ] **STEP 7: Review and Technical Debt**
 - [ ] **STEP 8: Dev Docs**
+- [ ] **COMMIT: Commit Changes**
 
 ## Status Legend
 
 - `[ ]` — step not started
 - `[/]` — step in progress
-- `[x]` — step completed
+- `[x]` — step completed and accepted (acceptance gate passed)
+
+See the `td-roadmap` skill for who writes which mark and when.
 
 ## Artifacts
 
@@ -54,3 +62,7 @@
 ### STEP 8: Dev Docs
 
 - `doc/dev/`
+
+### COMMIT
+
+- Commit hash and message (Conventional Commits + JIRA ID)

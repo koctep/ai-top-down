@@ -15,7 +15,7 @@ Prepare code for review by cleaning, formatting, and fixing technical issues so 
 
 ## Preparation
 
-1. Mark STEP 5 in the roadmap (`ai-tasks/<JIRA-TASK-ID>/00-roadmap.md`) as `[/]` (work started).
+1. Update the roadmap per [td-roadmap](../td-roadmap/SKILL.md): STEP 5 → `[/]`.
 
 ## Actions
 
@@ -99,3 +99,4 @@ Additional notes or special cases requiring reviewer attention.
 - All unnecessary code and imports removed
 - File `40-code-cleanup.md` created and filled
 - ✅ **Code is ready for review**
+- STEP 5 marked `[x]` by the acceptance gate owner ([td-roadmap](../td-roadmap/SKILL.md))

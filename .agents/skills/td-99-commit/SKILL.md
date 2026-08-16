@@ -20,7 +20,11 @@ Record completed work in the version control system with a clear and structured 
 3. 📝 **Formulate message**: Write a commit message according to the Conventional Commits standard.
 4. 🚀 **Propose commit**: Generate the commit command and propose the user to execute it.
 5. ✅ **Check result**: Ensure the commit was successful (clean working tree).
-6. 🌿 **Branch name**: At the very end, output the recommended branch name to the chat (based on task ID) and record it in the file `ai-tasks/<JIRA-TASK-ID>/00-roadmap.md` (if it exists), but **do not switch** branches automatically.
+6. 🌿 **Branch name**: At the very end, output the recommended branch name to the chat (based on
+   task ID) and record it in the `Task Metadata` section of `ai-tasks/<JIRA-TASK-ID>/00-roadmap.md`
+   (if it exists), but **do not switch** branches automatically.
+7. 📗 **Roadmap**: Mark the `COMMIT` entry `[x]` and record the commit hash under its artifacts
+   section — see [td-roadmap](../td-roadmap/SKILL.md).
 
 ## Branch Naming Rules
 

@@ -21,19 +21,23 @@ Create a single document with a full description of business tasks and functiona
 
 ## Actions
 
-1. Create file `ai-tasks/<JIRA-TASK-ID>/00-roadmap.md` from [assets/roadmap.md](assets/roadmap.md) and replace `<JIRA-TASK-ID>` with the actual task ID.
-2. Mark STEP 1 in roadmap as `[/]` (work started).
-3. 🔍 **Determine programming language** for task implementation and record it in 00-roadmap.md
+1. Create file `ai-tasks/<JIRA-TASK-ID>/00-roadmap.md` from the roadmap template and replace
+   `<JIRA-TASK-ID>` with the actual task ID — see [td-roadmap](../td-roadmap/SKILL.md).
+2. Update the roadmap per [td-roadmap](../td-roadmap/SKILL.md): STEP 1 → `[/]`.
+3. 🔍 **Determine programming language** for task implementation and record it in the
+   `Task Metadata` section of `00-roadmap.md`
 4. Gather all requirements from the user. **If the user provides a technical solution**, you must ask clarifying questions to understand the underlying business reason before proceeding.
 5. Document them in a structured way.
 6. Define system boundaries (scope).
 7. Identify main entities and their interactions (business entities, not database tables).
 8. 📋 **Request review from user** to verify all step artifacts.
-9. After receiving approval from the user mark STEP 1 in roadmap as `[x]` (completed).
+9. The acceptance gate owner marks STEP 1 as `[x]` once the gate passes — see
+   [td-roadmap](../td-roadmap/SKILL.md).
 
 ## Artifacts
 
-- **File**: `ai-tasks/<JIRA-TASK-ID>/00-roadmap.md` (created from [assets/roadmap.md](assets/roadmap.md)).
+- **File**: `ai-tasks/<JIRA-TASK-ID>/00-roadmap.md` (created from the
+  [roadmap template](../td-roadmap/assets/roadmap.md)).
 - **File**: `ai-tasks/<JIRA-TASK-ID>/10-requirements.md`.
 - **Content of requirements.md**:
   - Description of the problem/task.

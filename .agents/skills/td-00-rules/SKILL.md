@@ -120,10 +120,8 @@ allowed and required for behavioral changes; the product fix belongs to Step 4.
 ### Roadmap Maintenance
 
 - **MANDATORY** maintain the file `ai-tasks/<JIRA-TASK-ID>/00-roadmap.md` to track progress
-- At STEP 1 create `ai-tasks/<JIRA-TASK-ID>/00-roadmap.md` from [td-10-requirements' roadmap template](../td-10-requirements/assets/roadmap.md)
-- When starting work on a step, mark it as `[/]` (in progress)
-- When completing a step, mark it as `[x]` (completed)
-- Replace `<JIRA-TASK-ID>` with the actual task ID from JIRA
+- All rules — status legend, who writes which mark and when, the step-to-artifact mapping — live
+  in [td-roadmap](../td-roadmap/SKILL.md). Read it before touching the roadmap.
 
 ### Programming Languages
 
