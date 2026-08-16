@@ -79,10 +79,16 @@ After Step 8 (and any blocker-review phases), **before commit**:
 ## AI Execution Pattern
 
 To maximize efficiency and ensure high quality, use the `Task` tool (subagents) to execute
-each step:
+each step.
 
-1. **Execution Subagent**: Launch a subagent with `generalPurpose` type to execute the step.
-   Pass the relevant `td-*` skill path and the Jira task details in the prompt.
+**Naming subagents:** this skill describes each subagent by the **capability** it needs, not
+by a harness-specific agent type name — those names differ between AI tools and change
+between releases. Read the agent types your harness offers and pick the one matching the
+described capability; never guess a type name.
+
+1. **Execution Subagent**: Launch a general-purpose subagent — file read, write, and shell
+   access — to execute the step. Pass the relevant `td-*` skill path and the Jira task
+   details in the prompt.
 2. **Log worklog**: Parse subagent `## Worklog` → `jira_add_worklog` (orchestrator).
 3. **Review Subagent**: Launch a second subagent to review artifacts against the step skill.
    Have it fix any issues it finds (or launch a fix subagent if readonly).

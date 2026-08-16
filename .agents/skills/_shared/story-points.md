@@ -24,7 +24,8 @@ Repro). Do not implement.
 
 ## Estimation subagent
 
-Launch `Task` with `subagent_type: generalPurpose`, `readonly: true`.
+Launch a read-only subagent — file read and search, no edits — `readonly: true`. Pick the
+agent type your harness offers for that capability; do not guess a type name.
 
 One subagent per issue (or draft). Independent estimates may run **in parallel**.
 

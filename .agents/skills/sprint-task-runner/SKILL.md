@@ -74,7 +74,8 @@ For **each step** (1 through 7), run **two subagents** in order:
 
 ### B1. Execution subagent
 
-Launch `Task` with `subagent_type: generalPurpose`. Prompt must include:
+Launch an execution subagent — general-purpose, with file read, write, and shell access.
+Prompt must include:
 
 - Jira task key, summary, description
 - Step skill: `<SKILLS-DIR>/td-<step-file-name>/SKILL.md` (see mapping below)
@@ -102,7 +103,8 @@ when possible. First priority: make the Step 3 red test green.
 
 ### B2. Review subagent
 
-Launch `Task` with `subagent_type: generalPurpose`, `readonly: true`. Prompt must include:
+Launch a review subagent — read-only (file read and search, no edits), `readonly: true`.
+Prompt must include:
 
 - Same step-skill path
 - Paths to artifacts produced in B1
@@ -113,9 +115,9 @@ Launch `Task` with `subagent_type: generalPurpose`, `readonly: true`. Prompt mus
 a broken fixture). If the test harness needs fixes, launch a **fix** subagent that
 may edit tests only — never the product fix. Re-run review until PASS.
 
-If review finds fixable gaps (other steps), launch a **fix subagent** (generalPurpose,
-not readonly), log its worklog, then re-run the review subagent for that step. Repeat
-until review passes.
+If review finds fixable gaps (other steps), launch a **fix subagent** (general-purpose,
+write access, not readonly), log its worklog, then re-run the review subagent for that
+step. Repeat until review passes.
 
 **Immediately proceed to the next step** — no user confirmation.
 

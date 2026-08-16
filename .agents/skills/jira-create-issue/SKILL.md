@@ -54,8 +54,9 @@ Worklog rules: [_shared/token-worklog.md](../_shared/token-worklog.md).
 
 ## Flow (per issue)
 
-1. **Estimate** — launch one `Task` subagent (`generalPurpose`, `readonly: true`)
-   using [_shared/story-points.md](../_shared/story-points.md) **draft** mode.
+1. **Estimate** — launch one read-only subagent (file read and search, no edits,
+   `readonly: true`) using [_shared/story-points.md](../_shared/story-points.md)
+   **draft** mode.
    Pass proposed summary, description, issue type, priority, labels, parent/epic,
    repo `<REPO-PATH>`, and any related artifacts.
 2. **Parse** — read `story_points` (must be one of 1, 2, 3, 5, 8, 13) and `rationale`.
