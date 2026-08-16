@@ -24,5 +24,6 @@ changes with `--dry-run`. Existing files and directories are never replaced; use
 - `td-roadmap` — roadmap template, status legend, and who marks a step done.
 - `td-review` — how to run a review subagent: prompt, verdict, integrity check, fix loop.
 - `sprint-task-runner` and `sprint-runner` — Jira sprint execution.
+- `_shared/autonomous-run.md` — when a long run may end the turn, plus its state registry.
 - `td-*` — individual Top-Down steps.
 - `lsr-*`, `do-testing`, and `run-*` — language, testing, and Makefile guidance.

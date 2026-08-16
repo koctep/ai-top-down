@@ -20,12 +20,16 @@ Configure placeholders — see [jira-sprint-planning](../jira-sprint-planning/SK
 
 ## Autonomous Mode (mandatory)
 
-Run **all phases without stopping for user approval** between tasks.
+Follow [_shared/autonomous-run.md](../_shared/autonomous-run.md) — it owns the terminal
+conditions, the progress-reporting rule, the state registry, and context hygiene. The whole
+sprint is **one continuous run**: from selection to `state: closed` the turn does not end.
 
 - **Do not** ask "Shall I run the next task?" after each task completes.
 - **Do not** wait for confirmation between Phase 1–6.
+- **Do not** end the turn between tasks — a closed task is a checkpoint, not a result.
 - Inherit autonomous rules from sprint-task-runner for each task run.
-- Only stop and ask the user when:
+- Terminal conditions for a sprint run:
+  - the sprint is **closed** (Phase 6.2 confirmed),
   - **sprint selection is ambiguous** (multiple equally valid candidates and no user hint),
   - a **hard blocker** stops sprint-task-runner and cannot be resolved,
   - **missing credentials / MCP auth** blocks Jira operations, or
@@ -37,6 +41,7 @@ At the **end**, provide one consolidated sprint summary — not per-task prompts
 
 ```
 Sprint run:
+- [ ] Phase 0: Resume check (state registry)
 - [ ] Phase 1: Discover sprints (future + active)
 - [ ] Phase 2: Select sprint
 - [ ] Phase 3: Estimate story points (subagent per open issue)
@@ -44,6 +49,23 @@ Sprint run:
 - [ ] Phase 5: Task loop (sprint-task-runner per open issue)
 - [ ] Phase 6: Close inactive epics, close sprint, report
 ```
+
+---
+
+## Phase 0: Resume Check
+
+Before any Jira call, look for an existing run state registry:
+`ai-tasks/sprint-*/00-sprint-state.md`.
+
+- **Found, sprint not closed** → read it, report the resume point in one line, and continue
+  from its `next_action`. Skip Phases 1–4 — the sprint is already selected, estimated, and
+  active.
+- **Found, sprint closed** → ignore it and start a fresh run at Phase 1.
+- **Not found** → start at Phase 1.
+
+From here on, rewrite the registry per
+[_shared/autonomous-run.md](../_shared/autonomous-run.md) at every phase boundary and after
+every completed task.
 
 ---
 
@@ -80,7 +102,8 @@ Skip sprints with **zero** open issues unless the user named that sprint explici
 3. If still tied, pick the sprint whose name/goal best matches recent repo context.
 
 Announce the chosen sprint (id, name, goal, open count) and selection rationale in one
-short message, then **proceed without waiting**.
+short line, then **immediately** create the state registry and continue into Phase 3 — the
+announcement is preamble to the next tool call, never a standalone message.
 
 ---
 
@@ -123,7 +146,8 @@ write path in [_shared/story-points.md](../_shared/story-points.md).
 ### 3.4 Report and continue
 
 Print a compact table: issue key, summary (truncated), story points, one-line rationale.
-Include sprint total story points. **Proceed to Phase 4 without waiting.**
+Include sprint total story points. Update the state registry and **continue into Phase 4 in
+the same turn** — the table is preamble, not a report to hand back.
 
 ---
 
@@ -171,9 +195,12 @@ Pick the **first** issue from the JQL result (highest priority).
 - Confirm the issue reached Done (transition id `<DONE-TRANSITION-ID>` from Phase F).
 - Log a one-line progress note:
   `<JIRA-TASK-ID> done ({worklog_entries} worklogs, {total_tokens} tokens, <n> remaining)`.
-- **Immediately** start the next open task — no user gate.
+- Rewrite the state registry: task counts, next issue key, `next_action`.
+- **Immediately** re-run 5.1 for the next open task — no user gate, no turn end. A closed
+  task is the most tempting false stopping point in this skill; there is none until 6.2.
 - On **hard blocker** from sprint-task-runner: stop the loop, leave sprint **active**,
-  report blocker + remaining issues. Do **not** close the sprint or run Phase 6.1.
+  record the blocker in the registry, report blocker + remaining issues. Do **not** close
+  the sprint or run Phase 6.1.
 
 ---
 
@@ -213,9 +240,12 @@ ORDER BY updated DESC
 
 `jira_update_sprint` with `sprint_id` and `state: closed`.
 
+Mark the state registry `closed` — this is what tells a later run to start fresh instead of
+resuming.
+
 ### 6.3 Report
 
-Report consolidated summary:
+This is the run's terminal result and the one place a consolidated summary belongs:
 
 - Sprint name, id, goal
 - Story points (per issue + sprint total from Phase 3)
@@ -262,11 +292,17 @@ Estimation details: [_shared/story-points.md](../_shared/story-points.md).
   (same integrity check as [td-review](../td-review/SKILL.md))
 - **Do not** skip sprint-task-runner per-step reviews inside each task
 - **Do not** ask for approval between tasks in autonomous mode
+- **Do not** end the turn between tasks or phases — only the terminal conditions in
+  [_shared/autonomous-run.md](../_shared/autonomous-run.md) end a sprint run
+- **Do not** emit a phase summary as a standalone message — pair it with the next tool call
+- **Do not** re-run Phase 1–4 when Phase 0 found an open state registry
+- **Do not** carry raw Jira JSON forward — reduce to the fields the next action needs
 
 ---
 
 ## Related Skills
 
+- Continuous-run contract and state registry: [_shared/autonomous-run.md](../_shared/autonomous-run.md)
 - Per-task execution: [sprint-task-runner](../sprint-task-runner/SKILL.md)
 - Create issues with estimate: [jira-create-issue](../jira-create-issue/SKILL.md)
 - Sprint planning and backlog grooming: [jira-sprint-planning](../jira-sprint-planning/SKILL.md)

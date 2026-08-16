@@ -17,15 +17,27 @@ Configure placeholders — see [jira-sprint-planning](../jira-sprint-planning/SK
 
 When this skill is active, run **all phases A–F without stopping for user approval**.
 
+Follow [_shared/autonomous-run.md](../_shared/autonomous-run.md) — it owns the terminal
+conditions, the progress-reporting rule, the state registry, and context hygiene. A task run
+is **one continuous run**: ~16 subagents return between Phase A and Phase F, and none of
+those returns is a stopping point.
+
 - **Do not** ask "Shall I proceed to Step N?" or similar after each step.
 - **Do not** wait for confirmation between phases B, C, D, E, or F.
+- **Do not** end the turn after a subagent returns, a review passes, or a step is marked
+  `[x]` — report it as preamble and launch the next subagent in the same turn.
 - **Override** top-down-workflow and `td-*` skills that say "request review from user"
   or "wait for approval" — treat sprint-task-runner as pre-approved for the full run.
 - Subagents must **not** pause for user gates; fix review failures via fix subagents instead.
-- Only stop and ask the user when:
-  - a **hard blocker** cannot be resolved after fix loops (report what failed and why), or
+- Terminal conditions for a task run:
+  - Phase F is complete (committed and Jira task Done),
+  - a **hard blocker** cannot be resolved after fix loops (report what failed and why),
   - **missing credentials / MCP auth** prevents Jira or git operations, or
   - the user **explicitly** asked to pause or approve a specific step.
+
+When orchestrated by [sprint-runner](../sprint-runner/SKILL.md), Phase F is **not**
+terminal — control returns to the sprint loop in the same turn, and the consolidated
+summary is deferred to sprint close.
 
 At the **end** (after Phase F), provide one consolidated summary — not step-by-step prompts.
 
@@ -115,7 +127,12 @@ may edit tests only — never the product fix. Re-run review until PASS.
 autonomous mode the review PASS *is* the acceptance gate — there is no user approval to wait
 for ([td-roadmap](../td-roadmap/SKILL.md)). Subagents never mark their own step `[x]`.
 
-**Immediately proceed to the next step** — no user confirmation.
+Then update the run state registry (`current`, `next_action`) per
+[_shared/autonomous-run.md](../_shared/autonomous-run.md) and **immediately launch the next
+step's B1 subagent** — same turn, no user confirmation.
+
+Compress each subagent result to verdict + files touched + `tokens_used` before continuing;
+full subagent output must not accumulate in the orchestrator's context.
 
 ---
 
@@ -172,8 +189,10 @@ Run the same **execution + review** pair as Phase B (with worklog after each sub
    - Record the suggested branch name and commit hash in the roadmap and mark its `COMMIT`
      entry `[x]` (branch name is reference only — for PR naming or future use)
 3. Transition Jira task to Done: `jira_transition_issue` (transition id `<DONE-TRANSITION-ID>`)
-4. Report: commit hash, branch name, Jira URL, `worklog_count`, `total_tokens`, remaining
-   sprint tasks
+4. Update the state registry: task Done, `next_action` = next sprint task (or sprint close).
+5. Report: commit hash, branch name, Jira URL, `worklog_count`, `total_tokens`, remaining
+   sprint tasks. Under sprint-runner this is a one-line progress note paired with the next
+   tool call — not a final message.
 
 **Do not** run `git checkout -b`, `git switch`, or otherwise create/switch branches. The project
 commits directly on the working branch (e.g. `main`).
@@ -217,6 +236,12 @@ confirm it touched nothing outside the test layout.
 ## Anti-Patterns
 
 - **Do not** ask for user approval between steps or phases (autonomous mode)
+- **Do not** end the turn when a subagent returns, a review passes, or a phase completes —
+  only the terminal conditions in [_shared/autonomous-run.md](../_shared/autonomous-run.md)
+  end a task run
+- **Do not** emit a step summary as a standalone message — pair it with the next subagent
+  launch
+- **Do not** keep full subagent output in context — compress to verdict, files, tokens
 - **Do not** merge Steps 1–7 into one subagent (unless user explicitly asks)
 - **Do not** merge Step 3 write-test and review-test into one `Task` call
 - **Do not** implement the production fix inside the Step 3 execution subagent
@@ -239,6 +264,7 @@ confirm it touched nothing outside the test layout.
 
 ## Related Skills
 
+- Continuous-run contract and state registry: [_shared/autonomous-run.md](../_shared/autonomous-run.md)
 - Full sprint orchestration (all tasks + close): [sprint-runner](../sprint-runner/SKILL.md)
 - Create follow-ups with estimate: [jira-create-issue](../jira-create-issue/SKILL.md)
 - Step details and critical rules: [top-down-workflow](../top-down-workflow/SKILL.md)
