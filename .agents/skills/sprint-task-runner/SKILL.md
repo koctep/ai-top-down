@@ -29,6 +29,9 @@ those returns is a stopping point.
 - **Override** top-down-workflow and `td-*` skills that say "request review from user"
   or "wait for approval" — treat sprint-task-runner as pre-approved for the full run.
 - Subagents must **not** pause for user gates; fix review failures via fix subagents instead.
+- **Do not** stop on a red test suite before triaging it — failures that already fail at the
+  task's base commit are filed as their own Jira issue and the run continues
+  ([_shared/failing-tests-triage.md](../_shared/failing-tests-triage.md)).
 - Terminal conditions for a task run:
   - Phase F is complete (committed and Jira task Done),
   - a **hard blocker** cannot be resolved after fix loops (report what failed and why),
@@ -112,6 +115,12 @@ fail on current code for the intended reason. Do **not** merge B1 and B2 into on
 
 **Step 4 (Development):** Iterate until requirements are met; each iteration ≤ 100 LOC
 when possible. First priority: make the Step 3 red test green.
+
+**Red suite in any step:** triage per
+[_shared/failing-tests-triage.md](../_shared/failing-tests-triage.md) before deciding anything.
+Failures caused by this task are fixed here; failures that reproduce at the base commit get a
+Jira issue (node ids + repro + failure output) and the run continues. The step gate is
+"no failures beyond the filed pre-existing set", not "zero failures".
 
 ### B2. Review subagent
 
@@ -251,6 +260,10 @@ confirm it touched nothing outside the test layout.
 - **Do not** trust that a review subagent stayed read-only — compare the working tree
   before and after; a changed tree invalidates the review
 - **Do not** accept a Step 3 fix subagent whose diff reaches outside the test layout
+- **Do not** report a red suite as a hard blocker without a baseline run classifying each
+  failure ([_shared/failing-tests-triage.md](../_shared/failing-tests-triage.md))
+- **Do not** fix pre-existing unrelated failures inside this task's diff — file the issue and
+  move on
 - **Do not** close the Jira task while blocker review says BLOCKED
 - **Do not** create Jira follow-ups before blocker review passes
 - **Do not** create follow-ups with raw `jira_create_issue` — use jira-create-issue
@@ -265,6 +278,7 @@ confirm it touched nothing outside the test layout.
 ## Related Skills
 
 - Continuous-run contract and state registry: [_shared/autonomous-run.md](../_shared/autonomous-run.md)
+- Failing-test triage and pre-existing failures: [_shared/failing-tests-triage.md](../_shared/failing-tests-triage.md)
 - Full sprint orchestration (all tasks + close): [sprint-runner](../sprint-runner/SKILL.md)
 - Create follow-ups with estimate: [jira-create-issue](../jira-create-issue/SKILL.md)
 - Step details and critical rules: [top-down-workflow](../top-down-workflow/SKILL.md)

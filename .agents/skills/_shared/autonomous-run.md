@@ -27,6 +27,9 @@ End the turn **only** when one of these is true. This list is exhaustive.
 Everything else — a finished phase, a finished step, a passing review, a closed task, a
 long tool result, a near-full context — is a **mid-run checkpoint**, not a stopping point.
 
+**Test failures that predate the task are not condition 2.** They are filed as their own Jira
+issue and the run continues — see [failing-tests-triage.md](failing-tests-triage.md).
+
 ## Progress is commentary, not a final message
 
 Progress reporting is required by the runner skills. Emit it as preamble text **in the
@@ -91,3 +94,5 @@ turn to "start fresh" — the registry exists so compaction is transparent.
 - Do not treat a completed phase, step, or task as a natural stopping point.
 - Do not re-run discovery or activation phases when the state registry shows an active run.
 - Do not let the state registry go stale — a wrong `next_action` is worse than none.
+- Do not report a red suite as a blocker before triaging it against the baseline
+  ([failing-tests-triage.md](failing-tests-triage.md)).

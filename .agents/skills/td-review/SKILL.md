@@ -95,6 +95,12 @@ Reuse the same block for a blocker review with `role: blocker_review`.
 Every gap names the artifact it applies to. A gap without a location is not actionable and the
 reviewer must resolve it into one.
 
+**Pre-existing test failures are not gaps.** A failure that reproduces at the task's base commit
+and has a filed issue does not make the step FAIL — see
+[_shared/failing-tests-triage.md](../_shared/failing-tests-triage.md). If a review returns FAIL
+on such a failure alone, re-run it with the issue key as context instead of launching a fix
+subagent.
+
 ## Integrity Check
 
 Read-only is an **instruction in the prompt, not an enforced parameter**. The subagent-launch
@@ -134,6 +140,7 @@ must touch the test layout alone. Anything outside it is reverted and re-run —
 - **Do not** skip the re-review after a fix subagent.
 - **Do not** name the subagent by a harness agent-type string copied from another tool.
 - **Do not** batch several steps' artifacts into one review — one review per step gate.
+- **Do not** FAIL a step for a filed pre-existing test failure.
 
 ## Related Skills
 

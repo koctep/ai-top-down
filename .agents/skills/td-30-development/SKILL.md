@@ -60,7 +60,11 @@ During development, **MANDATORY** ensure code quality:
      `@pytest.mark.timeout(...)` or module/class `pytestmark` (see
      [do-testing](../do-testing/SKILL.md))
    - Run existing tests before each change with [run-test](../run-test/SKILL.md)
-   - Ensure all tests pass
+   - Ensure all tests pass — measured **against the baseline**: the Step 3 test is green and
+     no failure exists beyond the documented pre-existing set. Failures that already reproduce
+     at the task's base commit are triaged and filed as their own issue, not fixed here and not
+     a reason to stop
+     ([_shared/failing-tests-triage.md](../_shared/failing-tests-triage.md))
 
 3. **Code review**
    - Check code readability and clarity
@@ -82,7 +86,8 @@ During development, **MANDATORY** ensure code quality:
 - All functionality described in requirements and architecture is implemented.
 - Step 3 red test(s) pass (unless Step 3 was N/A).
 - All stubs replaced with real code.
-- Tests pass (if applicable).
+- Tests pass (if applicable) — no failure beyond the pre-existing set documented and filed per
+  [_shared/failing-tests-triage.md](../_shared/failing-tests-triage.md).
 - ✅ **Received final approval from the user**.
 - After the acceptance gate passes, its owner marks STEP 4 as `[x]`
   ([td-roadmap](../td-roadmap/SKILL.md)) and the workflow proceeds to STEP 5.

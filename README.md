@@ -25,5 +25,7 @@ changes with `--dry-run`. Existing files and directories are never replaced; use
 - `td-review` — how to run a review subagent: prompt, verdict, integrity check, fix loop.
 - `sprint-task-runner` and `sprint-runner` — Jira sprint execution.
 - `_shared/autonomous-run.md` — when a long run may end the turn, plus its state registry.
+- `_shared/failing-tests-triage.md` — classifying a red suite, filing pre-existing failures,
+  and why they never stop a run.
 - `td-*` — individual Top-Down steps.
 - `lsr-*`, `do-testing`, and `run-*` — language, testing, and Makefile guidance.

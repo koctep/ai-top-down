@@ -28,6 +28,8 @@ sprint is **one continuous run**: from selection to `state: closed` the turn doe
 - **Do not** wait for confirmation between Phase 1–6.
 - **Do not** end the turn between tasks — a closed task is a checkpoint, not a result.
 - Inherit autonomous rules from sprint-task-runner for each task run.
+- **Do not** treat a pre-existing red test suite as a blocker — it becomes its own Jira issue
+  and the loop continues ([_shared/failing-tests-triage.md](../_shared/failing-tests-triage.md)).
 - Terminal conditions for a sprint run:
   - the sprint is **closed** (Phase 6.2 confirmed),
   - **sprint selection is ambiguous** (multiple equally valid candidates and no user hint),
@@ -201,6 +203,10 @@ Pick the **first** issue from the JQL result (highest priority).
 - On **hard blocker** from sprint-task-runner: stop the loop, leave sprint **active**,
   record the blocker in the registry, report blocker + remaining issues. Do **not** close
   the sprint or run Phase 6.1.
+- A red test suite is **not** such a blocker until triaged: failures reproducing at the task's
+  base commit are filed as Jira issues and the loop continues
+  ([_shared/failing-tests-triage.md](../_shared/failing-tests-triage.md)). Only a failure the
+  task itself caused, unfixable after fix loops, stops the loop.
 
 ---
 
@@ -303,6 +309,7 @@ Estimation details: [_shared/story-points.md](../_shared/story-points.md).
 ## Related Skills
 
 - Continuous-run contract and state registry: [_shared/autonomous-run.md](../_shared/autonomous-run.md)
+- Failing-test triage and pre-existing failures: [_shared/failing-tests-triage.md](../_shared/failing-tests-triage.md)
 - Per-task execution: [sprint-task-runner](../sprint-task-runner/SKILL.md)
 - Create issues with estimate: [jira-create-issue](../jira-create-issue/SKILL.md)
 - Sprint planning and backlog grooming: [jira-sprint-planning](../jira-sprint-planning/SKILL.md)

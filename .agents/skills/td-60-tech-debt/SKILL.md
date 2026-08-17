@@ -60,12 +60,16 @@ Describe potential performance issues, if any.
 ## Follow-up Tasks
 
 List specific tasks that need to be created in the future to address the described issues.
+Pre-existing test failures found during the run go here as
+`NON-BLOCKER — pre-existing` with their test node ids and Jira key.
 ```
 
 ## Related Skills
 
 - Running the review subagent that checks this step's artifacts (and the tech-debt blocker
   review): [td-review](../td-review/SKILL.md)
+- Classifying and filing failing tests found during the run:
+  [_shared/failing-tests-triage.md](../_shared/failing-tests-triage.md)
 
 ## Completion Criteria
 
