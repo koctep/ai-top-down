@@ -22,7 +22,8 @@ Configure placeholders — see [jira-sprint-planning](../jira-sprint-planning/SK
 
 Follow [_shared/autonomous-run.md](../_shared/autonomous-run.md) — it owns the terminal
 conditions, the progress-reporting rule, the state registry, and context hygiene. The whole
-sprint is **one continuous run**: from selection to `state: closed` the turn does not end.
+sprint is **one continuous run**: from selection through post-close artifact cleanup the turn
+does not end.
 
 - **Do not** ask "Shall I run the next task?" after each task completes.
 - **Do not** wait for confirmation between Phase 1–6.
@@ -31,7 +32,8 @@ sprint is **one continuous run**: from selection to `state: closed` the turn doe
 - **Do not** treat a pre-existing red test suite as a blocker — it becomes its own Jira issue
   and the loop continues ([_shared/failing-tests-triage.md](../_shared/failing-tests-triage.md)).
 - Terminal conditions for a sprint run:
-  - the sprint is **closed** (Phase 6.2 confirmed),
+  - the sprint is **closed** and its transient sprint artifacts were cleaned up
+    (Phases 6.2–6.3 confirmed),
   - **sprint selection is ambiguous** (multiple equally valid candidates and no user hint),
   - a **hard blocker** stops sprint-task-runner and cannot be resolved,
   - **missing credentials / MCP auth** blocks Jira operations, or
@@ -49,7 +51,7 @@ Sprint run:
 - [ ] Phase 3: Estimate story points (subagent per open issue)
 - [ ] Phase 4: Start sprint (activate)
 - [ ] Phase 5: Task loop (sprint-task-runner per open issue)
-- [ ] Phase 6: Close inactive epics, close sprint, report
+- [ ] Phase 6: Close inactive epics, close sprint, clean sprint artifacts, report
 ```
 
 ---
@@ -62,7 +64,8 @@ Before any Jira call, look for an existing run state registry:
 - **Found, sprint not closed** → read it, report the resume point in one line, and continue
   from its `next_action`. Skip Phases 1–4 — the sprint is already selected, estimated, and
   active.
-- **Found, sprint closed** → ignore it and start a fresh run at Phase 1.
+- **Found, sprint closed** → remove the stale registry using the safe Phase 6.3 procedure,
+  then start a fresh run at Phase 1.
 - **Not found** → start at Phase 1.
 
 From here on, rewrite the registry per
@@ -210,7 +213,7 @@ Pick the **first** issue from the JQL result (highest priority).
 
 ---
 
-## Phase 6: Close Inactive Epics, Close Sprint, Finish
+## Phase 6: Close Inactive Epics, Close Sprint, Clean Up, Finish
 
 When JQL returns **zero** open issues in the sprint:
 
@@ -246,10 +249,29 @@ ORDER BY updated DESC
 
 `jira_update_sprint` with `sprint_id` and `state: closed`.
 
-Mark the state registry `closed` — this is what tells a later run to start fresh instead of
-resuming.
+Re-fetch the sprint and confirm Jira reports `state: closed`. Keep the registry
+`run_state: running` and set `next_action` to the exact Phase 6.3 cleanup operation. Do **not**
+mark it `closed`: the Codex Stop hook would then permit a final response before cleanup.
 
-### 6.3 Report
+### 6.3 Remove transient sprint artifacts
+
+After Jira closure is confirmed:
+
+1. Resolve the exact registry path as
+   `ai-tasks/sprint-<sprint_id>/00-sprint-state.md` from the selected numeric sprint id.
+2. Verify that the file exists under `ai-tasks/sprint-<sprint_id>/` and that this directory
+   matches the selected sprint. Never use a glob or recursively delete a directory here.
+3. Delete only `00-sprint-state.md`.
+4. Remove `ai-tasks/sprint-<sprint_id>/` with a non-recursive empty-directory operation. If
+   other files exist, preserve the directory and every remaining file.
+5. Confirm the registry no longer exists. This confirmation completes the autonomous run and
+   allows the Codex Stop hook to accept the final response.
+
+Task artifacts such as `ai-tasks/<JIRA-TASK-ID>/`, roadmaps, requirements, architecture,
+tests, implementation notes, and developer documentation are permanent records and must not
+be removed by sprint cleanup.
+
+### 6.4 Report
 
 This is the run's terminal result and the one place a consolidated summary belongs:
 
@@ -261,6 +283,7 @@ This is the run's terminal result and the one place a consolidated summary belon
 - Open epics left open (keys + why still active), if any
 - Blockers skipped (if loop stopped early)
 - Sprint closed confirmation
+- Sprint registry removed; mention preserved unexpected sprint-directory files, if any
 
 ---
 
@@ -290,6 +313,8 @@ Estimation details: [_shared/story-points.md](../_shared/story-points.md).
 - **Do not** run multiple sprint-task-runner tasks in parallel
 - **Do not** close the sprint while open issues remain (unless user explicitly requests)
 - **Do not** skip Phase 6.1 epic sweep when closing a completed sprint
+- **Do not** end the run after Jira closure but before Phase 6.3 artifact cleanup
+- **Do not** recursively delete a sprint directory or delete task artifacts during cleanup
 - **Do not** close an epic that still has any open children
 - **Do not** auto-close another active sprint that still has open work
 - **Do not** re-run Phase 1–4 inside each task — sprint context is set once
@@ -308,8 +333,10 @@ Estimation details: [_shared/story-points.md](../_shared/story-points.md).
 
 ## Related Skills
 
-- Continuous-run contract and state registry: [_shared/autonomous-run.md](../_shared/autonomous-run.md)
-- Failing-test triage and pre-existing failures: [_shared/failing-tests-triage.md](../_shared/failing-tests-triage.md)
+- Continuous-run contract and state registry:
+  [_shared/autonomous-run.md](../_shared/autonomous-run.md)
+- Failing-test triage and pre-existing failures:
+  [_shared/failing-tests-triage.md](../_shared/failing-tests-triage.md)
 - Per-task execution: [sprint-task-runner](../sprint-task-runner/SKILL.md)
 - Create issues with estimate: [jira-create-issue](../jira-create-issue/SKILL.md)
 - Sprint planning and backlog grooming: [jira-sprint-planning](../jira-sprint-planning/SKILL.md)

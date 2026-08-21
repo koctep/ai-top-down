@@ -1,0 +1,17 @@
+{
+  "description": "Codex lifecycle guards for autonomous Top-Down runs.",
+  "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/bin/sh \"$(git rev-parse --show-toplevel)/.codex/hooks/stop-autonomous-run.sh\"",
+            "timeout": 5,
+            "statusMessage": "Checking autonomous run state"
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -7,6 +7,7 @@
 set -eu
 
 SCRIPT_DIR=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
+SOURCE_ROOT=$(CDPATH= cd -- "$SCRIPT_DIR/.." && pwd)
 DEFAULT_SKILLS_DIR="$SCRIPT_DIR/../.agents/skills"
 SKILLS_DIR=${AI_SKILLS_DIR:-$DEFAULT_SKILLS_DIR}
 TARGET_DIR=${AI_TARGET_DIR:-$(pwd)}
@@ -27,7 +28,7 @@ Environment:
 Targets:
   claude  .claude/skills
   cursor  .cursor/skills
-  codex   .agents/skills
+  codex   .agents/skills plus the autonomous-run Stop hook under .codex
   gemini  .gemini/skills
 
 Options:
@@ -155,9 +156,61 @@ link_system() {
   [ "$conflicts" -eq 0 ]
 }
 
+link_codex_hooks() {
+  source_codex_dir="$SOURCE_ROOT/.codex"
+  target_codex_dir="$TARGET_DIR/.codex"
+
+  if [ "$target_codex_dir" = "$source_codex_dir" ]; then
+    printf 'codex hooks: source already is %s; skipped\n' "$target_codex_dir"
+    return
+  fi
+
+  run mkdir -p "$target_codex_dir/hooks"
+  linked=0
+  skipped=0
+  conflicts=0
+
+  for relative_path in hooks.json hooks/stop-autonomous-run.sh; do
+    source_path="$source_codex_dir/$relative_path"
+    link_path="$target_codex_dir/$relative_path"
+
+    [ -e "$source_path" ] || fail "Codex hook asset does not exist: $source_path"
+
+    if [ -L "$link_path" ]; then
+      link_target=$(readlink "$link_path")
+      if [ "$link_target" = "$source_path" ]; then
+        skipped=$((skipped + 1))
+        continue
+      fi
+      if "$FORCE"; then
+        run rm "$link_path"
+      else
+        printf 'codex hooks: conflicting symlink left unchanged: %s -> %s\n' \
+          "$link_path" "$link_target" >&2
+        conflicts=$((conflicts + 1))
+        continue
+      fi
+    elif [ -e "$link_path" ]; then
+      printf 'codex hooks: existing path left unchanged: %s\n' "$link_path" >&2
+      conflicts=$((conflicts + 1))
+      continue
+    fi
+
+    run ln -s "$source_path" "$link_path"
+    linked=$((linked + 1))
+  done
+
+  printf 'codex hooks: %d linked, %d already linked, %d conflicts\n' \
+    "$linked" "$skipped" "$conflicts"
+  [ "$conflicts" -eq 0 ]
+}
+
 result=0
 for system in $systems; do
   link_system "$system" || result=1
+  if [ "$system" = "codex" ]; then
+    link_codex_hooks || result=1
+  fi
 done
 
 exit "$result"

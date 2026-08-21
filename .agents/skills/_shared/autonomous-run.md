@@ -17,8 +17,8 @@ control back to the user — the "proceed without waiting" that follows is unrea
 
 End the turn **only** when one of these is true. This list is exhaustive.
 
-1. The run reached its terminal result (sprint closed, or the single task is Done and
-   committed).
+1. The run reached its terminal result (sprint closed and its transient registry removed, or
+   the single task is Done and committed).
 2. A **hard blocker** survived the skill's fix loops and cannot be resolved without the
    user.
 3. **Missing credentials or MCP auth** blocks Jira or git operations.
@@ -52,24 +52,49 @@ changes the next action.
 # Sprint <sprint_id> — run state
 
 sprint: <id> <name> (<state>)
+run_state: running | blocked | closed
 phase: <current runner phase>
 tasks: <total> total, <done> done, <open> open
 current: <JIRA-TASK-ID> — <phase/step> — <what just finished>
 next_action: <the single next operation to perform>
 blockers: none | <key>: <one line>
+terminal_reason: none | completed | hard_blocker | auth_missing | user_stop
 updated: <ISO timestamp>
 ```
 
 `next_action` is the point of the file: it must be specific enough to resume from without
 re-deriving anything (`launch B2 review subagent for step 4`, not `continue task`).
 
+Keep `run_state: running` until a terminal condition is reached. Set `blocked` only with a
+matching non-`none` `terminal_reason`; set `closed` only with `terminal_reason: completed` and
+`next_action: none`. When the user explicitly stops the run, record `run_state: blocked` and
+`terminal_reason: user_stop` before answering.
+
+For a full sprint run, do not persist a completed registry. After Jira confirms the sprint is
+closed, keep `run_state: running` with cleanup as `next_action`, delete only the exact
+`00-sprint-state.md`, and remove its sprint directory only when empty. The missing registry is
+the durable completed state; task-level artifacts remain untouched.
+
+## Codex Stop Enforcement
+
+For Codex, the repository-local synchronous `Stop` hook in `.codex/hooks.json` reads every
+active sprint registry before allowing a turn to end. A `running`, malformed, or inconsistent
+registry returns a blocking continuation prompt containing its `next_action`. Only an absent
+registry after completed cleanup or a blocked run with a terminal reason may stop. A legacy
+closed registry triggers cleanup before Codex accepts the final response.
+
+Codex requires project hooks to be trusted after installation or modification. Review and trust
+this hook with `/hooks`; until then Codex skips it. Other agent harnesses continue to use the
+state contract without the Codex-specific hook.
+
 Keep the whole file under ~20 lines. It is a resume pointer, not a log.
 
 ## Resume
 
-Before starting a fresh run, check for `00-sprint-state.md` with a sprint that is not
-closed. If found, read it and continue from `next_action` — skip discovery, selection,
-estimation, and activation. Restarting those phases on an active sprint wastes context and
+Before starting a fresh run, check for `00-sprint-state.md`. If it belongs to a sprint that is
+not closed, read it and continue from `next_action` — skip discovery, selection, estimation,
+and activation. If it is a stale closed registry, remove it using the safe sprint cleanup
+procedure before discovery. Restarting early phases on an active sprint wastes context and
 risks duplicate writes.
 
 ## Context hygiene
