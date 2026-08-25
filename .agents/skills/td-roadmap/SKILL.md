@@ -7,8 +7,8 @@ description: Maintain ai-tasks/<JIRA-TASK-ID>/00-roadmap.md — the single progr
 
 `ai-tasks/<JIRA-TASK-ID>/00-roadmap.md` is the **single progress journal** of a Top-Down task:
 which step is running, what each step produced, and the task-level facts other steps depend on
-(implementation language, branch name). Every `td-*` step reads and updates it; this skill owns
-the rules for doing so.
+(implementation language). Every `td-*` step reads and updates it; this skill owns the rules for
+doing so.
 
 ## File and Template
 
@@ -91,7 +91,7 @@ match skill-file prefixes** — this table is the source of truth for the mappin
 | 6 | `td-50-observability` | STEP 6 | `50-observability.md` |
 | 7 | `td-60-tech-debt` | STEP 7 | `60-tech-debt.md` |
 | 8 | `td-70-dev-docs` | STEP 8 | `doc/dev/` |
-| — | `td-99-commit` | COMMIT | commit hash, branch name in the roadmap |
+| — | `td-99-commit` | COMMIT | `[x]` mark only; branch name and commit hash are reported in chat, never written to a file |
 
 Each skill lives at `../<skill-name>/SKILL.md`.
 
@@ -103,11 +103,10 @@ Besides step status, the roadmap carries facts the rest of the workflow reads ba
 
 - **Implementation language** — determined at Step 1 (**MANDATORY**), read by steps 2–8 to pick
   the matching `../lsr-<language>/SKILL.md`.
-- **Branch name** — recorded by the commit procedure as a reference for PR naming. Recording it
-  never implies switching branches.
 
-Both live in the `Task Metadata` section of the template and are filled in place, not appended
-as free text elsewhere.
+It lives in the `Task Metadata` section of the template and is filled in place, not appended as
+free text elsewhere. The branch name is never written here (or anywhere) — it's a chat-only
+report from `td-99-commit`.
 
 ## Anti-Patterns
 

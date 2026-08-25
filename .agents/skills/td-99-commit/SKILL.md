@@ -15,16 +15,25 @@ Record completed work in the version control system with a clear and structured 
 
 ## Actions
 
+⚠️ **The commit never carries bookkeeping writes.** The branch name and the resulting commit
+hash are **never** written to any file — not the roadmap, not anywhere. They exist only in chat.
+The one file write in this whole step is the roadmap `[x]` mark for the `COMMIT` entry itself
+(the workflow journal requires every step to record its own completion), and it happens **before**
+`git commit` runs so it lands inside the same commit — never as a separate edit afterward.
+
 1. 🔍 **Check changes**: Run `git status` and `git diff` to make sure only necessary things are included in the commit.
-2. ➕ **Add files**: Use `git add` to index changes.
-3. 📝 **Formulate message**: Write a commit message according to the Conventional Commits standard.
-4. 🚀 **Propose commit**: Generate the commit command and propose the user to execute it.
-5. ✅ **Check result**: Ensure the commit was successful (clean working tree).
-6. 🌿 **Branch name**: At the very end, output the recommended branch name to the chat (based on
-   task ID) and record it in the `Task Metadata` section of `ai-tasks/<JIRA-TASK-ID>/00-roadmap.md`
-   (if it exists), but **do not switch** branches automatically.
-7. 📗 **Roadmap**: Mark the `COMMIT` entry `[x]` and record the commit hash under its artifacts
-   section — see [td-roadmap](../td-roadmap/SKILL.md).
+2. 📗 **Roadmap**: If `ai-tasks/<JIRA-TASK-ID>/00-roadmap.md` exists, mark the `COMMIT` entry `[x]`
+   now — see [td-roadmap](../td-roadmap/SKILL.md). Do not write the branch name or anything else
+   to this file.
+3. ➕ **Add files**: Use `git add` to index changes, including the roadmap edit from step 2.
+4. 📝 **Formulate message**: Write a commit message according to the Conventional Commits standard
+   (subject line + bullet-point theses in the body — see below).
+5. 🚀 **Propose commit**: Generate the commit command and propose the user to execute it.
+6. ✅ **Check result**: Ensure the commit was successful (clean working tree) — do not touch any
+   file to "fix" or annotate the result; if something is wrong, report it in chat.
+7. 💬 **Report**: Work out the recommended branch name (based on task ID) and output it, together
+   with the resulting commit hash, to the chat only. **Do not switch** branches and **do not write**
+   either value to any file.
 
 ## Branch Naming Rules
 
@@ -83,11 +92,13 @@ Format:
 ### Body and Footer
 
 - **Separator**: Empty line between subject and body.
-- **Content**: Answer "What?" and "Why?" (reason for changes), not "How?".
+- **Format**: The body is a flat list of bullet-point theses (`-`), not prose paragraphs — one
+  bullet per distinct change or reason, each answering "What?" or "Why?" (not "How?").
 - **Breaking Changes**: Indicate in the footer with prefix `BREAKING CHANGE:`.
 - **Links**: Links to tasks in tracker in footer (if not specified in subject).
 - **Line Length**: Lines in message body should not exceed **100 characters**.
-- **Lists**: Use hyphen `-` for listing items (use empty lines between items and indentations for text continuation if necessary).
+- **Continuation**: Wrap a long bullet onto an indented continuation line rather than writing a
+  second sentence; keep each bullet to one thesis.
 
 ### Examples
 
@@ -104,7 +115,8 @@ With message body:
 ```bash
 git commit -m "refactoring(core): <JIRA-TASK-ID> switch to async database driver
 
-This change improves performance under high load by avoiding blocking calls.
+- Replace the blocking db driver with an async one to avoid stalling under high load
+- Update call sites in the connection pool to await the new driver calls
 
 BREAKING CHANGE: The 'db.connect()' method is now asynchronous."
 ```

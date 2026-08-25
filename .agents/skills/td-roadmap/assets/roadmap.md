@@ -3,7 +3,6 @@
 ## Task Metadata
 
 - **Implementation language**: *[determined at STEP 1 — mandatory]*
-- **Branch name**: *[recorded by the commit procedure — reference only, do not switch]*
 
 ## Step Status
 
@@ -65,4 +64,5 @@ See the `td-roadmap` skill for who writes which mark and when.
 
 ### COMMIT
 
-- Commit hash and message (Conventional Commits + JIRA ID)
+- No artifact recorded here beyond the `[x]` mark above. Branch name and commit hash are reported
+  in chat only, never written to this file.
