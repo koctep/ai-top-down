@@ -5,7 +5,7 @@ language-specific guidance, and common Makefile operations.
 
 ## Sharing Skills with AI Tools
 
-The canonical skill set lives in `.agents/skills`. Link it into the selected
+The canonical skill set lives in `agents/skills`. Link it into the selected
 tool's configuration in the current directory:
 
 ```bash
@@ -20,7 +20,7 @@ changes with `--dry-run`. Existing files and directories are never replaced; use
 
 The `codex` target also links the repository's synchronous `Stop` hook. Codex requires you to
 review and trust a new or changed project hook with `/hooks` before it can run. If the target
-already has `.codex/hooks.json`, the installer leaves it unchanged and reports a conflict so
+already has `codex/hooks.json`, the installer leaves it unchanged and reports a conflict so
 the hook configuration can be merged deliberately.
 
 ## Core Workflows
@@ -30,7 +30,7 @@ the hook configuration can be merged deliberately.
 - `td-review` — how to run a review subagent: prompt, verdict, integrity check, fix loop.
 - `sprint-task-runner` and `sprint-runner` — Jira sprint execution.
 - `_shared/autonomous-run.md` — when a long run may end the turn, plus its state registry.
-- `.codex/hooks.json` — blocks Codex from ending a turn while an autonomous sprint state is
+- `codex/hooks.json` — blocks Codex from ending a turn while an autonomous sprint state is
   still running; trust the project hook with `/hooks` before use.
 - `_shared/failing-tests-triage.md` — classifying a red suite, filing pre-existing failures,
   and why they never stop a run.

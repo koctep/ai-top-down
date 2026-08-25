@@ -8,7 +8,7 @@ set -eu
 
 SCRIPT_DIR=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
 SOURCE_ROOT=$(CDPATH= cd -- "$SCRIPT_DIR/.." && pwd)
-DEFAULT_SKILLS_DIR="$SCRIPT_DIR/../.agents/skills"
+DEFAULT_SKILLS_DIR="$SCRIPT_DIR/../agents/skills"
 SKILLS_DIR=${AI_SKILLS_DIR:-$DEFAULT_SKILLS_DIR}
 TARGET_DIR=${AI_TARGET_DIR:-$(pwd)}
 DRY_RUN=false
@@ -22,13 +22,13 @@ Creates symlinks for every skill in AI_SKILLS_DIR in the selected tool's
 configuration directory under the current directory.
 
 Environment:
-  AI_SKILLS_DIR  Skill directory to link from (default: <repo>/.agents/skills)
+  AI_SKILLS_DIR  Skill directory to link from (default: <repo>/agents/skills)
   AI_TARGET_DIR  Directory to initialize (default: current directory)
 
 Targets:
   claude  .claude/skills
   cursor  .cursor/skills
-  codex   .agents/skills plus the autonomous-run Stop hook under .codex
+  codex   agents/skills plus the autonomous-run Stop hook under .codex
   gemini  .gemini/skills
 
 Options:
@@ -108,7 +108,7 @@ link_system() {
   case "$system" in
     claude) target_skills_dir="$TARGET_DIR/.claude/skills" ;;
     cursor) target_skills_dir="$TARGET_DIR/.cursor/skills" ;;
-    codex) target_skills_dir="$TARGET_DIR/.agents/skills" ;;
+    codex) target_skills_dir="$TARGET_DIR/agents/skills" ;;
     gemini) target_skills_dir="$TARGET_DIR/.gemini/skills" ;;
   esac
 
@@ -157,7 +157,7 @@ link_system() {
 }
 
 link_codex_hooks() {
-  source_codex_dir="$SOURCE_ROOT/.codex"
+  source_codex_dir="$SOURCE_ROOT/codex"
   target_codex_dir="$TARGET_DIR/.codex"
 
   if [ "$target_codex_dir" = "$source_codex_dir" ]; then
