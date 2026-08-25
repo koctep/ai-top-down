@@ -157,7 +157,7 @@ link_system() {
 }
 
 link_codex_hooks() {
-  source_codex_dir="$SOURCE_ROOT/codex"
+  source_codex_dir="$SOURCE_ROOT/agents/skills/_shared/codex"
   target_codex_dir="$TARGET_DIR/.codex"
 
   if [ "$target_codex_dir" = "$source_codex_dir" ]; then

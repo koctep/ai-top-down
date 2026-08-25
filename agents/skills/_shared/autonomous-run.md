@@ -77,7 +77,7 @@ the durable completed state; task-level artifacts remain untouched.
 
 ## Codex Stop Enforcement
 
-For Codex, the repository-local synchronous `Stop` hook in `codex/hooks.json` reads every
+For Codex, the repository-local synchronous `Stop` hook in `.codex/hooks.json` reads every
 active sprint registry before allowing a turn to end. A `running`, malformed, or inconsistent
 registry returns a blocking continuation prompt containing its `next_action`. Only an absent
 registry after completed cleanup or a blocked run with a terminal reason may stop. A legacy

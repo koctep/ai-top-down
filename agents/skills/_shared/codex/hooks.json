@@ -6,7 +6,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "/bin/sh \"$(git rev-parse --show-toplevel)/codex/hooks/stop-autonomous-run.sh\"",
+            "command": "/bin/sh \"$(git rev-parse --show-toplevel)/.codex/hooks/stop-autonomous-run.sh\"",
             "timeout": 5,
             "statusMessage": "Checking autonomous run state"
           }

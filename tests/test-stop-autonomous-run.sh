@@ -3,7 +3,7 @@
 set -eu
 
 repo_root=$(CDPATH= cd -- "$(dirname -- "$0")/.." && pwd)
-hook="$repo_root/codex/hooks/stop-autonomous-run.sh"
+hook="$repo_root/agents/skills/_shared/codex/hooks/stop-autonomous-run.sh"
 test_root=$(mktemp -d "${TMPDIR:-/tmp}/stop-autonomous-run.XXXXXX")
 trap 'rm -rf "$test_root"' EXIT HUP INT TERM
 
